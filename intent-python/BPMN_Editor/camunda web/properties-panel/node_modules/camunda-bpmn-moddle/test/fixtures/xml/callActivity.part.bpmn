@@ -1,0 +1,12 @@
+<callActivity xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+              xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+              camunda:calledElementBinding="version"
+              camunda:calledElementVersion="1"
+              camunda:calledElementVersionTag="version1"
+              camunda:calledElementTenantId="tenant1"
+              camunda:caseRef="oneTaskCase"
+              camunda:caseBinding="version"
+              camunda:caseVersion="2"
+              camunda:caseTenantId="tenant1"
+              camunda:variableMappingClass="org.camunda.bpm.test.Test"
+              camunda:variableMappingDelegateExpression="${test}"/>

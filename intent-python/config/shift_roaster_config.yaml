@@ -1,0 +1,24 @@
+G:
+  start_time: '08:00:00'
+  end_time: '18:00:00'
+  support_type: online
+O:
+  start_time: '00:00:00'
+  end_time: '23:59:59'
+  support_type: on-call
+S:
+  start_time: '14:00:00'
+  end_time: '23:00:00'
+  support_type: online
+F:
+  start_time: '06:00:00'
+  end_time: '14:00:00'
+  support_type: online
+M:
+  start_time: '06:00:00'
+  end_time: '14:00:00'
+  support_type: on-call
+N:
+  start_time: '21:00:00'
+  end_time: '06:00:00'
+  support_type: online
