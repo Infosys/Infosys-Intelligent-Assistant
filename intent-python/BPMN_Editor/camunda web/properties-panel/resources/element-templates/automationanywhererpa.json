@@ -1,0 +1,2053 @@
+[{
+    "name": "CreateAccountSalesforce",
+    "id": "CreateAccountSalesforceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "CreateAccountSalesforce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "CreateAccountSalesforce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "ExcelFilePath | String | FilePath",
+        "type": "String",
+		"value": "ExcelFilePath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "ExcelFilePath"
+        }
+      },{
+        "label": "ExcelFilePath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Configurable"
+        }
+      },{
+        "label": "ExcelFilePath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "CreateContactSalesForce",
+    "id": "CreateContactSalesForceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "CreateContactSalesForce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "CreateContactSalesForce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "UserID | String | Sales Force login User Id in the SalesForceLogin Task",
+        "type": "String",
+		"value": "UserID",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "UserID"
+        }
+      },{
+        "label": "UserID Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "UserID Configurable"
+        }
+      },{
+        "label": "UserID Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "UserID Type"
+        }
+      }
+    ,{"label": "Password | String | Sales Force login Password in the SalesForceLogin Task",
+        "type": "String",
+		"value": "Password",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Password"
+        }
+      },{
+        "label": "Password Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Password Configurable"
+        }
+      },{
+        "label": "Password Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Password Type"
+        }
+      }
+    ,{"label": "NewContact | Excel | Input excel Sheet with contact information",
+        "type": "String",
+		"value": "NewContact",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "NewContact"
+        }
+      },{
+        "label": "NewContact Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "NewContact Configurable"
+        }
+      },{
+        "label": "NewContact Type",
+        "type": "Hidden",
+        "value": "Excel",
+        "binding": {
+          "type": "camunda:property",
+          "name": "NewContact Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "CreateGroupSalesforce",
+    "id": "CreateGroupSalesforceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "CreateGroupSalesforce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "CreateGroupSalesforce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "ExcelFilePath | String | FilePath",
+        "type": "String",
+		"value": "ExcelFilePath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "ExcelFilePath"
+        }
+      },{
+        "label": "ExcelFilePath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Configurable"
+        }
+      },{
+        "label": "ExcelFilePath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "DeleteContactSalesForce",
+    "id": "DeleteContactSalesForceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "DeleteContactSalesForce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "DeleteContactSalesForce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "UserID | String | Sales Force login User Id in the SalesForceLogin Task",
+        "type": "String",
+		"value": "UserID",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "UserID"
+        }
+      },{
+        "label": "UserID Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "UserID Configurable"
+        }
+      },{
+        "label": "UserID Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "UserID Type"
+        }
+      }
+    ,{"label": "Password | String | Sales Force login Password in the SalesForceLogin Task",
+        "type": "String",
+		"value": "Password",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Password"
+        }
+      },{
+        "label": "Password Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Password Configurable"
+        }
+      },{
+        "label": "Password Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Password Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "DeleteAccountSalesforce",
+    "id": "DeleteAccountSalesforceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "DeleteAccountSalesforce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "DeleteAccountSalesforce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "ExcelFilePath | String | FilePath",
+        "type": "String",
+		"value": "ExcelFilePath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "ExcelFilePath"
+        }
+      },{
+        "label": "ExcelFilePath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Configurable"
+        }
+      },{
+        "label": "ExcelFilePath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "EditAccountSalesforce",
+    "id": "EditAccountSalesforceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "EditAccountSalesforce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "EditAccountSalesforce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "ExcelFilePath | String | FilePath",
+        "type": "String",
+		"value": "ExcelFilePath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "ExcelFilePath"
+        }
+      },{
+        "label": "ExcelFilePath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Configurable"
+        }
+      },{
+        "label": "ExcelFilePath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "ExcelFilePath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "EditContactSalesForce",
+    "id": "EditContactSalesForceAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "EditContactSalesForce",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "EditContactSalesForce",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "UserID | String | Sales Force login User Id in the SalesForceLogin Task",
+        "type": "String",
+		"value": "UserID",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "UserID"
+        }
+      },{
+        "label": "UserID Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "UserID Configurable"
+        }
+      },{
+        "label": "UserID Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "UserID Type"
+        }
+      }
+    ,{"label": "Password | String | Sales Force login Password in the SalesForceLogin Task",
+        "type": "String",
+		"value": "Password",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Password"
+        }
+      },{
+        "label": "Password Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Password Configurable"
+        }
+      },{
+        "label": "Password Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Password Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "Excelmacro",
+    "id": "ExcelmacroAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "Excelmacro",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "Excelmacro",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "MessageBox | String | Description NA",
+        "type": "Hidden",
+		"value": "MessageBox",
+        "binding": {
+          "type": "camunda:outputParameter",
+          "name": "MessageBox"
+        ,"source": "MessageBox"}},{"label": "Excelpath | String | FilePath",
+        "type": "String",
+		"value": "Excelpath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Excelpath"
+        }
+      },{
+        "label": "Excelpath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Excelpath Configurable"
+        }
+      },{
+        "label": "Excelpath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Excelpath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "IfCommand",
+    "id": "IfCommandAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "IfCommand",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "IfCommand",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "InputPath | String | FilePath",
+        "type": "String",
+		"value": "InputPath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "InputPath"
+        }
+      },{
+        "label": "InputPath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "InputPath Configurable"
+        }
+      },{
+        "label": "InputPath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "InputPath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "MainframeIntegration",
+    "id": "MainframeIntegrationAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "MainframeIntegration",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "MainframeIntegration",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "Email | String | User's Email",
+        "type": "String",
+		"value": "Email",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Email"
+        }
+      },{
+        "label": "Email Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Email Configurable"
+        }
+      },{
+        "label": "Email Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Email Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "NotepadtoExcel",
+    "id": "NotepadtoExcelAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "NotepadtoExcel",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "NotepadtoExcel",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "OutputFile | String | Description NA",
+        "type": "Hidden",
+		"value": "OutputFile",
+        "binding": {
+          "type": "camunda:outputParameter",
+          "name": "OutputFile"
+        ,"source": "OutputFile"}},{"label": "Filepath | String | FilePath",
+        "type": "String",
+		"value": "Filepath",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Filepath"
+        }
+      },{
+        "label": "Filepath Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Filepath Configurable"
+        }
+      },{
+        "label": "Filepath Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Filepath Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "PrintingfilefromtheFolders-SubFolder",
+    "id": "PrintingfilefromtheFolders-SubFolderAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "PrintingfilefromtheFolders-SubFolder",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "PrintingfilefromtheFolders-SubFolder",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "Printedfiles | String | Description NA",
+        "type": "Hidden",
+		"value": "Printedfiles",
+        "binding": {
+          "type": "camunda:outputParameter",
+          "name": "Printedfiles"
+        ,"source": "Printedfiles"}},{"label": "PathofExcelfile | String | FilePath",
+        "type": "String",
+		"value": "PathofExcelfile",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "PathofExcelfile"
+        }
+      },{
+        "label": "PathofExcelfile Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "PathofExcelfile Configurable"
+        }
+      },{
+        "label": "PathofExcelfile Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "PathofExcelfile Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "Runscript",
+    "id": "RunscriptAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "Runscript",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "Runscript",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "fileexistsornot | String | Description NA",
+        "type": "Hidden",
+		"value": "fileexistsornot",
+        "binding": {
+          "type": "camunda:outputParameter",
+          "name": "fileexistsornot"
+        ,"source": "fileexistsornot"}},{"label": "Path | String | FilePath",
+        "type": "String",
+		"value": "Path",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "Path"
+        }
+      },{
+        "label": "Path Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "Path Configurable"
+        }
+      },{
+        "label": "Path Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "Path Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "screencapture",
+    "id": "screencaptureAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "screencapture",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "screencapture",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "Processterminated | String | Description NA",
+        "type": "Hidden",
+		"value": "Processterminated",
+        "binding": {
+          "type": "camunda:outputParameter",
+          "name": "Processterminated"
+        ,"source": "Processterminated"}},{"label": "FileName | String | FilePath",
+        "type": "String",
+		"value": "FileName",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "FileName"
+        }
+      },{
+        "label": "FileName Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "FileName Configurable"
+        }
+      },{
+        "label": "FileName Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "FileName Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  },{
+    "name": "Servicenowlogin",
+    "id": "ServicenowloginAutomationAnywhere",
+	"technologyCategory" : "RPA",  
+	"technology" : "AutomationAnywhere",
+	"botCategory" : "NA",
+    "appliesTo": [
+      "bpmn:CallActivity"
+    ],
+    "properties": [
+      {
+        "label": "Name",
+        "type": "Hidden",
+        "value": "Servicenowlogin",
+        "editable": true,
+        "binding": {
+          "type": "property",
+          "name": "name"
+        }
+      },{
+        "label": "Called activity",
+        "type": "String",
+        "editable": false,
+        "value": "UiPathWorkFlow",
+        "binding": {
+          "type": "property",
+          "name": "calledElement"
+        }
+      },
+	  {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:in",
+          "variables": "all"
+        }
+      },
+      {
+        "label": "Bot Name",
+        "type": "String",
+        "value": "Servicenowlogin",
+        "binding": {
+          "type": "camunda:in",
+          "target": "botName",
+          "expression": true
+        },
+        "constraints": {
+          "notEmpty": true
+        }
+      },
+      {
+        "label": "0",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:out",
+          "variables": "all"
+        }
+      },
+	{
+      "label": "technologyCategory",
+      "type": "Hidden",
+	  "value": "RPA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technologyCategory"
+		
+      }     
+    },{
+      "label": "botCategory",
+      "type": "Hidden",
+	  "value": "NA",
+      "binding": {
+        "type": "camunda:property",
+        "name": "botCategory"
+		
+      }     
+    },{
+      "label": "technology",
+      "type": "Hidden",
+	  "value": "AutomationAnywhere",
+      "binding": {
+        "type": "camunda:property",
+        "name": "technology"
+		
+      }
+    },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "start",
+          "scriptFormat": "groovy"
+        }
+      },{
+        "value": "new com.infosys.impact.botfactory.custom.CustomWorkflowExecutionListener().notify(execution)",
+        "type": "Hidden",
+        "binding": {
+          "type": "camunda:executionListener",
+          "event": "end",
+          "scriptFormat": "groovy"
+        }
+      },{"label": "Status | String | Description NA",
+        "type": "Hidden",
+		"value": "Status",
+        "binding": {
+          "type": "camunda:outputParameter",
+          "name": "Status"
+        ,"source": "Status"}},{"label": "SourceFolder | String | Source Folder from which the  File needs to be copied",
+        "type": "String",
+		"value": "SourceFolder",
+        "binding": {
+          "type": "camunda:inputParameter",
+          "name": "SourceFolder"
+        }
+      },{
+        "label": "SourceFolder Configurable",
+        "type": "Boolean",
+        "value": false,
+        "binding": {
+          "type": "camunda:property",
+          "name": "SourceFolder Configurable"
+        }
+      },{
+        "label": "SourceFolder Type",
+        "type": "Hidden",
+        "value": "String",
+        "binding": {
+          "type": "camunda:property",
+          "name": "SourceFolder Type"
+        }
+      }
+    ], "entriesVisible": {
+      "_all": true,
+	  "implementation": false}
+  }]
