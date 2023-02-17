@@ -31,9 +31,14 @@ Below are the new packages that needs to be installed to run the latest modulari
 
 Note : Follow the steps below to create password in IIA.
 
-1)Go to IIA login page and enter the username (email id) and click on reset password.\n
+        1)Go to IIA login page and enter the username (email id) and click on reset password.
         
-2)Click on next\n
-        3)Fill the new password and re-enter the new password in the respective fields.\n
-        4)Click on reset password button.\n
-        5)Enter the username and new password and login.\n
+        2)Click on next
+        
+        3)Fill the new password and re-enter the new password in the respective fields.
+        
+        4)Click on reset password button.
+        
+        5)Enter the username and new password and login.
+        
+        
