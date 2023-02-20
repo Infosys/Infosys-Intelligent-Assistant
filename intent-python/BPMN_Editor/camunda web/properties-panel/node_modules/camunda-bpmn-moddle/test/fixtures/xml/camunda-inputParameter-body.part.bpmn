@@ -1,4 +1,0 @@
-<camunda:inputParameter xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
-                        name="foo">
-  BAR
-</camunda:inputParameter>

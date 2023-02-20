@@ -1,1 +1,0 @@
-%cd%/venv/scripts/activate & set PYTHONPATH=src & python -m parse_email

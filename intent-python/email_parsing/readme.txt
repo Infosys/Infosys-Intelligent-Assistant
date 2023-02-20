@@ -1,1 +1,0 @@
--i https://infyartifactory.ad.infosys.com/artifactory/api/pypi/pypi-remote/simple
