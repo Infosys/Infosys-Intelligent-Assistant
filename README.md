@@ -7,7 +7,10 @@ IIA can be trained using historical ticket dump based on industry-standard machi
 
 The below picture depicts the high-level process flow of IIA.
 
-![iia_steps](https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/image/readmeImages/step.jpg)
+<p align="center">
+  <img src="https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/image/readmeImages/step.jpg" width="800" class="center">
+</p>
+
 
 **Key Features:-**
 
