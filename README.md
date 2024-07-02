@@ -19,7 +19,7 @@ Image Analytics. IIA extends the training module to read and analyze screen imag
 
 - **Always on Training:** IIA comes with a retraining feature. When retraining is going on system continues to use the old data for prediction and once the retraining is completed the old data can be replaced with the new data.
 
-- **Related Ticket Search with 4 ML algorithms:** Text Rank, Word2Vec, Doc2Vec and BERT algorithms are included for the search functionality in finding the resolutions for the related ticket info/KMDB/Known errors pages. Users can choose the algorithm for search from the three algorithms.
+- **Related Ticket Search with 4 ML algorithms:** Text Rank, Word2Vec, Doc2Vec and BERT algorithms are included for the search functionality in finding the resolutions for the related ticket info/KMDB/Known errors pages. Users can choose the algorithm for search from the four algorithms.
 
 - **Hinglish Support:** IIA is trained to identify whether the text in a ticket is in English or Hinglish. In case it identifies the text in Hinglish, flags the same to the user and request them to enter the details it in English.
 
@@ -41,36 +41,36 @@ Image Analytics. IIA extends the training module to read and analyze screen imag
 7.Open command prompt and set PYTHONPATH=src & python create_wheel_file.py to create IIA wheel file package for deployment. Package will get created inside dist folder upon succesful build.<br>
 
 # Other Instructions
-1.To know more about image analysis BPMN work flows refer [ScreenShotAnalysis_UsageGuide.pdf](https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/ScreenShotAnalysis_UsageGuide.pdf)
+1.To know more about image analysis BPMN work flows refer [ScreenShotAnalysis_UsageGuide.pdf](https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/ScreenShotAnalysis_UsageGuide.pdf)
 
 
 # Introduction
 <p align="center">
-  <img src="https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/one.png" width="800" class="center">
+  <img src="https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/one.png" width="800" class="center">
 </p>
 
 
 # Problem
 <p align="center">
-  <img src="https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/two.png" width="800" class="center">
+  <img src="https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/two.png" width="800" class="center">
 </p>
 
 
 # Why IIA
 <p align="center">
-  <img src="https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/three.png" width="800" class="center">
+  <img src="https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/three.png" width="800" class="center">
 </p>
 
 
 # Capabilities of IIA
 <p align="center">
-  <img src="https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/four.png" width="800" class="center">
+  <img src="https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/four.png" width="800" class="center">
 </p>
 
 
 # Summary
 <p align="center">
-  <img src="https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/five.png" width="800" class="center">
+  <img src="https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/five.png" width="800" class="center">
 </p>
 
-[InfosysIntelligentAssistant.ppt](https://github.com/Infosys-impact/IIA_OSS/blob/main/Infosys-Intelligent-Assistant/readmeImages/IIA_Overview.pptx)
+[InfosysIntelligentAssistant.ppt](https://github.com/Infosys/Infosys-Intelligent-Assistant/blob/main/Infosys-Intelligent-Assistant/readmeImages/IIA_Overview.pptx)
