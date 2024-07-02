@@ -1,0 +1,119 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-1">
+  <div class="row">
+    <div class="card mb-1 pb-0">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Image Analysis
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="col-md-12 ">
+          <div class="row text-justify">
+            <div class="col-md-12 ">
+              <input class="form-control btnChooseFileDesign" type="file" #imageFileDetails
+                (change)="onSelectFile($event)" placeholder="Upload file..." required multiple />
+            </div>
+            <br /><br />
+            <div class="card">
+              <h3 class="card-header text-center font-weight-bold text-uppercase py-4"> Please Enter the Image Details
+              </h3>
+              <div class="card-body">
+                <div id="table" class="table-editable">
+                  <table class="table table-bordered table-responsive-md table-striped text-center">
+                    <tr>
+                      <th class="text-center">Image Preview</th>
+                      <th class="text-center">Image Name</th>
+                      <th class="text-center">ErrorDetails</th>
+                      <th class="text-center" *ngFor="let colName of columnNames;let id =index">
+                        {{colName}}
+                      </th>
+                    </tr>
+                    <tr *ngFor="let url_doc of urls; let id = index">
+                      <td>
+                        <span contenteditable="false">
+                          <img [src]="url_doc.url" height="100"> <br />
+                        </span>
+                      </td>
+                      <td>
+                        <span contenteditable="false">
+                          <input [(ngModel)]="url_doc.image_name">
+                        </span>
+                      </td>
+                      <td>
+                        <span contenteditable="false">
+                          <input [(ngModel)]="url_doc.error_details">
+                        </span>
+                      </td>
+                      <td *ngFor='let colName of columnNames'>
+                        <input [(ngModel)]="url_doc[colName]">
+                      </td>
+                      <td>
+                        <span class="table-remove">
+                          <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0"
+                            (click)="removeimage(url_doc)">Remove</button>
+                        </span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <!-- just spacing to show button at <col-4> -->
+            </div>
+            <div *ngIf="filesSelected">
+              <div class="col-md-4">
+                <!-- <button class="btn btn-outline-primary " type="button" (click)="uploadImageFile()">Save and Upload</button> -->
+                <button class="btn btn-outline-primary " type="button" (click)="save_UploadImages()">Save and
+                  Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="uploadSuccess">
+        <div class="texting-success ">
+          <em>
+            <!-- <b>Image Files uploaded successfully!</b> -->
+            <h3> Image Files uploaded successfully!</h3>
+            <div id="table">
+              <table class="table table-bordered table-responsive-md text-center">
+                <tr>
+                  <th class="text-center">Image Preview</th>
+                  <th class="text-center">Image Name</th>
+                  <th class="text-center">ErrorDetails</th>
+                  <th class="text-center" *ngFor="let colName of columnNames;let id =index">
+                    {{colName}}
+                  </th>
+                </tr>
+                <tr *ngFor="let url_doc of previewData; let id = index">
+                  <td>
+                    <span contenteditable="false">
+                      <img [src]="url_doc.url" height="100"> <br />
+                    </span>
+                  </td>
+                  <td>
+                    <span contenteditable="false">{{url_doc.image_name}}
+                    </span>
+                  </td>
+                  <td>
+                    <span contenteditable="false">{{url_doc.error_details}}
+                    </span>
+                  </td>
+                  <td *ngFor='let colName of columnNames'>{{url_doc[colName]}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </em>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

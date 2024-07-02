@@ -1,0 +1,238 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.
+-->
+<div class="main-content" id="pdfTable" #pdfTable>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 ">
+                <div class="card card-stats card-image " style="margin-top:-1em;background: #F0F2FA;">
+                    <div class="row">
+                    <div class="col-lg-2 col-4" >
+                        <div>From Date</div>
+                        <input type = "date" style = "background-color : #e8e8e8" (change) = "getDate($event)" required [(value)]="from_date"> 
+                </div>
+                <div class="col-lg-2 col-4" >
+                    <div>To Date</div>
+                    <input type = "date" style = "background-color : #e8e8e8" [max]="getToday()" (change) = "getDate1($event)"  required [(value)]="end_date"> 
+                   
+            </div>
+            <div class="col-lg-2 col-4">
+                <mat-form-field class="my-3">
+                    <mat-select [(ngModel)]="selected_team" placeholder="Select a Team"
+                    required>
+                    <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+              </div>
+            <div class="col-lg-2 col-6" >
+                <button type="button" [disabled]="True" (click)="gobutton()"  class="btn btn-info">REFRESH</button>
+            </div>
+            
+                               
+                <div _ngcontent-c7="" class="card-body pt-0 m-2">
+                    <div _ngcontent-c7="" class="row">
+                        <div _ngcontent-c7="" class="col-4 pr-0" style="max-width: 35%;">
+                            <div _ngcontent-c7="" class="card m-0 bg-success card-height fetch-height" style="background: linear-gradient(60deg, #3f51b5, #00bcd4);">
+                                <div _ngcontent-c7="" class="card-header text-center fetch-padding">
+                                    <h3 _ngcontent-c7="" class="text-white tile-fontsize">Fetched Tickets</h3>
+                                    <h4 _ngcontent-c7="" class="card-title card-backG fetch-count" style="background-color: #00bcd4;">{{dataSource[0].Count}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div _ngcontent-c7="" class="col-1 equal-symbol symbol-width">=</div>
+                        <div _ngcontent-c7="" class="col-7" style="max-width: 60%;">
+                            <div _ngcontent-c7="" class="row">
+                                <div _ngcontent-c7="" class="col-5 second-row" >
+                                    <div _ngcontent-c7="" class="card m-0 bg-success card-height ">
+                                        <div _ngcontent-c7="" class="card-header text-center">
+                                            <h3 _ngcontent-c7="" class="text-white tile-fontsize">Open Tickets</h3>
+                                            <h4 _ngcontent-c7="" class="card-title card-backG">{{dataSource[6].Count}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div _ngcontent-c7="" class="col-2 equal-symbol plus-padding symbol-width" style="padding-left: 0px;">+</div>
+                                <div _ngcontent-c7="" class="col-5 second-row" >
+                                    <div _ngcontent-c7="" class="card m-0 bg-success card-height ">
+                                        <div _ngcontent-c7="" class="card-header text-center">
+                                            <h3 _ngcontent-c7="" class="text-white tile-fontsize">Closed Tickets</h3>
+                                            <h4 _ngcontent-c7="" class="card-title card-backG">{{dataSource[5].Count}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div _ngcontent-c7="" class="row pt-2">
+                                <div _ngcontent-c7="" class="col-5 second-row">
+                                    <div _ngcontent-c7="" class="card m-0 bg-warning card-height ">
+                                        <div _ngcontent-c7="" class="card-header text-center">
+                                            <h3 _ngcontent-c7="" class="text-white  tile-fontsize">IIA Processed Tickets</h3>
+                                            <h4 _ngcontent-c7="" class="card-title card-backGop">{{dataSource[1].Count}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div _ngcontent-c7="" class="col-2 equal-symbol plus-padding symbol-width">+</div>
+                                <div _ngcontent-c7="" class="col-5 second-row">
+                                    <div _ngcontent-c7="" class="card m-0 bg-warning card-height ">
+                                        <div _ngcontent-c7="" class="card-header text-center">
+                                            <h3 _ngcontent-c7="" class="text-white tile-fontsize">ITSM Processed Tickets</h3>
+                                            <h4 _ngcontent-c7="" class="card-title card-backGop">{{dataSource[7].Count}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid" style="padding-left: 15em;padding-top:15px">
+
+                        <div class="row">
+                            <div class="container">
+                                <div class="col-lg-12">
+                                    <p>
+
+                                        <button class="btn btn-primary btn-lg btn-block active" type="button"
+                                            data-toggle="collapse" style="margin-left: -10em;"
+                                            data-target="#collapseExample" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2"
+                                            (click)="getApprovedTickets()"><p>Approved Ticket Count</p></button>
+
+                                    </p>
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="row">
+                                            <div class="col-sm-12 my-auto">
+                                                <div class="card" style="width: 70em;height:auto; right: 13em;">
+													<div class="row">
+                                                     <div class="col-lg-6 col-12">
+                                                      <div class="card-body" style="width:50em;height:30em;">
+
+                                                        <canvas id="myBarChart"  *ngIf="autoapprovedtickets>0 || manuallyapprovedtickets>0"></canvas>
+                                                        <div class="ticketApproval">Auto Appproved Tickets:
+                                                            <strong>{{autoapprovedtickets}}</strong>
+                                                        </div>
+                                                        <div class="ticketApproval">Manually Approved Tickets:
+                                                            <strong>{{manuallyapprovedtickets}}</strong>
+                                                        </div>
+
+                                                    </div>
+													</div>
+													<div class="col-lg-6 col-12 3">
+                                                    <div class="card-body" style="width:50em;height:30em;">
+
+                                                        <canvas id="myBarChart2" *ngIf="correctPredicted>0 ||  incorrectPredicted>0"></canvas>
+                                                        <div class="ticketApproval">Correct Predicted Tickets:
+                                                            <strong>{{correctPredicted}}</strong>
+                                                        </div>
+                                                        <div class="ticketApproval">Incorrect Predicted Tickets:
+                                                            <strong>{{incorrectPredicted}}</strong>
+                                                        </div>
+
+                                                    </div>
+													</div>
+													</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <p>
+
+                                        <button class="btn btn-primary btn-lg btn-block active" type="button"
+                                            data-toggle="collapse" style="margin-left: -10em;"
+                                            data-target="#collapseExample1" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2" 
+                                            (click)="category('Select_All')"><p>Assignee Ticket Count</p></button>
+
+                                    </p>
+                                    <div class="collapse" id="collapseExample1">
+                                        <div class="row">
+                                            <div class="col-sm-12 my-auto">
+                                                <div class="card" style="width: 70em;height:auto; right: 14em;">
+                                                    <div class="card-body" style="width:60em;">
+														 <div class="row">
+                                                        <div class="col-lg-4 col-12 3">
+                                                            <mat-form-field>
+                                                                <mat-select (selectionChange)="category($event.value)"
+                                                                    [(ngModel)]="selectedOption"
+                                                                    placeholder="Select Assignment Group">
+                                                                    <!-- <mat-option value="Select_All">Select_All
+                                                                    </mat-option> -->
+                                                                    <mat-option *ngFor="let data of assignmentGroups"
+                                                                        [value]="data['assignment_group']">
+                                                                        {{data['assignment_group']}}</mat-option>
+                                                                </mat-select>
+                                                            </mat-form-field>
+
+                                                        </div>
+												
+												</div>
+														
+                                                        
+
+
+                                                        <canvas id="myChart" width="30" height="11.9"></canvas>
+
+                                                        <div class="row pt-5">
+                                                            <canvas id="myChart2" width="30" height="11.9"></canvas>
+
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+   
+                             <!--email-->
+                                    <p >
+
+                                        <button class="btn btn-primary btn-lg btn-block active" type="button"
+                                            data-toggle="collapse" style="margin-left: -10em;"
+                                            data-target="#collapseExample3" aria-expanded="false"
+                                            aria-controls="multiCollapseExample3"
+                                            (click)="getEmailCount()"><p>Email Created Ticket Count</p></button>
+
+                                    </p>
+                                    <div class="collapse" id="collapseExample3" >
+                                        <div class="row">
+                                            <div class="col-sm-12 my-auto">
+                                                <div class="card" style="width: 70em;height:auto; right: 13em;">
+                                                    <div class="row">
+                                                     <div class="col-lg-6 col-12">
+                                                      <div class="card-body"  *ngIf="click" style="width:50em;height:5em;">
+
+                                                        <!-- <canvas id="myBarChart"  *ngIf="autoapprovedtickets>0 || manuallyapprovedtickets>0"></canvas> -->
+                                                        <div class="email">Email Created Tickets:
+                                                            <strong>{{emailCount}}</strong>
+                                                        </div>
+                                                        <!-- <div class="ticketApproval">Manually Approved Tickets:
+                                                            <strong>{{manuallyapprovedtickets}}</strong>
+                                                        </div> -->
+
+                                                    </div>
+                                                    </div>
+                                                   
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <!--email end-->
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>

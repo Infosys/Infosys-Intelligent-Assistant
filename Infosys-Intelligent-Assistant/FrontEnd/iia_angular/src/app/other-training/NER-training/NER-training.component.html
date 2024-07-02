@@ -1,0 +1,98 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<!-- <div>
+    <div class="main-content"> -->
+        <br>
+        <div class="row justify-content-md-center width-max">
+            <div class="col-md-10">
+                <div class="card mb-0">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">NER Retraining
+                            <sup><i class="fa fa-info-circle" matTooltip="User Annoted Tags data"
+                                    matTooltipPosition="above"></i></sup>
+                        </h4>
+                        <!-- <p class="card-category">Please fill the below details</p> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">                            
+                            <div class="col-md-6">
+                                <h3 class="mb-0">Tags and Annoted text values </h3>
+                                <!-- <mat-form-field>
+                                    <mat-select [(ngModel)]="chosenTeam" (change)="teamChange()" [(value)]="selected"
+                                        placeholder="Select a Team" required [disabled]="disableTeam">
+                                        <mat-option *ngFor="let team of teamsNoDataset" [value]="team">{{team}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                                <!-- <p>You have selected: <span class="text-info">{{selected}}</span> </p> -->
+                            </div>
+                            <div class=col-md-6>
+                                    <div class="text-right">
+                                            <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="addElement()">
+                                                    Add NEWTAG</button>
+                                    </div>
+
+                            </div>
+                        </div>
+
+                        <div class="table-wrapper-scroll-y">
+                          
+                                <mat-table #table [dataSource]="dataSource" matSort (click)='clearMsg()'>
+                                    <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
+                                        <ng-container *ngIf="column.id == 'entity'">
+                                            <!-- <mat-cell *matCellDef="let element" *ngIf ="!newtag"> {{element[column.id]}} </mat-cell>
+                                            <mat-cell *matCellDef="let element" *ngIf="newtag" contenteditable="true"> {{element[column.id]}} </mat-cell> -->
+
+                                            
+                                            <ng-container *ngIf ="!newtag">
+                                                    <mat-cell *matCellDef="let element" > {{element[column.id]}} </mat-cell>
+                                            </ng-container>
+                                            <ng-container *ngIf="newtag">
+                                                    <mat-cell *matCellDef="let element"><input [(ngModel)]="element[column.id]"></mat-cell>
+
+                                            </ng-container>
+                                        </ng-container>
+                                        
+                                        <ng-container *ngIf="column.id == 'description'">
+                                            <mat-cell *matCellDef="let element">
+                                                <tag-input [(ngModel)]="element[column.id]" placeholder="Add new value for cluster" theme="bootstrap"></tag-input>
+                                            </mat-cell>
+                                        </ng-container>
+                                    </ng-container>
+                            
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                </mat-table>
+                              
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+                        <div class="row">
+                            <div class="col text-right ">
+                                <p *ngIf='showMsgState' [style.color]='msgClr'>{{msg}}</p>
+                                <!-- <button class=" btn btn-primary my-3 " type="button"
+                                    (click)="saveNER()" [disabled]="disableTeam">Save</button> -->
+                                <button class=" btn btn-primary my-3 " type="button"
+                                    (click)="saveNER()" [disabled]="disableTeam">Save</button>
+                                    
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <button class=" btn btn-primary my-3 " type="button"(click)="ngOnInit()"[hidden]="newtag==false">
+                                        BACK
+                                </button> -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+    <!-- </div>
+</div> -->
+
+

@@ -1,0 +1,12 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+mat-table {
+  width: 100%;
+}
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+mat-cell,
+mat-header-cell {
+  width: 25%;
+}

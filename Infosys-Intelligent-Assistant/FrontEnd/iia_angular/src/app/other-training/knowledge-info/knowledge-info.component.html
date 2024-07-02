@@ -1,0 +1,84 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-1">
+   
+    <div class="row">
+        <div class="card mb-1 pb-0">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Knowledge Information
+                    <sup><i class="fa fa-info-circle" matTooltip="Knowledge Information data"
+                            matTooltipPosition="above"></i></sup>
+                </h4>
+                <p class="card-category">Please fill the below details</p> 
+            </div>
+            <div class="card-body">
+                <div class="col-md-12 ">
+                    <div class="row text-justify">
+                        <div class="col-md-7 pt-2 ">
+                            <input class="form-control btnChooseFileDesign" type="file" #knowledgeInfoFile
+                                placeholder="Upload file..." required />
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-outline-primary " type="button" (click)="uploadKnowledgeInfoFile()">Upload</button>
+                            <button class="btn btn-outline-danger" (click)='deleteKGInfodetails()'>Delete All</button>
+                        </div>
+                        <div *ngIf='hasApplicationDetails' class="col-md-2">
+                            <button class="btn btn-outline-primary px-4" type="button" (click)="deleteAllApplications()" style="cursor:pointer">Delete All</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div *ngIf="loader">
+        <app-loader></app-loader>
+    </div>
+
+    <div class="row">
+        <div class="card mt-1 pt-1">
+            <div class="col-lg-12">
+                <div *ngIf="hasKnowledgeInfoData">
+                    
+                    <div class="table-wrapper-scroll-y">
+
+                        <mat-table #table [dataSource]="dataSource" matSort>
+
+                            <ng-container matColumnDef={{column}} *ngFor='let column of displayedColumns'>
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+                                <mat-cell *matCellDef='let row'> {{row[column]}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
+                                <ng-container *ngIf="column.id == 'server_name'">
+                                     <mat-cell *matCellDef="let element" contenteditable="true"> {{element[column.id]}} </mat-cell> ->
+                                    <mat-cell *matCellDef="let element">{{element[column.id]}}</mat-cell>
+                                </ng-container>
+                                <ng-container *ngIf="column.id == 'application_name'">
+                                    <mat-cell *matCellDef="let element">{{element[column.id]}}</mat-cell>
+                                </ng-container>
+                                <ng-container *ngIf="column.id == 'contact_person'">
+                                    <mat-cell *matCellDef="let element">{{element[column.id]}}</mat-cell>
+                                </ng-container>
+                                <ng-container *ngIf="column.id == 'platforms'">
+                                    <mat-cell *matCellDef="let element">{{element[column.id]}}</mat-cell>
+                                </ng-container>
+                                <ng-container *ngIf="column.id == 'vm_status'">
+                                    <mat-cell *matCellDef="let element">{{element[column.id]}}</mat-cell>
+                                </ng-container>
+                            </ng-container>
+                    
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                      
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

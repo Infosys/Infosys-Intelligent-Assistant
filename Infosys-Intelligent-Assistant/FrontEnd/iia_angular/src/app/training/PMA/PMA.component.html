@@ -1,0 +1,76 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="card" style= "background-color:#e8e8e8">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">PMA Details
+          </h4>
+          <h4 class="card-title">
+            <div class="container"><br>
+              <div class="row">
+                  <div class="col-md-4">
+                      <input class="form-control border-input btnChooseFileDesign" type="file" #trainingData
+                          placeholder="Upload CSV Data" required />
+                  </div>
+                  <div class="col-md-4">
+                    <button class="btn btn-default"
+                     (click) = "uploadcsv()" >upload</button>
+                </div>
+                <div class="col-md-4">
+                   <a href="assets/sample.csv" 
+                   class="btn btn-default"
+                   style="margin: left 20px;"
+                   target="_blank"
+                   download="sample-file.csv">Download sample file template</a>
+              </div>
+              </div>
+            </div>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)"> 
+                <mat-tab label="Calendar HeatMap">
+                  <app-calendar-heatmap *ngIf="index1==0"></app-calendar-heatmap>
+                </mat-tab>
+
+                <mat-tab label="Monthly Trend Analysis">
+                  <app-monthly-details *ngIf="index1==1"></app-monthly-details> 
+              </mat-tab>
+
+                <mat-tab label="Category Split">
+                <app-PMA-Assignment *ngIf="index1==2"></app-PMA-Assignment>      
+                </mat-tab>
+
+                <mat-tab label="Ticket Trends">
+                    <app-line-graph *ngIf="index1==3"></app-line-graph> 
+                                   
+                </mat-tab>
+            
+                <mat-tab label="Weighted Moving Average Of Tickets By Category">
+                  <app-weighted-moving-average *ngIf="index1==4"></app-weighted-moving-average>
+
+                </mat-tab>
+
+                <mat-tab label="Word Cloud Analysis">
+                <app-pie-analysis *ngIf="index1==5"></app-pie-analysis>                
+                </mat-tab>
+
+                <mat-tab label="Clustering">
+                    <app-clustering *ngIf="index1==6"></app-clustering>
+                </mat-tab>
+
+              
+
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

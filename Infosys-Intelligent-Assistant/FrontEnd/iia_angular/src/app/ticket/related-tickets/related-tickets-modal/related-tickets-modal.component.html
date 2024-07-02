@@ -1,0 +1,33 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<ng-container *ngIf='state'>
+    <h2 mat-dialog-title>More Info</h2>
+    <mat-dialog-content>
+        <div class="col-md-12">
+            <table class='table table-striped table-bordered'>
+                <thead>
+                    <th *ngFor='let column of keys'> {{column}} </th>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let doc of dataToDisplay'>
+                        <ng-container *ngFor='let column of keys'>
+                            <ng-container *ngFor='let item of doc | keyvalue'>
+                                <td *ngIf='item.key==column'> {{item.value}} </td>
+                            </ng-container>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions style='float: right;'>
+        <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+</ng-container>
+<ng-container *ngIf='!state'>
+    <h4 mat-dialog-title>No Information Available!</h4>
+    <mat-dialog-actions style='float: right;'>
+        <button mat-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+</ng-container>

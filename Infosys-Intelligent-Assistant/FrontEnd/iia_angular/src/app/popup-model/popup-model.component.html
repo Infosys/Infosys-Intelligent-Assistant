@@ -1,0 +1,42 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Classification details</h4>
+            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p class="h6 ">Classification Table </p>
+            <div class="responsive">
+                <table class="table table-striped table-hover table-bordered  text-left">
+                    <thead class="text-left bg-light">
+                        <tr>
+                            <th class="text-left" scope="col">Subcategory</th>
+                            <th scope="col">Precision</th>
+                            <th scope="col">Recall</th>
+                            <th scope="col">f1-score</th>
+                            <th scope="col">Support</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let algorithm of algorithmsInformation; let fieldCount=index">
+                            <th>
+                                <div class="radiotext">
+                                    <label class="text-info" for='name'>{{algorithm.SubCategory}}</label>
+                                </div>
+                            </th>
+                            <td>{{algorithm.Metrics.precision}}</td>
+                            <td>{{algorithm.Metrics.recall}}</td>
+                            <td>{{algorithm.Metrics.f1_score}}</td>
+                            <td>{{algorithm.Metrics.support}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

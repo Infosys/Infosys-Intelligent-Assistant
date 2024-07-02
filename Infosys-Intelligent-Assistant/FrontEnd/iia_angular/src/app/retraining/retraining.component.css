@@ -1,0 +1,23 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.table label,
+thead {
+  font-size: 13px;
+}
+.fa-file-text {
+  cursor: pointer;
+  color: rgb(0, 128, 79);
+  font-size: 11px;
+}
+.table-responsive {
+  border-collapse: collapse;
+  height: 375px;
+  width: 99%;
+  margin-left: 10px;
+}
+thead {
+  background: rgb(175, 175, 175);
+  color: white;
+}
+select {
+  width: 195px;
+}

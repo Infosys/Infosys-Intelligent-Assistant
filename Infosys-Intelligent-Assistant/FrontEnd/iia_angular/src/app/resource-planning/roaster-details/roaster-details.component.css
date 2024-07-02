@@ -1,0 +1,21 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.table label,
+thead {
+  font-size: 13px;
+}
+.fieldsSection {
+  cursor: pointer;
+}
+::ng-deep .mat-calendar-body-cell.selected>.mat-calendar-body-cell-content,
+::ng-deep .mat-calendar-body-cell.selected:hover>.mat-calendar-body-cell-content,
+::ng-deep .mat-calendar-body-cell.selected>.mat-calendar-body-cell-content:hover {
+  background-color: #673ab7 !important;
+}
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: #673ab7 !important;
+}
+.mat-calendar-body-cell.selected>.mat-calendar-body-cell-content,
+.mat-calendar-body-cell.selected:hover>.mat-calendar-body-cell-content,
+.mat-calendar-body-cell.selected>.mat-calendar-body-cell-content:hover {
+  background-color: #673ab7 !important;
+}

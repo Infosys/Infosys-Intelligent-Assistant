@@ -1,0 +1,684 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+@import '~primeicons/primeicons.css';
+p {
+    font-family: Lato;
+}
+.table-full-width {
+    padding-bottom: 0%;
+}
+.fa-plus-square-o {
+    position: relative;
+    top: 2px;
+    font-size: 16px;
+}
+.linkProp {
+    cursor: pointer;
+}
+.card-part:hover {
+    transform: scale(1.02);
+    background: rgba(148, 145, 145, 0.137);
+}
+.implementation {
+    background-color: #fff;
+    overflow: visible;
+}
+.content-section {
+    display: block;
+    padding: 30px;
+    overflow: hidden;
+    background-color: #f5f7f8;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet div {
+    display: block;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+.ui-picklist.ui-picklist-responsive .ui-picklist-buttons {
+    width: 10%;
+}
+body .ui-picklist .ui-picklist-buttons {
+    padding: 0.571em 1em;
+}
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+.ui-picklist .ui-picklist-buttons {
+    height: 12.5em;
+    padding: 0 .25em;
+    vertical-align: middle;
+}
+.ui-picklist>div {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+}
+.ui-widget,
+.ui-widget * {
+    box-sizing: border-box;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+element.style {
+    height: 300px;
+}
+.ui-picklist.ui-picklist-responsive .ui-picklist-list {
+    width: auto;
+}
+body .ui-picklist .ui-picklist-list {
+    border: 1px solid #c8c8c8;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 0;
+}
+.ui-picklist-list.ui-picklist-source,
+.ui-picklist-list.ui-picklist-target {
+    outline: 0;
+}
+.ui-picklist .ui-picklist-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 12.5em;
+    width: 12.5em;
+}
+body .ui-corner-bottom {
+    -moz-border-radius-bottomleft: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    -moz-border-radius-bottomright: 3px;
+    -webkit-border-bottom-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+body .ui-widget {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+body .ui-picklist .ui-picklist-caption {
+    background-color: #f4f4f4;
+    color: #333333;
+    border: 1px solid #c8c8c8;
+    padding: 0.571em 1em;
+    font-weight: 700;
+    border-bottom: 0 none;
+    -moz-border-radius-topleft: 3px;
+    -webkit-border-top-left-radius: 3px;
+    border-top-left-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    -webkit-border-top-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.ui-picklist .ui-picklist-caption {
+    text-align: center;
+    padding: .5em .75em;
+    border-bottom: 0;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+body .ui-button.ui-button-icon-only .ui-button-text {
+    padding: 0.429em;
+}
+.ui-button-icon-only .ui-button-text,
+.ui-button-text-empty .ui-button-text {
+    padding: .25em;
+    text-indent: -9999999px;
+}
+.ui-button .ui-button-text {
+    display: block;
+    line-height: normal;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body .ui-button:enabled:hover {
+    background-color: #cbd4db;
+    color: #ffffff;
+    border-color: #c6cdd3;
+}
+body .ui-picklist .ui-picklist-buttons button {
+    font-size: 16px;
+}
+body .ui-button {
+    margin: 0;
+    color: #ffffff;
+    background-color: #7ba0be;
+    border: 1px solid #6f777e;
+    font-size: 14px;
+    -moz-transition: background-color 0.2s, box-shadow 0.2s;
+    -o-transition: background-color 0.2s, box-shadow 0.2s;
+    -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+user agent stylesheet button {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: center;
+    cursor: default;
+    font: 400 13.3333px Arial;
+}
+/* ******************************************************************* */
+element.style {}
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+.ui-helper-clearfix {
+    zoom: 1;
+}
+.ui-widget,
+.ui-widget * {
+    box-sizing: border-box;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet div {
+    display: block;
+}
+body .ui-picklist .ui-picklist-list .ui-picklist-item {
+    padding: 0.429em 0.857em;
+    margin: 0;
+    border: 0 none;
+    color: #333333;
+    background-color: transparent;
+}
+.ui-picklist .ui-picklist-item {
+    cursor: pointer;
+    border: 0;
+    font-weight: inherit;
+}
+user agent stylesheet li {
+    text-align: -webkit-match-parent;
+}
+body .ui-picklist .ui-picklist-list {
+    border: 1px solid #c8c8c8;
+    background-color: #ffffff;
+    color: #333333;
+    padding: 0;
+}
+.ui-picklist .ui-picklist-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    height: 12.5em;
+    width: 12.5em;
+}
+user agent stylesheet ul {
+    list-style-type: disc;
+}
+body .ui-widget {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+.ui-helper-clearfix::after,
+.ui-helper-clearfix::before {
+    content: "";
+    display: table;
+}
+.ui-helper-clearfix::after {
+    clear: both;
+}
+.ui-helper-clearfix::after,
+.ui-helper-clearfix::before {
+    content: "";
+    display: table;
+}
+element.style {}
+body .ui-picklist .ui-picklist-filter-container {
+    padding: 0.429em 0.857em 0.429em 0.857em;
+    border: 1px solid #c8c8c8;
+    color: #333333;
+    background-color: #ffffff;
+    margin: 0;
+    border-bottom: 0 none;
+}
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+.ui-picklist .ui-picklist-filter-container {
+    position: relative;
+    width: 100%;
+    padding: .5em .6em;
+    border-bottom: 0;
+}
+.ui-widget,
+.ui-widget * {
+    box-sizing: border-box;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet div {
+    display: block;
+}
+body .ui-widget {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+.pi-angle-right:before {
+    content: "\e932";
+}
+.pi-angle-double-right:before {
+    content: "\e92e";
+}
+.pi-angle-left:before {
+    content: "\e931";
+}
+.pi-angle-double-left:before {
+    content: "\e92d";
+}
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+.ui-button-icon-only .ui-button-icon-left {
+    top: 50%;
+    left: 50%;
+    margin-top: -.5em;
+    margin-left: -.5em;
+    width: 1em;
+    height: 1em;
+}
+.ui-button-icon-only .ui-button-icon-left,
+.ui-button-text-icon-left .ui-button-icon-left,
+.ui-button-text-icon-right .ui-button-icon-right {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    height: 1em;
+}
+body .pi {
+    font-size: 1.25em;
+}
+.ui-button-icon-left {
+    left: .5em;
+}
+.ui-widget,
+.ui-widget * {
+    box-sizing: border-box;
+}
+.pi {
+    font-family: primeicons;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body .ui-picklist .ui-picklist-buttons button {
+    font-size: 16px;
+}
+body .ui-button {
+    margin: 0;
+    color: #ffffff;
+    background-color: #7ba0be;
+    border: 1px solid #707b83;
+    font-size: 14px;
+    -moz-transition: background-color 0.2s, box-shadow 0.2s;
+    -o-transition: background-color 0.2s, box-shadow 0.2s;
+    -webkit-transition: background-color 0.2s, box-shadow 0.2s;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+body .ui-widget {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+.ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+}
+user agent stylesheet button {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: buttontext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    text-align: center;
+    cursor: default;
+    font: 400 13.3333px Arial;
+}
+/* body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans","Helvetica Neue",sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+user agent stylesheet
+html {
+    color: -internal-root-color; */
+.pi-angle-double-left:before {
+    content: "\e92d";
+}
+body .ui-picklist .ui-picklist-list .ui-picklist-item.ui-state-highlight {
+    background-color: #7ba0be;
+    color: #ffffff;
+}
+element.style {}
+.content-section.introduction {
+    background-image: -webkit-gradient(linear, right top, left top, from(#b6dbe6), to(#7ba0be));
+    background-image: linear-gradient(to left, #b6dbe6, #7ba0be);
+    color: #fff;
+}
+.content-section {
+    display: block;
+    padding: 30px;
+    overflow: hidden;
+    background-color: #f5f7f8;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet div {
+    display: block;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+element.style {}
+body .ui-picklist .ui-picklist-filter-container input.ui-picklist-filter {
+    width: 100%;
+    padding-right: 2em;
+    text-indent: 0;
+}
+.ui-picklist .ui-picklist-filter-container .ui-picklist-filter {
+    text-indent: 1.1em;
+    width: 100%;
+}
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+.ui-widget-content .ui-inputtext,
+.ui-widget-header .ui-inputtext {
+    font-weight: 400;
+}
+body .ui-inputtext {
+    font-size: 14px;
+    color: #333333;
+    background: #ffffff;
+    padding: 0.429em;
+    border: 1px solid #a6a6a6;
+    -moz-transition: border-color 0.2s;
+    -o-transition: border-color 0.2s;
+    -webkit-transition: border-color 0.2s;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+body .ui-corner-all {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+body .ui-widget {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+.ui-inputtext {
+    margin: 0;
+    outline: 0;
+    padding: .25em;
+    font-weight: 400;
+}
+.ui-widget,
+.ui-widget * {
+    box-sizing: border-box;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+user agent stylesheet input {
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark-color(black, white);
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    -webkit-appearance: textfield;
+    background-color: -internal-light-dark-color(white, black);
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 0px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+}
+body .ui-picklist .ui-picklist-filter-container {
+    padding: 0.429em 0.857em 0.429em 0.857em;
+    border: 1px solid #c8c8c8;
+    color: #333333;
+    background-color: #ffffff;
+    margin: 0;
+    border-bottom: 0 none;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+element.style {}
+body .ui-picklist .ui-picklist-filter-container .ui-picklist-filter-icon {
+    top: 50%;
+    margin-top: -.5em;
+    left: auto;
+    right: 1.357em;
+    color: #007ad9;
+}
+.ui-picklist .ui-picklist-filter-container .ui-picklist-filter-icon {
+    position: absolute;
+    top: 50%;
+    left: 1em;
+    margin-top: -.6em;
+}
+.ui-picklist.ui-picklist-responsive * {
+    box-sizing: border-box;
+}
+body .pi {
+    font-size: 1.25em;
+}
+.ui-widget,
+.ui-widget * {
+    box-sizing: border-box;
+}
+.pi {
+    font-family: primeicons;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body .ui-picklist .ui-picklist-filter-container {
+    padding: 0.429em 0.857em 0.429em 0.857em;
+    border: 1px solid #c8c8c8;
+    color: #333333;
+    background-color: #ffffff;
+    margin: 0;
+    border-bottom: 0 none;
+}
+body .ui-widget {
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+}
+body {
+    margin: 0;
+    min-height: 100%;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    color: #333c40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+}
+user agent stylesheet html {
+    color: -internal-root-color;
+}
+.pi-search:before {
+    content: "\e908";
+}

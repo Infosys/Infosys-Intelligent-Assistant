@@ -1,0 +1,125 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="logo p-0">
+<img alt="iialogo" class="align-self-center mr-3" src="../../../assets/img/g4202.png"/>
+</div>
+<div class="sidebar-wrapper">
+    <ul class="nav">
+        <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} nav-item">
+            <a class="nav-link" [routerLink]="[menuItem.path]">
+                <i class="{{menuItem.icon_class}}" aria-hidden="true"></i>
+                <p>{{menuItem.title}}</p>
+            </a>
+
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+            <mat-accordion>
+                <mat-expansion-panel  class="nav">
+                    <mat-expansion-panel-header class="nav-link">
+                        <mat-panel-title>
+                            <div class="iconname">
+                                <i class="fa fa-sliders" aria-hidden="true"></i>
+                                <p>ML Hub</p>
+                            </div>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+        
+        <li *ngIf="adminLoginState && predictionStatus" routerLinkActive="active">
+            <a class="nav-link" routerLink="/training">
+                <div class="iconname">
+                    <i class="fa fa-cog" aria-hidden="true"></i>
+                    <p>Training</p>
+                </div>
+            </a>
+        </li>
+
+        <li *ngIf="adminLoginState && predictionStatus" routerLinkActive="active">
+            <a class="nav-link" routerLink="/retraining">
+                <div class="iconname">
+                    <i class="fa fa-repeat" aria-hidden="true"></i>
+                    <p>Retraining</p>
+                </div>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a class="nav-link" routerLink="/otherTraining">
+                <div class="iconname">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <p>Other Training</p>
+                </div>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a class="nav-link" routerLink="/screenShotAnalysis">
+                <div class="iconname">
+                    <i class="fa fa-picture-o" aria-hidden="true"></i>
+                    <p>Image Analysis</p>
+                </div>
+            </a>
+        </li>
+        </mat-expansion-panel>
+        </mat-accordion>
+        </li>
+        <li routerLinkActive="active">
+            <a class="nav-link" routerLink="/PMA">
+                <div class="iconname">
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <p>Operational Insights</p>
+                </div>
+            </a>
+        </li>
+        <li *ngIf="switchStatus && adminLoginState && predictionStatus" routerLinkActive="active">
+            <a class="nav-link" routerLink="/assignment">
+                <div class="iconname">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <p>Assignment</p>
+                </div>
+            </a>
+        </li>
+        <li routerLinkActive="active">
+            <a class="nav-link" routerLink="/scripts">
+                <div class="iconname">
+                    <i class="fa fa-wrench" aria-hidden="true"></i>
+                    <p>Micro-Bots</p>
+                </div>
+            </a>
+        </li>
+            <li class="nav-item" routerLinkActive="active">
+                <mat-accordion *ngIf="adminLoginState">
+                    <mat-expansion-panel  class="nav">
+                        <mat-expansion-panel-header class="nav-link">
+                            <mat-panel-title>
+                                <div class="iconname">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <p>Admin</p>
+                                </div>
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+            <li routerLinkActive="active">
+                <a class="nav-link" routerLink="/admin">
+                    <div class="iconname">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <p>General Setting</p>
+                    </div>
+                </a>
+            </li>
+            <li routerLinkActive="active">
+                <a class="nav-link" routerLink="/userManage">
+                    <div class="iconname">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <p>User Management</p>
+                    </div>
+                </a>
+            </li>
+            </mat-expansion-panel>
+            </mat-accordion>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" routerLink="/about">
+                    <i class="material-icons">info</i>
+                    <p>Acknowledgements</p>
+                </a>
+            </li>
+        </ul>
+    </div>

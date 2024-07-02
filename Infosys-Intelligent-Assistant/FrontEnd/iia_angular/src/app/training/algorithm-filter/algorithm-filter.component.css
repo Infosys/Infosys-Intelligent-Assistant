@@ -1,0 +1,20 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.table thead tr th {
+    font-size: 11px;
+    font-weight: bold;
+}
+label[for=accuracy],
+label[for=name] {
+    font-size: 11px;
+}
+.fa-sliders {
+    font-size: 28px;
+    margin: 2px;
+}
+#advancedSetting {
+    color: blue;
+    text-decoration: underline;
+    font-size: 12px;
+    padding: 5px;
+    cursor: pointer;
+}

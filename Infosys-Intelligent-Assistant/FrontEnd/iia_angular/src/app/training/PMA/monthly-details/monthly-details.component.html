@@ -1,0 +1,54 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <mat-form-field>
+                <mat-select (selectionChange)="rememberOption($event.value)" placeholder="Year 1" required>
+                    <mat-option *ngFor="let year of yearslist" [value]="year">{{year}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-3">
+            <mat-form-field>
+                <mat-select (selectionChange)="PMA_redrawToGraph($event.value)" placeholder="Year 2" required>
+                    <mat-option *ngFor="let year of yearslist" [value]="year">{{year}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+    </div>
+    <div *ngIf="!linewordflag">
+        <div style="display : block">
+            <div class="row">
+                <div class="col-lg-9 col-sm-4">
+                    <canvas #MonthPMA baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)" [colors]="chartColors"
+                        (chartClick)="chartClicked_PMA($event)"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="linewordflag">
+        <div style="display : block">
+            <div class="row">
+                <div class="col-lg-6">
+                    <canvas #MonthPMA baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                        [options]="lineChartOptions" [legend]="false" [chartType]="lineChartType"
+                        (chartHover)="chartHovered($event)" [colors]="chartColors"
+                        (chartClick)="chartClicked_PMA($event)"></canvas>
+                </div>
+                <div class="col-xl-6">
+                    <angular-tag-cloud #linetagWordCloudContainer class="tagWordCss" [data]="tagCloudData"
+                        [overflow]="cloudoptions.overflow" (clicked)="logClicked($event)"
+                        [zoomOnHover]="ZoomOnHoverOptions">
+                    </angular-tag-cloud>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

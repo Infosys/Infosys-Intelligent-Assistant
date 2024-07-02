@@ -1,0 +1,31 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/ -->
+<br>
+<div class="main-content">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            <div class="card mb-0">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title"> Image analysis fields</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <h3 class="mb-0">Enter the field names </h3>
+                        </div>
+                    </div>
+                    <div class="table-wrapper-scroll-y">
+                        <tag-input [(ngModel)]="columnsSelected" maxItems="5" secondaryPlaceholder="Add new Column name"
+                            placeholder="Add new Column name" theme="bootstrap" (onFocus)="max_count()"></tag-input>
+                        <div class="row">
+                            <div class="col text-right ">
+                                <p *ngIf='showMsgState' [style.color]='msgClr'>{{msg}}</p>
+                                <button class=" btn btn-primary my-3 " type="button" (click)="saveColumnNames()"
+                                    [disabled]="disableTeam">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

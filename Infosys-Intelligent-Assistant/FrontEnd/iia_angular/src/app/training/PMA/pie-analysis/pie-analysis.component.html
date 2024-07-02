@@ -1,0 +1,91 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="container"><br>
+    <div class="row">
+        <div class="col-lg-2 col-12 3">
+            <mat-form-field>
+                <mat-select (selectionChange)="PMA_redrawGraph($event.value)" placeholder="Select any Category" required
+                    [(value)]="selected_field_default">
+                    <mat-option *ngFor="let category of filter_columns" [value]="category">{{category}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2 col-12 3">
+            <mat-form-field>
+                <mat-select (selectionChange)="cloudTypeChanged($event.value)" placeholder="Select Type" required
+                    [(value)]="selected_cloudtype_default">
+                    <mat-option value="0">Unigram</mat-option>
+                    <mat-option value="1">Bigram</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2 col-12 3">
+            <mat-form-field>
+                <mat-label>Number of Words: </mat-label>
+                <input matInput type="number" id="modal-pieNW" class="form-control" value=30
+                    (blur)="onWordsCountChanged($event)" (keydown.Tab)="onWordsCountChanged($event)"
+                    (keydown.Enter)="onWordsCountChanged($event)">
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2 col-12 3">
+            <mat-form-field>
+                <mat-select (selectionChange)="changeYear($event.value)" placeholder="Select Year" required
+                    [(ngModel)]="selected_year_default">
+                    <mat-option *ngFor="let year of year_columns" [value]="year">{{year}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2 col-12 3">
+            <mat-form-field>
+                <mat-select placeholder="Select Month" [(ngModel)]="selected_month_default">
+                    <mat-option *ngFor="let month of months" [value]="month">{{month}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-2 col-12">
+            <div>
+                <button class="btn btn-outline-secondary btn-sm" (click)="handleClick()">generate</button>
+            </div>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+    </div>
+    <div *ngIf="showEmpty">
+        <div class="row">
+            <div class="col-lg-12 text-center mt-5">
+                <h3 style="color: red;">No Data Available</h3>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!piewordflag">
+        <div class="row">
+            <div class="col-lg">
+                <canvas #piePMA baseChart [datasets]="pieChartData" [labels]="pieChartLabels"
+                    [options]="pieChartOptions" [legend]="true" [chartType]="pieChartType"
+                    (chartClick)="chartClicked_PMA($event)" (chartHover)="chartHovered($event)"
+                    [colors]="chartColors"></canvas>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="piewordflag">
+        <div class="row">
+            <div class="col-lg-6 border p-3">
+                <canvas #piePMA baseChart [datasets]="pieChartData" [labels]="pieChartLabels"
+                    [options]="pieChartOptions" [legend]="false" [chartType]="pieChartType"
+                    (chartClick)="chartClicked_PMA($event)" (chartHover)="chartHovered($event)"
+                    [colors]="chartColors"></canvas>
+            </div>
+            <div class="col-lg-6 border p-3">
+                <div>
+                    <b>{{selected_pie_Part}}</b>
+                </div>
+                <angular-tag-cloud #PietagWordCloudContainer class="tagWordCss" [data]="tagCloudData"
+                    [overflow]="cloudoptions.overflow" (clicked)="logClicked($event)"
+                    [zoomOnHover]="ZoomOnHoverOptions">
+                </angular-tag-cloud>
+            </div>
+        </div>
+    </div>
+</div>

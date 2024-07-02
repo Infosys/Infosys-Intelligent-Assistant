@@ -1,0 +1,90 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<div class="card-body">
+    <div class="row mb-3">
+        <div class="col-md-12 pl-0">
+            <div class="row">
+                <div class="col-md-8">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="addElement()">
+                            Add Environment</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="Selected">
+                        <mat-header-cell style="flex: none" *matHeaderCellDef mat-sort-header>
+                            <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll()">
+                        </mat-header-cell>
+                        <mat-cell style="flex: none" *matCellDef="let row;">
+                            <span class="table-remove">
+                                <input type="checkbox" [(ngModel)]="row['Selected']" (change)="checkIfAllSelected()">
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="environment">
+                        <mat-header-cell style="padding: 0 13px;" *matHeaderCellDef mat-sort-header>Environment
+                        </mat-header-cell>
+                        <mat-cell style="flex: 1; padding: 0 30px;" *matCellDef="let row; let i=index ">
+                            <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                <mat-label>Environment Name</mat-label>
+                                <input type="text" matInput [(ngModel)]="row['environment']" required>
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="username">
+                        <mat-header-cell style="padding: 0 13px;" *matHeaderCellDef mat-sort-header>Username
+                        </mat-header-cell>
+                        <mat-cell style="padding: 0 10px;" *matCellDef="let row; let i=index ">
+                            <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                <mat-label>Username</mat-label>
+                                <input type="text" matInput [(ngModel)]="row['username']" required>
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="password">
+                        <mat-header-cell style="padding: 0 10px;" *matHeaderCellDef mat-sort-header>Password
+                        </mat-header-cell>
+                        <mat-cell style="padding: 0 13px;" *matCellDef="let row; let i=index ">
+                            <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                <mat-label>Password</mat-label>
+                                <input type="password" matInput [(ngModel)]="row['password']" required>
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="ping">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+                        <mat-cell style="padding: 0 13px;" *matCellDef="let row">
+                            <button type="button"
+                                [ngClass]="{'btn btn-sm btn-danger': row['status']!='Success', 'btn btn-sm btn-success': row['status']=='Success'}"
+                                (click)="ping(row)">Ping</button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+            <br />
+            <div>
+                <div *ngIf="saveSuccess">
+                    <div class="text-success display-5">
+                        <div class="container">
+                            <em>
+                                <b> {{message}} </b>
+                            </em>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-link" (click)="Remove()" style="float:right">Remove</button>
+                <button type="button" class="btn btn-primary" (click)="save()" style="float:right">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

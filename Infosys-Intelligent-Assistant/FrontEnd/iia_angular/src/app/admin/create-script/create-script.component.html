@@ -1,0 +1,52 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.-->
+<div class="main-content">
+  <div class="modal-content" style="height:600px">
+    <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+      <h4 class="modal-title" id="modal-basic-title font-weight-bold">
+        Create Script</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true" style="color:white;">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="ngx-codemirror mb-2 w-100">
+            <ngx-codemirror [options]="options" [(ngModel)]="default[mode]" [disabled]="readOnly" [autoFocus]="true"
+              (ngModelChange)="handleChange($event)"></ngx-codemirror>
+          </div>
+        </div>
+        <div class="text-warning display-5">{{ArgsMessage}}</div>
+        <input matInput type="text" placeholder="Datatype of arguments seperated by comma" [(ngModel)]="argTypes">
+        <p *ngIf="scriptStatus">
+          <ngb-alert [dismissible]="true" [type]="type" (close)="closeAlert()">{{message}}
+          </ngb-alert>
+        </p>
+        <div class="col-md-12">
+          <span *ngIf="saveSuccess">
+            <span class="text-warning display-5" *ngIf="noCompile">
+              <span class="container">
+                <em>
+                  <b> {{message1}} </b>
+                </em>
+              </span>
+            </span>
+            <span class="text-success display-5">
+              <span class="container">
+                <em>
+                  <b> {{message}} </b>
+                </em>
+              </span>
+            </span>
+          </span>
+          <div class="row" style="position: fixed;right: -55px;top: 545px;">
+            <input matInput type="text" [(ngModel)]="scriptName" placeholder="Script Name" *ngIf="scriptNameStatus"
+              style="width:300px;">
+            <button class="btn btn-primary" (click)="saveScript()">Save</button>
+            <button class="btn btn-primary" (click)="provideArgs()">Compile</button>
+            <button class="btn btn-light" (click)="clear()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

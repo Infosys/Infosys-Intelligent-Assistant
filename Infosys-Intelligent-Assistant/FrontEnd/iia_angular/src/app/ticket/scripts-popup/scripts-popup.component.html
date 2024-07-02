@@ -1,0 +1,147 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+  <div class="modal-content">
+    <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+      <h4 class="modal-title" id="modal-basic-title font-weight-bold">
+        {{header}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true" style="color:white;">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <!--  scripts  -->
+        <div class="row" *ngIf="scriptsEnable">
+          <div class="col-md-12 pl-0">            
+            <div class="card card-bott">
+              <div class="table-wrapper-scroll-y">
+                <table class="table table-striped table-hover table-bordered">
+                  <tbody>
+                    <tr *ngFor= "let item of ScriptOptions">
+                         <td><input type="checkbox" (change)="onToggleScripts()" [(ngModel)]="item.checked">{{item.label}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <span style="float: right;padding-bottom: 90px">
+                  <button type="button" class="btn btn-primary w-45" (click)="invokeScripts()"
+                      >Invoke</button>
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  sops  -->
+        <div class="row" *ngIf="sopsEnable">
+          <div class="col-md-12 pl-0">            
+            <div class="card card-bott">
+              <div class="table-wrapper-scroll-y">
+                <table class="table table-striped table-hover table-bordered">
+                  <tbody>
+                    <tr *ngFor= "let item of SOPSOptions">
+                          <td><input type="checkbox" (change)="onToggleSOPS()" [(ngModel)]="item.checked">{{item.label}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <span style="float: right;padding-bottom: 90px">
+                  <button type="button" class="btn btn-primary w-45" 
+                      >Invoke</button>
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+          <!--  rpa's  -->
+          <div class="row" *ngIf="rpasEnable">
+            <div class="col-md-12 pl-0">            
+              <div class="card card-bott">
+                <div class="table-wrapper-scroll-y">
+                  <table class="table table-striped table-hover table-bordered">
+                      <tbody>
+                          <tr *ngFor= "let item of RPAOptions">
+                               <td><input type="checkbox" (change)="onToggleRPA()" [(ngModel)]="item.checked">{{item.label}}</td>
+                          </tr>
+                        </tbody>
+                  </table>
+                  <span style="float: right;padding-bottom: 90px">
+                    <button type="button" class="btn btn-primary w-45" (click)="invokeRPA()"
+                        >Invoke</button>
+                </span>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!--  jobs  -->
+        <div class="row" *ngIf="jobsEnable">
+          <div class="col-md-12 pl-0">            
+            <div class="card card-bott">
+              <div class="table-wrapper-scroll-y">
+                <table class="table table-striped table-hover table-bordered">
+                    <tbody>
+                        <tr *ngFor= "let item of JobsOptions">
+                             <td><input type="checkbox" (change)="onToggleJobs()" [(ngModel)]="item.checked">{{item.label}}</td>
+                        </tr>
+                      </tbody>
+                </table>
+                <span style="float: right;padding-bottom: 90px">
+                  <button type="button" class="btn btn-primary w-45" (click)="invokeBatch()"
+                      >Invoke</button>
+              </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--  iops  -->
+        <div class="row" *ngIf="iopsEnable">
+            <div class="col-md-12 pl-0">            
+              <div class="row">
+                  <div class="col-md-12" id="Mapped" *ngIf="mappedShowHide">
+                    <div class="row">
+                          <div class="card card-bott">
+                              <div class="table-wrapper-scroll-y">
+                                <table class="table table-striped table-hover table-bordered">
+                                    <tbody>
+                                        <tr *ngFor="let item of IopsOptions; let i=index">
+                                            <td><input type="checkbox" (change)="onToggleIops()" [(ngModel)]="item.checked">
+                                              <a data-toggle="collapse" href="#{{item.label}}" aria-expanded="false" aria-controls="collapseScripts">
+                                                {{item.label}}
+                                              </a>
+                                              <div class="collapse mt-0" id="{{item.label}}">
+                                                  <div class="list-group bg-light" *ngFor="let arg of arguments1[i]">
+                                                      <mat-label>{{arg}}</mat-label>
+                                                      <input type="text" class="list-group-item lgr list-group-item-action" (focusout)="argumentValue1(item.label,arg,$event)" matInput required>
+                                                  </div>
+                                              </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <span style="float: right;padding-bottom: 90px">
+                                  <label for="sel1">Environment</label>
+                                  <select class="form-control" id="sel1" [(ngModel)]="selectedEnv">
+                                      <option *ngFor="let item of envList" value="{{item}}">{{ item }}
+                                      </option>
+                                  </select>
+                                    <button type="button" class="btn btn-primary w-45" (click)="invokeIops('mapped')"
+                                      >Invoke</button>
+                              </span>
+                              </div>
+                            </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <p *ngIf="scriptStatus">
+        <ngb-alert [dismissible]="true" [type]="type" (close)="closeAlert()">{{message}}<a data-toggle="collapse" href="#collapse" role="button" (click)="showLogs('hi')" style="float: right;padding-right: 40px;">
+            Logs
+        </a></ngb-alert>
+      </p>
+      <p *ngIf="scriptStatus1">
+          <ngb-alert [dismissible]="true" [type]="type" (close)="closeAlert()">{{message}}</ngb-alert>
+        </p>
+    </div>
+  </div>
+</div>

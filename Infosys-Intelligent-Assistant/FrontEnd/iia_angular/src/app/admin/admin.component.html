@@ -1,0 +1,44 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<div class="main-content mb-0">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-0">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Admin Dashboard</h4>
+                </div>
+                <div class="card-body MinHeightStyle">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)">
+                                <mat-tab label="ITSM Details">
+                                    <app-itsm-details *ngIf="index==0"></app-itsm-details>
+                                </mat-tab>
+                                <mat-tab label="Team Details">
+                                    <app-team-details *ngIf="index==1"></app-team-details>
+                                </mat-tab>
+                                <mat-tab label="Notifications">
+                                    <app-notifications *ngIf="index==2"></app-notifications>
+                                </mat-tab>
+                                <mat-tab label="Application Level Settings">
+                                    <app-application-level-settings *ngIf="index==3"></app-application-level-settings>
+                                </mat-tab>
+                                <mat-tab label="Other Settings">
+                                    <app-other-settings *ngIf="index==4"></app-other-settings>
+                                </mat-tab>
+                                <mat-tab label="Tag Settings">
+                                    <app-tag-settings *ngIf="index==5"></app-tag-settings>
+                                </mat-tab>
+                                <mat-tab label="PMA Details">
+                                    <app-pma-tag-details *ngIf="index==6"></app-pma-tag-details>
+                                </mat-tab>
+                                <mat-tab label="ImageAnalysis Details">
+                                    <app-image-analysis-details *ngIf="index==7"></app-image-analysis-details>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

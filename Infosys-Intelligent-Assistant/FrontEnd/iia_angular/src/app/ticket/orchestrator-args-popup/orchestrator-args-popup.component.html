@@ -1,0 +1,51 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+  -->
+<div class="main-content">
+  <div class="modal-content">
+    <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+      <h4 class="modal-title" id="modal-basic-title font-weight-bold">
+        Provide Arguments</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true" style="color:white;">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 pl-0">
+            <div class="card card-bott">
+              <div class="table-wrapper-scroll-y">
+                <table class="table table-striped table-hover table-bordered" *ngIf="(argList | json) != '{}'">
+                  <tbody>
+                    <tr *ngFor="let item of argList | keyvalue">
+                      <td>
+                        <mat-form-field><input matInput type="text" [(ngModel)]="argValue[item.key]"
+                            placeholder="{{item.key}}"></mat-form-field>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="padding:10px;" *ngIf="argStatus">
+                  No Arguments !!!
+                </div>
+                <span style="float: right;padding-bottom: 90px;padding-right: 20px;">
+                  <button type="button" class="btn btn-primary w-45" (click)="invoke_Orchestrator()"> Run </button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p *ngIf="scriptStatus">
+        <ngb-alert [dismissible]="true" [type]="type" (close)="closeAlert()"
+          *ngIf="!runTypeStatus">{{message}}</ngb-alert>
+        <ngb-alert [dismissible]="true" [type]="type" (close)="closeAlert()" *ngIf="runTypeStatus">{{message}}<a
+            data-toggle="collapse" href="#collapse" role="button" (click)="showLogs('hi')"
+            style="float: right;padding-right: 40px;">
+            Logs
+          </a></ngb-alert>
+      </p>
+    </div>
+  </div>
+</div>

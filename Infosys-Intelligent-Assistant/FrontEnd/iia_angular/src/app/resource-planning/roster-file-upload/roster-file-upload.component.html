@@ -1,0 +1,32 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-1">
+  <div class="row">
+    <div class="card   mb-1 pb-0">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Upload Shift Details File
+          <sup><i class="fa fa-info-circle" matTooltip="Please select team and upload roaster file"
+              matTooltipPosition="above"></i></sup>
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="col-md-12 ">
+          <div class="row text-justify">
+            <div class="col-md-7 pt-2 ">
+              <input class="form-control btnChooseFileDesign" type="file" #roasterDetails placeholder="Upload file..."
+                required />
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-outline-primary " type="button"
+                (click)="uploadMonthlyRoasterDetails()">Upload</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loader">
+    <app-loader></app-loader>
+  </div>
+</div>

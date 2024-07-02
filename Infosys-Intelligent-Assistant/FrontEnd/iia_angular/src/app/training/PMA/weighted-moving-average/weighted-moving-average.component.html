@@ -1,0 +1,44 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-3">
+            <mat-form-field class="my-3">
+                <mat-select (selectionChange)=" WeightedAverage_field_changed($event.value)"
+                    placeholder="Select any Field" required [(value)]="field_name">
+                    <mat-option *ngFor="let field of field_list" [value]="field">{{field}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-3">
+            <mat-form-field class="my-3">
+                <mat-select (selectionChange)=" WeightedAverage_typechanged($event)" placeholder="Select Name" required
+                    [(value)]="selected_value_default" multiple>
+                    <mat-option *ngFor="let name of selected_group_list" [value]="name">{{name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-3">
+            <div class="my-3">
+                <input type="checkbox" (change)="ComparisionCheckBox($event)">show Comparision
+            </div>
+        </div>
+        <div class="col-lg-3 col-3">
+            <div class="my-3">
+                <button class="btn btn-outline-secondary btn-sm" (click)="handleClick()">generate</button>
+            </div>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
+                    <img *ngIf="weighted_moving_average_graph_path_src!==undefined"
+                        [src]="weighted_moving_average_graph_path_src" class="img-responsive"
+                        style="width: 100%; height:100%" />
+                </div>
+            </div>
+        </div>
+    </div>

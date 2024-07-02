@@ -1,0 +1,48 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+img{ 
+  width: 100%;
+}
+.logo{
+background: #d3d3e66e
+}
+.configDropDown{
+    padding: 0 32px;
+}
+mat-expansion-panel
+{
+    list-style: none;
+    box-shadow:unset;
+    background: none;
+    padding: 10px 15px;
+}
+mat-accordion mat-expansion-panel{
+    box-shadow: none;
+    margin-top: 0;
+}
+mat-expansion-panel li{
+    width: 210px;
+}
+.iconname{
+    display: inline-flex;
+    position: relative;
+    right: 6px;
+}
+.iconname p{
+    margin: 0;
+    line-height: 30px;
+    font-size: 14px;
+    position: relative;
+    display: block;
+    height: auto;
+    white-space: nowrap;
+    font-weight: lighter;
+}
+.iconname i{
+    font-size: 24px;
+    float: left;
+    margin-right: 15px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    color: #a9afbb;
+}

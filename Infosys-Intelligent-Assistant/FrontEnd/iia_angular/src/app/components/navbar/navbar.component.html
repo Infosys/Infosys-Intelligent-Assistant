@@ -1,0 +1,37 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<nav class="navbar navbar-expand-lg navbar-transparent  navbar-absolute fixed-top">
+    <div class="container-fluid">
+        <button type="button" class="btn btn-link btn-hide p-0 mb-4" (click)="compressSidebar()">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <button type="button" class="btn btn-link btn-unhide p-0 mb-4" (click)="decompressSidebar()">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <div class="container">
+
+            <button type="button" class="btn btn-link btn-sm " (click)="goBack()"><i class="fa fa-angle-left"
+                    aria-hidden="true"></i>
+                &nbsp; <span class="adjusttht"> </span>
+            </button>
+            <button type="button" class="btn btn-link btn-sm " (click)="goForward()"><i class="fa fa-angle-right"
+                    aria-hidden="true"></i>
+                &nbsp; <span class="adjusttht"> </span>
+            </button>
+            <p class="adjustthtlg mb-0" style="font-size:12px"> Logged in as <span
+                    class="text-primary">{{getTitle()}}</span></p>
+        </div>
+
+
+        <div *ngIf='!sso' class="navbar-wrapper ">         
+            <button class="btn btn-secondary mb-2" (click)='logout()'>Logout</button>
+        </div>
+        <button mat-raised-button class="navbar-toggler" type="button" (click)="sidebarToggle()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+            <span class="navbar-toggler-icon icon-bar"></span>
+        </button>
+       
+    </div>
+
+</nav>

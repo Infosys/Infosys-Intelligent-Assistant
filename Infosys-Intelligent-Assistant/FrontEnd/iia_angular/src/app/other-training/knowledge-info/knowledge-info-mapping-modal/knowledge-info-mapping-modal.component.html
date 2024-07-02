@@ -1,0 +1,75 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<!-- <div class="main-content"> -->
+<!-- <div class="row">
+  <div class="col-md-12"> -->
+    <div class="card mb-0" style="margin-top: 0px; height: 90%;">
+      <div class="card-header card-header-primary">
+        <h3 mat-dialog-title class="card-title">Mapping Details</h3>
+      </div>
+
+      <mat-dialog-content style="padding: 0 24px;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-5">
+              <mat-form-field>
+                <mat-label>Account Column</mat-label>
+                <mat-select [(ngModel)]="selectedAccColumn">
+                  <mat-option *ngFor="let accColumn of accountColumnsLst" [value]="accColumn"> {{accColumn}} </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <div class="col-md-5">
+              <ng-container *ngIf='!newIIAColumnState'>
+                <mat-form-field>
+                  <mat-label>IIA Column</mat-label>
+                  <mat-select [(ngModel)]="selectedIIAColumn" (change)='IIAColumnChange()'>
+                    <mat-option *ngFor="let iiaColumn of iiaColumnsLst" [value]="iiaColumn"> {{iiaColumn}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+              <ng-container *ngIf='newIIAColumnState'>
+                <mat-form-field>
+                  <!-- <mat-label>New IIA Column</mat-label> -->
+                  <input matInput #newColumn placeholder="Enter Column Name.." [(ngModel)]='newIIAColumnName'>
+                  <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="disableNewIIANameState()">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </mat-form-field>
+                <!-- <i class='fa fa-times-circle' style="float: right; cursor: pointer;" (click)='disableNewIIANameState()'></i> -->
+              </ng-container>
+            </div>
+            <button type="button" class="btn btn-outline-info" style="z-index: 1;" (click)="mapColumns()"> Map </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h3>Mapped Column Details</h3>
+          <div class='mat-elevation-z8'>
+          <!-- <div class="table-responsive pt-1" style="max-height: 320px;"> -->
+            <table class="table table-striped table-responsive-md">
+              <thead>
+                <th>Account Column Name</th>
+                <th>Mapped IIA Column Name</th>
+                <th>Delete</th>
+              </thead>
+              <tbody *ngFor='let mapDoc of dataSource; let id=index;'>
+                <td>{{mapDoc.account_column}}</td>
+                <td>{{mapDoc.iia_column}}</td>
+                <td><i class='fa fa-trash' style="color: red; cursor: pointer;" (click)='deleteMapedInfo(id)'></i></td>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </mat-dialog-content>
+    </div>
+    <mat-dialog-actions class="float-right">
+      <button mat-button mat-dialog-close class="btn btn-outline-danger">Cancel</button>
+      <button mat-button class='btn btn-outline-info' (click)='saveMapedInfo()'>Save</button>
+    </mat-dialog-actions>
+  <!-- </div>
+</div> -->
+<!-- </div> -->

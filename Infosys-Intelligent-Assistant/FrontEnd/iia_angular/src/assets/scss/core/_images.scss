@@ -1,0 +1,11 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.img-thumbnail{
+    border-radius: 16px;
+}
+.img-raised{
+    @include shadow-big-image();
+}
+
+.rounded{
+    border-radius: $border-radius-large !important;
+}

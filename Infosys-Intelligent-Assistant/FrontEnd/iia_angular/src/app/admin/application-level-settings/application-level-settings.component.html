@@ -1,0 +1,327 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.-->
+<div class="card mt-3 ">
+    <div class="card-header border border-bottom-0 p-2">
+        <h4 class="card-title font-weight-bold p-0">Application Level Settings</h4>
+    </div>
+    <div class="card-body border p-0">
+        <div class="row m-0">
+            <div class="col-md-12">
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <div class="row ">
+                            <div class="col-md-12">
+                                <!--team change-->
+                                <div class="card mb-0 border">
+                                    <div class="card-body">
+                                        <div class="col-md-12 ">
+                                            <mat-form-field>
+                                                <mat-select [(ngModel)]="chosenTeam" (selectionChange)="getStatus()"
+                                                    placeholder="Select a Team" required>
+                                                    <mat-option *ngFor="let team of teams"
+                                                        [(value)]="team">{{team}}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- -->
+                                <div class="card mb-0 border">
+                                    <div class="card-body">
+                                        <mat-slide-toggle id="PredictAssignee" type="checkbox"
+                                            [(ngModel)]="switchStatusAssign" (click)="assignmentEnable()"><span
+                                                class="text-secondary">Predict Assignee (Assign Resource)</span>
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-0 border">
+                                    <div class="card-body">
+                                        <mat-slide-toggle id="PredictAssignee" type="checkbox"
+                                            [(ngModel)]="switchStatusPredict" (click)="PredictionEnable()"><span
+                                                class="text-secondary">Prediction Status</span>
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-0 border">
+                                    <div class="card-header">
+                                        <mat-slide-toggle type="checkbox" [(ngModel)]="switchStatusTValue"
+                                            (click)="tValueEnable()"><span class="text-secondary">Threshold Value</span>
+                                        </mat-slide-toggle>
+                                    </div>
+                                    <ng-container *ngIf="tValueEnabled">
+                                        <div class="card-body">
+                                            <ng-container>
+                                                <table
+                                                    class="table table-bordered table-responsive-sm table-striped table-active text-center">
+                                                    <thead class="card-header card-header-primary py-0">
+                                                        <th><label class="label-style">Predicted Field</label></th>
+                                                        <th><label class="label-style">Threshold Value</label></th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let field of predictedFields; let id = index;">
+                                                            <td>{{ field.predictedField }}</td>
+                                                            <td><input type='number' (focus)='alertEnable = false;'
+                                                                    [(ngModel)]='field.tValue' step=.1 min=0 max=1 />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </ng-container>
+                                            <p *ngIf="alertEnable"
+                                                [style.color]="alertType == 'success' ? 'green' : 'red'">{{message}}</p>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block mt-3"
+                                                (click)="saveTValue()">Save</button>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-0 border">
+                                    <div class="card-header">
+                                        <mat-slide-toggle type="checkbox" [(ngModel)]="switchStatisIopsValue"
+                                            (click)="iOpsEnable()"><span class="text-secondary">iOps Home Path</span>
+                                        </mat-slide-toggle>
+                                    </div>
+                                    <ng-container *ngIf="iOpsEnabled">
+                                        <div class="card-body">
+                                            <mat-form-field>
+                                                <mat-label>Enter the path</mat-label>
+                                                <input matInput type="text"
+                                                    pattern="^(?:[\w]\:|\\)(\\[a-z_\-\s0-9\.]+)+\.(txt|gif|pdf|doc|docx|xls|xlsx|exe)$"
+                                                    [(ngModel)]="iOpsPath" required>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-primary btn-sm btn-block mt-3"
+                                                (click)="saveIopsValue()">Save</button>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-0 border">
+                                    <div class="card-body">
+                                        <mat-slide-toggle id="HinglishFlag" type="checkbox" [(ngModel)]="HinglishStatus"
+                                            (click)="HinglishEnable()"><span class="text-secondary">Consider only
+                                                EnglishData</span>
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-2 border">
+                                    <div class="card-header">
+                                        <mat-label>Related Tickets Match Percentage</mat-label>
+                                    </div>
+                                    <div class="card-body">
+                                        <mat-form-field hintLabel="Accuracy Percentage for approval">
+                                            <input id="accuracy" (focus)='alertEnable2 = false;' name="accuracy"
+                                                step="1" type="number" ngNativeValidate matInput #input minlength="1"
+                                                maxlength="100" placeholder="Enter % input"
+                                                [(ngModel)]="accuracyPercent" pattern="^\-?[0-9]+(?:\.[0-9]{1,2})?$"
+                                                (click)="validateAccuracy()" required>
+                                            <mat-hint align="end">1-100</mat-hint>
+                                        </mat-form-field>
+                                        <p *ngIf="alertEnable2"
+                                            [style.color]="alertType == 'success' ? 'green' : 'red'">{{message}}</p>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <button ng-disabled="validAccuracy =='false' ;" type="button"
+                                            class="btn btn-primary btn-sm btn-block mt-3" (click)="validateAccuracy()"
+                                            ng-enabled="validAccuracy=='true'; " type="button"
+                                            class=" btn btn-primary btn-sm btn-block mt-3"
+                                            (click)="insertAccuracyValue()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-4 border">
+                                    <div class="card-header">
+                                        <mat-label>Related Ticket Search Algorithm options</mat-label>
+                                    </div>
+                                    <div class="card-body">
+                                        <mat-radio-group class="example-radio-group" [(ngModel)]='RTChosenAlgorithm'>
+                                            <mat-radio-button value="textRank" [checked]='true'>Text
+                                                Rank</mat-radio-button><br>
+                                            <mat-radio-button value="word2Vec">Word2Vec</mat-radio-button><br>
+                                            <mat-radio-button value="doc2Vec">Doc2Vec</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block mt-3"
+                                            (click)="saveRTConfig()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card mb-0 border">
+                                    <div class="card-header">
+                                        <mat-label>Notifications Settings</mat-label>
+                                        <div>
+                                            <div class="card-body">
+                                                <mat-slide-toggle [(ngModel)]="mymode" style="margin-left: -2em;"
+                                                    (change)="msteams_NER()">Microsoft Teams
+                                                    Notification</mat-slide-toggle>
+                                            </div>
+                                            <div class="card-body">
+                                                <mat-slide-toggle [(ngModel)]="twilio_enabled"
+                                                    style="margin-left: -2em;" (change)="twilio_notification()">Twilio
+                                                    Notifications</mat-slide-toggle>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ng-container *ngIf="twilio_enabled">
+                                        <ng-container>
+                                            <div class="col-md-12">
+                                                <div class="card-body" style="margin-top: -2em;">
+                                                    <mat-checkbox type="checkbox" [(ngModel)]='sms_Status' id="chk_sms"
+                                                        name="optcheckbox1_sms" (change)="sms_NER()">SMS
+                                                        Notification</mat-checkbox><br />
+                                                    <mat-checkbox type="checkbox" [(ngModel)]='whatsapp_Status'
+                                                        id="chk_whatsapp" name="optcheckbox1_whatsapp"
+                                                        (change)="whatsapp_NER()">Whatsapp
+                                                        Notification</mat-checkbox><br />
+                                                    <mat-checkbox type="checkbox" [(ngModel)]='call_Status'
+                                                        id="chk_call" name="optcheckbox1_call"
+                                                        (change)="call_NER()">Call Notification</mat-checkbox><br />
+                                                    <!-- <p *ngIf="alertEnable10" [style.color]="alertType == 'success' ? 'green' : 'red'">{{message}}</p> -->
+                                                </div>
+                                                <!-- </div> -->
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+                                    <p *ngIf="alertEnable10" [style.color]="alertType == 'success' ? 'green' : 'red'">
+                                        {{message}}</p>
+                                    <div class="card-footer ">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block mt-3"
+                                            (click)="saveAlertConfig()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-2 border">
+                            <div class="card-header">
+                                <mat-label>KB Source</mat-label>
+                            </div>
+                            <div class="card-body pb-0">
+                                <mat-radio-group class="example-radio-group" [(ngModel)]='lastsourceChosen'>
+                                    <mat-radio-button name="optcheckbox1" (change)="serviceNow($event)"
+                                        value="ITSM">ITSM</mat-radio-button>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>ITSM Tool name</mat-label>
+                                        <mat-select [(ngModel)]="toolName" name="toolName" placeholder="ITSM Tool Name">
+                                            <mat-option *ngFor="let tool of ITSMToolNames;let i = index"
+                                                [value]="tool">{{tool}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" *ngIf="toolName == 'Others'">
+                                        <mat-label>Other ITSM Tool Name</mat-label>
+                                        <input [(ngModel)]="toolNameOthers" name="toolName" matInput
+                                            placeholder="Enter ITSM Tool Name">
+                                    </mat-form-field>
+                                    <mat-radio-button name="optcheckbox1" (change)="fileServer($event)"
+                                        value="File Server">File Server</mat-radio-button>
+                                    <mat-form-field class="example-full-width">
+                                        <input id="input2" matInput [(ngModel)]="filePath"
+                                            placeholder="File Server Path"
+                                            pattern="^(?:[\w]\:|\\)(\\[a-z_\-\s0-9\.]+)+\.(txt|gif|pdf|doc|docx|xls|xlsx)$"
+                                            required (keyup)="validateUrls($event)">
+                                    </mat-form-field>
+                                    <mat-radio-button name="optcheckbox1" (change)="sharepoint($event)"
+                                        value="Sharepoint"> Sharepoint
+                                    </mat-radio-button>
+                                    <mat-form-field class="example-full-width">
+                                        <input id="input3" matInput [(ngModel)]="sharepointUrl"
+                                            placeholder="Sharepoint URL"
+                                            pattern="[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)"
+                                            required (keyup)="validateUrls($event)">
+                                    </mat-form-field>
+                                </mat-radio-group>
+                                <p *ngIf="alertEnable3" [style.color]="alertType == 'success' ? 'green' : 'red'">
+                                    {{message}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class=" btn my-0 btn-primary btn-sm btn-block" type="button"
+                                    (click)="SaveSourceDetails()">Save</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card mb-2 border">
+                                <div class="card-header">
+                                    <mat-label>Scripts Match Percentage</mat-label>
+                                </div>
+                                <div class="card-body">
+                                    <mat-form-field hintLabel="Scripts matching percentage for fetching">
+                                        <input id="script" name="script" (focus)='alertEnable4 = false;' step="1"
+                                            type="number" ngNativeValidate matInput #input minlength="1" maxlength="100"
+                                            placeholder="Enter % input" [(ngModel)]="scriptPercent"
+                                            pattern="^\-?[0-9]+(?:\.[0-9]{1,2})?$" (click)="validateScriptPercent()"
+                                            required>
+                                        <mat-hint align="end">1-100</mat-hint>
+                                    </mat-form-field>
+                                    <p class="alertEnable4" *ngIf="alertEnable4"
+                                        [style.color]="alertType == 'success' ? 'green' : 'red'">{{message}}</p>
+                                </div>
+                                <div class="card-footer ">
+                                    <button ng-disabled="validScript == 'false';" type="button"
+                                        class="btn btn-primary btn-sm btn-block mt-3" (click)="validateScriptPercent()"
+                                        ng-enabled="validScript == 'true';" type="button"
+                                        class="btn btn-primary btn-sm btn-block mt-3"
+                                        (click)="insertScriptPercent()">Save</button>
+                                </div>
+                            </div>
+                            <div class="col-md-14">
+                                <div class="card mb-4 border">
+                                    <div class="card-header">
+                                        <mat-label>Assignment Module</mat-label>
+                                    </div>
+                                    <div class="card-body">
+                                        <mat-select placeholder="Select any Column name" [(ngModel)]='selectedCol'>
+                                            <mat-option *ngFor="let ColumnNames of filter_columns"
+                                                [value]="ColumnNames">{{ColumnNames}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <p *ngIf="alertEnable5"
+                                            [style.color]="alertType == 'success' ? 'green' : 'red'">{{message}}</p>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block mt-3"
+                                            (click)="insertColName()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-14">
+                                <div class="card mb-4 border">
+                                    <div class="card-header">
+                                        <mat-label>NER Settings</mat-label>
+                                    </div>
+                                    <div class="card-body">
+                                        <mat-checkbox type="checkbox" [(ngModel)]='NER_regEx_Status' id="chk_NER_Regex"
+                                            name="optcheckbox1_regex" (change)="RegEx_NER()">Reg Ex</mat-checkbox><br />
+                                        <mat-checkbox type="checkbox" [(ngModel)]='NER_DB_Status' id="chk_NER_DB"
+                                            name="optcheckbox1_DB"
+                                            (change)="Database_NER()">Database</mat-checkbox><br />
+                                        <mat-checkbox type="checkbox" [(ngModel)]='NER_spacy_Status' id="chk_NER_Spacy"
+                                            name="optcheckbox1_spacy" (change)="Spacy_NER()">Spacy</mat-checkbox><br />
+                                        <p *ngIf="alertEnable6"
+                                            [style.color]="alertType == 'success' ? 'green' : 'red'">{{message}}</p>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block mt-3"
+                                            (click)="saveNERConfig()">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

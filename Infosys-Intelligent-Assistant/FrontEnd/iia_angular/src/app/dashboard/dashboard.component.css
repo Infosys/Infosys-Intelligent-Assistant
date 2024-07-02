@@ -1,0 +1,244 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+#myBarChart{
+  margin-top: 0em;
+  margin-left: -3em; 
+  /* left:20em;  */
+}
+#myBarChart2{
+  margin-top: 0em;
+  margin-left: -3em;
+}
+.circle.small {
+  border: 8px solid #2daf05;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  z-index: 86;
+  right: 200px;
+}
+.mat-tooltip.largerTooltip {
+  font-size: 14px;
+}
+.circle.filled {
+  background-color: #666666;
+}
+.ticketApproval{
+  text-align: center;
+  margin-left: -4em;
+  font-size: large;
+  font-family: Lorem ipsum;
+}
+.email{
+  text-align: center;
+  font-size: large;
+  font-family: Lorem ipsum;
+  margin-left: 10em;
+}
+#myChart{
+  margin-top: 3em;
+  margin-left: -1em;
+}
+.card-part:hover {
+        background: rgb(60, 57, 243);
+  }
+.card-height{
+      height: 230px;
+      margin-bottom:500px;
+}
+.card-backG{
+      background-color: #47c34d;
+      border-radius: 2%;
+      font-size: 100px;
+}
+.card-backGop{
+      background-color: #f5a843;
+      border-radius: 2%;
+      font-size: 100px;
+}
+.card-image {
+  width: 1050px;
+ /*height: 2100px;*/
+}
+#divChart{
+      display: block;
+      width: 150%;
+      height: 800px;
+  }
+  .main-div{
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-counter{
+      box-shadow: 2px 2px 10px #DADADA;
+      margin: 5px;
+      padding: 20px 10px;
+      background-color: #fff;
+      height: 100px;
+      border-radius: 5px;
+      transition: .3s linear all;
+    }
+    .card-counter:hover{
+      box-shadow: 4px 4px 20px #DADADA;
+      transition: .3s linear all;
+    }
+    .card-counter.primary{
+      background-color: #007bff;
+      color: #FFF;
+    }
+    .card-counter.danger{
+      background-color: #ef5350;
+      color: #FFF;
+    }  
+    .card-counter.success{
+      background-color: #66bb6a;
+      color: #FFF;
+    }  
+    .card-counter.info{
+      background-color: #26c6da;
+      color: #FFF;
+    }  
+    .card-counter i{
+      font-size: 5em;
+      opacity: 0.2;
+    }
+    .card-counter .count-numbers{
+      position: absolute;
+      right: 35px;
+      top: 20px;
+      font-size: 32px;
+      display: block;
+    }
+    .card-counter .count-name{
+      position: absolute;
+      right: 35px;
+      top: 65px;
+      font-style: italic;
+     /* text-transform: capitalize;*/
+      opacity: 0.5;
+      display: block;
+      font-size: 18px;
+    }
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+    body {
+      overflow-x: hidden;
+    }
+    body.sticky-footer {
+      margin-bottom: 56px;
+    }
+    body.sticky-footer .content-wrapper {
+      min-height: calc(100vh - 56px - 56px);
+    }
+    body.fixed-nav {
+      padding-top: 56px;
+    }
+    .content-wrapper {
+      min-height: calc(100vh - 56px);
+      padding-top: 1rem;
+    }
+    .smaller {
+      font-size: 0.7rem;
+    }
+    .o-hidden {
+      overflow: hidden !important;
+    }
+    .z-0 {
+      z-index: 0;
+    }
+    .z-1 {
+      z-index: 1;
+    }
+    .content-wrapper {
+      overflow-x: hidden;
+      background: white;
+    }
+    @media (min-width: 992px) {
+      .content-wrapper {
+        margin-left: 250px;
+      }
+    }
+    .card-body-icon {
+      position: absolute;
+      z-index: 0;
+      top: -25px;
+      right: -25px;
+      font-size: 5rem;
+      -webkit-transform: rotate(15deg);
+      -ms-transform: rotate(15deg);
+      transform: rotate(15deg);
+    }
+    @media (min-width: 576px) {
+      .card-columns {
+        column-count: 1;
+      }
+    }
+    @media (min-width: 768px) {
+      .card-columns {
+        column-count: 2;
+      }
+    }
+    @media (min-width: 1200px) {
+      .card-columns {
+        column-count: 2;
+      }
+    }
+    .card-login {
+      max-width: 25rem;
+    }
+    .card-register {
+      max-width: 40rem;
+    }
+    .mat-table {
+      width: 60% !important;
+    }
+    .mat-row:nth-child(even){
+      background-color: #e4f0ec;
+  }
+  .mat-row:nth-child(odd){
+      background-color:#ffffff;
+  }
+  .mat-header-cell {
+    background: #0C7CD5;
+    color:#fff;
+    border-color:#0b75c9;
+    font-size:14px;
+}
+.btn{
+  text-transform: none !important;
+}
+.tile-fontsize{
+  font-size:22px !important;
+}
+.fetch-height{
+  height:460px !important;
+}
+.fetch-count{
+  height: 280px;
+    text-align: center;
+    padding-top: 75px;
+}
+.fetch-padding{
+  padding-top:40px;
+}
+.equal-symbol{
+  text-align: center;
+  align-items: center;
+  padding-top: 215px;
+  color: blue;
+  font-size: 50px;
+  padding-left: 5px;
+}
+.plus-padding{
+  padding-top: 116px;
+}
+.symbol-width{
+  max-width:1% !important;
+}
+.second-row{
+  min-width: 48%;
+  padding-right: 0px;
+}

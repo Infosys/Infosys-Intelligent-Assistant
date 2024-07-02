@@ -1,0 +1,53 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.lgr {
+  border: 1px solid rgb(217, 30, 98) !important;
+}
+.modal-content {
+  height: 640px;
+}
+.card-bott {
+  height: 450px;
+}
+.dashboard-box1 {
+  left: -11px;
+  top: 0px;
+  width: 352px;
+  height: 47px;
+  background-color: rgb(138, 177, 211);
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 5px;
+  border-radius: 5px;
+  position: absolute;
+  cursor: pointer;
+}
+.dashboard-box2 {
+  left: -11px;
+  top: 0px;
+  width: 352px;
+  height: 47px;
+  background-color: rgb(72, 193, 87);
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 5px;
+  border-radius: 5px;
+  position: absolute;
+  cursor: pointer;
+}
+.dashboard-heading {
+  left: 28px;
+  top: 2px;
+  width: 325px;
+  font-size: 18px;
+  font-family: "Open Sans Embed", Arial, sans-serif;
+  position: absolute;
+  cursor: pointer;
+}
+.dashboard-subheading {
+  left: 28px;
+  top: 25px;
+  width: 290px;
+  color: rgb(226, 226, 226);
+  font-family: "Open Sans Embed", Arial, sans-serif;
+  position: absolute;
+  cursor: pointer;
+  font-size: 13px;
+}

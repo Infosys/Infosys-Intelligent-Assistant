@@ -1,0 +1,126 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Choose an algorithm for prediction !!! <sup><i class="fa fa-info-circle"
+                                matTooltip="Compare Accuracies between Previous and Current training"
+                                matTooltipPosition="right"></i></sup>
+                        <button class="btn btn-secondary float-right m-0" (click)="OpenTuningPage()">Advanced
+                            Tuning</button>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col px-1 " *ngIf="inProgressAlgorithms">
+                            <div>
+                                <h4>Currently Computed Accuracies </h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover table-bordered" id="predictTable">
+                                        <thead class="text-left table-info">
+                                            <tr>
+                                                <th class="text-left" scope="col">Predicted Field</th>
+                                                <th scope="col"
+                                                    *ngFor="let algorithm of algorithmsInformation[0];let i=index">
+                                                    {{algorithm.AlgorithmName}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let algorithm of algorithmsInformation; let fieldCount=index">
+                                                <th>
+                                                    <div class="radiotext">
+                                                        <label class="text-info"
+                                                            for='name'>{{predictedFieldsInformation[fieldCount].Name}}</label>
+                                                    </div>
+                                                </th>
+                                                <td class="text-center"
+                                                    *ngFor="let predictedFieldAlgorithm of algorithm;let i=index">
+                                                    <div class="radiotext  text-center">
+                                                        <input type="radio" id='accuracy'
+                                                            [value]="predictedFieldAlgorithm.AlgorithmName"
+                                                            name={{predictedFieldsInformation[fieldCount].Name}}
+                                                            (click)="chooseAlgorithm(predictedFieldsInformation[fieldCount].Name, predictedFieldAlgorithm.AlgorithmName)"
+                                                            [(ngModel)]="bestAccuracies[predictedFieldsInformation[fieldCount].Name].AlgorithmName">
+                                                        <label for='accuracy'>
+                                                            &nbsp;{{predictedFieldAlgorithm.F1_score}}</label>
+                                                        <br>
+                                                        &nbsp; <a id="fieldsSection" title="View Classification report" 
+                                                            (click)="openModel(predictedFieldsInformation[fieldCount].Name,algorithmsInformation[0][i].AlgorithmName,'InProgress')">
+                                                            <i class="fa fa-file-text text-info"
+                                                                matTooltip="Classification Report"
+                                                                matTooltipPosition="below"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col px-1" *ngIf="approvedAlgorithms">
+                            <div>
+                                <h4>Last Approved Accuracies </h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover table-bordered  text-left"
+                                        id="predictTable">
+                                        <thead class="text-center table-active">
+                                            <tr>
+                                                <th class="text-left" scope="col">Predicted Field</th>
+                                                <th scope="col"
+                                                    *ngFor="let algorithm of approvedAlgorithmsInformation[0];let i=index">
+                                                    {{algorithm.AlgorithmName}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let algorithm of approvedAlgorithmsInformation; let fieldCount=index">
+                                                <th scope="row">
+                                                    <div class="radiotext">
+                                                        <label class="text-info radiotext"
+                                                            for='name'>{{approvedPredictedFieldsInformation[fieldCount].Name}}</label>
+                                                    </div>
+                                                </th>
+                                                <td class="text-center"
+                                                    *ngFor="let predictedFieldAlgorithm of algorithm;let i=index">
+                                                    <div class="radiotext">
+                                                        <label for='accuracy'>
+                                                            <b *ngIf="predictedFieldAlgorithm.AlgorithmName == chosenAlgorithmName[approvedPredictedFieldsInformation[fieldCount].Name]; else other"
+                                                                class="text-success">{{predictedFieldAlgorithm.F1_score}}</b>
+                                                        </label>
+                                                        <br>
+                                                        <ng-template
+                                                            #other>{{predictedFieldAlgorithm.F1_score}}</ng-template>
+                                                        &nbsp; <a id="fieldsSection" title="View Classification report" 
+                                                            (click)="openModel(approvedPredictedFieldsInformation[fieldCount].Name,approvedAlgorithmsInformation[0][i].AlgorithmName,'Approved')">
+                                                            <i class="fa fa-file-text text-info"
+                                                                matTooltip="Classification Report"
+                                                                matTooltipPosition="below"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 " *ngIf="inProgressAlgorithms">
+                    <button type="button" class="btn btn-primary float-right px-4 ml-3" (click)="useCurrent()">Use
+                        Computed</button>
+                </div>
+                <div class="col-md-12 text-success " *ngIf="saveSuccess">
+                    <em>
+                        <b class="float-right">Algorithm preferences saved successfully! Upload Roaster, Application and
+                            Resource details for prediction!</b>
+                    </em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

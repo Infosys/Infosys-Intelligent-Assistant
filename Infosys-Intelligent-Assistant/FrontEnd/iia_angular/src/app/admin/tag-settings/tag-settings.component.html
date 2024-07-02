@@ -1,0 +1,57 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<div class="main-content">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            <div class="card mb-0">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Cluster Details
+                        <sup><i class="fa fa-info-circle" matTooltip="Data Set to be created for multiple teams"
+                                matTooltipPosition="above"></i></sup>
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div *ngIf='!clstrNmeEditState' class="col-md-12">
+                            <p class="mb-0">Cluster </p>
+                            <mat-form-field>
+                                <mat-select [(ngModel)]="chosenCluster" (change)="clusterChange($event.value)"
+                                    [(value)]="selected" placeholder="Select a Cluster" required>
+                                    <mat-option *ngFor="let clusterDoc of clusterDocLst; let id = index;"
+                                        [value]="clusterDoc">{{clusterDoc.clusterName}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" [ngStyle]="{'cursor':'pointer'}"
+                                (click)="editClstrNme()"></i>
+                            <p>You have selected: <span class="text-info">{{chosenCluster.clusterName}}</span> </p>
+                        </div>
+                        <div *ngIf='clstrNmeEditState' class="col-md-12">
+                            <p class="mb-0">Edit Cluster Name </p>
+                            <mat-form-field>
+                                <input type='text' matInput [(ngModel)]='tmpClstrNme'>
+                            </mat-form-field>
+                            <i class="fa fa-times" aria-hidden="true" [ngStyle]="{'cursor':'pointer'}"
+                                (click)="cancelEditClstrNme()">Cancel</i>&nbsp;&nbsp;
+                            <i class="fa fa-floppy-o" aria-hidden="true" [ngStyle]="{'cursor':'pointer'}"
+                                (click)="saveNewClutserName()">Save</i>
+                        </div>
+                        <div class="col-md-12" *ngIf='clstrChoosedState'>
+                            <label>Cluster values <b class="text-info">{{datasetName}}</b></label>
+                            <tag-input [(ngModel)]="chosenCluster.values" placeholder="Add new value for cluster"
+                                theme="bootstrap" (focusout)='focusOutFromTagInput()'></tag-input>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-right ">
+                            <button class=" btn btn-primary my-3 " type="button" (click)="SaveClstrDetails()">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loading">
+        <app-loader></app-loader>
+    </div>
+</div>

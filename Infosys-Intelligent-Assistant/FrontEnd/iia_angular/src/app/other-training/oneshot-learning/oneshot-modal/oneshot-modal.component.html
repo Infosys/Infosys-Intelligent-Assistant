@@ -1,0 +1,22 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<h2 mat-dialog-title>Additional Image Details </h2>
+<mat-form-field class="app_name">
+        <mat-label>Enter Application Name</mat-label>
+        <input matInput [(ngModel)]="data.app_name" placeholder="Application  name " required>
+    </mat-form-field>
+<mat-form-field class="sub_app_name">
+    <mat-label>Enter SubApplication Name</mat-label>
+    <input matInput [(ngModel)]="data.sub_appname" placeholder="SubApplication  name " required>
+</mat-form-field>
+<mat-form-field class="error_details">
+    <mat-label>Enter Error Details</mat-label>
+    <input matInput [(ngModel)]="data.error_details" placeholder=" Error Says " >
+</mat-form-field>
+<mat-form-field class="resolution_steps">
+    <mat-label>Enter Resolution Steps </mat-label>
+    <input matInput [(ngModel)]="data.resolution_steps" placeholder="Resolution to be followed " >
+</mat-form-field>
+
+

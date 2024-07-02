@@ -1,0 +1,22 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<h2 mat-dialog-title>Enter Image Details for Analysis </h2>
+<mat-form-field class="img_name">
+    <mat-label>Enter Image Name</mat-label>
+    <input matInput [(ngModel)]="img_name" placeholder="Image name " required>
+</mat-form-field>
+<mat-form-field class="error_details">
+    <mat-label>Enter Error Details</mat-label>
+    <input matInput [(ngModel)]="error_details" placeholder=" Error Says ">
+</mat-form-field>
+<mat-form-field class="col_names" *ngFor="let colName of columnNames">
+    <mat-label>Enter {{colName}}</mat-label>
+    <input matInput [(ngModel)]="data_to_send[colName]" placeholder="{{colName}}">
+</mat-form-field>
+<div mat-dialog-actions>
+    <button type="button" class="btn btn-outline-info" (click)="uploadImage_and_Train()">
+        <span class="ti-plus"></span>
+        Save and Train
+    </button>
+</div>

@@ -1,0 +1,96 @@
+<!--
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<!-- <div>
+    <div class="main-content"> -->
+        <br>
+        <div class="row justify-content-md-center">
+            <div class="col-md-10">
+                <div class="card mb-0">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">NER Configuration
+                            <sup><i class="fa fa-info-circle" matTooltip="NER Configuration data"
+                                    matTooltipPosition="above"></i></sup>
+                        </h4>
+                        <!-- <p class="card-category">Please fill the below details</p> -->
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">                            
+                            <div class="col-md-6">
+                                <h3 class="mb-0">Tags and Configured values </h3>
+                            </div>
+                            <div class="col-md-2">
+                                    <button type="button" class="btn btn-success btn-sm float-right " [disabled]="enableExportButton===false" (click)="exportToCSV()">
+                                        Export to CSV</button>
+                                </div>
+
+                                <div class="col-md-2 ">
+
+                                        <mat-form-field>
+                                            <mat-label>Number of Tags : </mat-label>
+                                            <input matInput type="number" id="tags-count" class="form-control tags-1" [(ngModel)]="numberOfTags" (blur)="onTagsCountChanged($event)" (keydown.Tab)="onTagsCountChanged($event)" (keydown.Enter)="onTagsCountChanged($event)">
+                                        </mat-form-field>
+                                    </div>
+                                <div class="col-md-2">
+                                        <button type="button" class="btn btn-success btn-sm float-right "[(ngModel)]="enableExportButton" (click)="generateTags()">
+                                            GENERATE TAGS</button>
+
+                                    
+                                            <!-- <div *ngIf="loading else loaded">
+                                                    <div class="loader"></div>
+                                                </div> -->
+                                                
+                                                <div *ngIf="loading">
+                                                        <app-loader></app-loader>
+                                                </div>
+
+
+                                    </div>
+
+                                            
+                        </div>
+
+                        <div class="table-wrapper-scroll-y">
+                          
+                                <mat-table #table [dataSource]="dataSource" matSort (click)='clearMsg()'>
+                                    <ng-container matColumnDef="{{column.id}}" *ngFor="let column of columnNames">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header> {{column.value}} </mat-header-cell>
+                                        <ng-container *ngIf="column.id == 'entity'">
+                                            <!-- <mat-cell *matCellDef="let element" contenteditable="true"> {{element[column.id]}} </mat-cell> -->
+                                            <mat-cell *matCellDef="let element">
+                                                <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="element[column.id]" (focusout)='updateTagName(element,$event.target.value)' [ngbTypeahead]="search"/>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container *ngIf="column.id == 'description'">
+                                            <mat-cell *matCellDef="let element">
+                                                <tag-input [(ngModel)]="element[column.id]" placeholder="Add new value for cluster" theme="bootstrap"></tag-input>
+                                            </mat-cell>
+                                        </ng-container>
+                                    </ng-container>
+                            
+                                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                </mat-table>
+                              
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+                        <div class="row">
+                            <div class="col text-right ">
+                                <p *ngIf='showMsgState' [style.color]='msgClr'>{{msg}}</p>
+                                <!-- <button class=" btn btn-primary my-3 " type="button"
+                                    (click)="saveNER()" [disabled]="disableTeam">Save</button> -->
+                                <button class=" btn btn-primary my-3 " type="button"
+                                    (click)="saveNERConfig()" [disabled]="disableTeam">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+    <!-- </div>
+</div> -->
+
+

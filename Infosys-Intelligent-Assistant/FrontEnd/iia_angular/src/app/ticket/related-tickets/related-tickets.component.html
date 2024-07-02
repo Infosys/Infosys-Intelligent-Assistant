@@ -1,0 +1,723 @@
+<div class="main-content">
+    <div class="modal-content">
+        <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+            <h4 class="modal-title" id="modal-basic-title font-weight-bold" (click)="showSummary()">
+                {{dataToTakeAsInput['IncidentNumber']}} (Desc: {{dataToTakeAsInput['Description']}})</h4>
+            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <span aria-hidden="true" style="color:white;">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 pl-0" style="max-height: 50px;">
+                        <div class="headsummary">
+                            <div class="container-overflow">
+                                <div class="row">
+                                    <div class="col-md-3 p-0" (click)="showSummary()">
+                                        <div class="rectangle dashboard-box" [ngClass]="{active:summaryShowHide}"></div>
+                                        <span class="autoheight label richText dashboard-heading">
+                                            <span style="color:rgba(255,255,255,1.00);">Summary</span>
+                                        </span>
+                                        <span class="autoheight label richText dashboard-subheading">
+                                            <span>Ticket Details along with Enriched Data</span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3 p-0" (click)="showDetailedAnalysis()">
+                                        <div class="rectangle dashboard-box"></div>
+                                        <span class="autoheight label richText dashboard-heading">
+                                            <span style="color:rgba(255,255,255,1.00);">Detailed analysis</span>
+                                        </span>
+                                        <span class="autoheight label richText dashboard-subheading">
+                                            <span>NER information, Attachment analysis</span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3 p-0" (click)="showRelated()">
+                                        <div class="rectangle dashboard-box"
+                                            [ngClass]="{active:relatedTicketsShowHide}"></div>
+                                        <span class="autoheight label richText dashboard-heading">
+                                            <span style="color:rgba(255,255,255,1.00);">Solution to Related
+                                                Tickets</span>
+                                        </span>
+                                        <span class="autoheight label richText dashboard-subheading">
+                                            <span style="color:rgba(226,226,226,1.00);">Similar closed tickets</span>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-3 p-0" (click)="showResolutions()">
+                                        <div class="rectangle dashboard-box" [ngClass]="{active:resolutionsShowHide}">
+                                        </div>
+                                        <span class="autoheight label richText dashboard-heading">
+                                            <span style="color:rgba(255,255,255,1.00);">Resolutions</span>
+                                        </span>
+                                        <span class="autoheight label richText dashboard-subheading">
+                                            <span style="color:rgba(226,226,226,1.00);">Follow ups / Response /
+                                                chatbot</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 pl-0">
+                        <div class="row">
+                            <div class="col-md-12" id="Summary" *ngIf="summaryShowHide">
+                                <div class="row">
+                                    <div class="col-md-5 p-0">
+                                        <div class="card card-bottom"
+                                            style="background-color: aliceblue;overflow-y: auto; height: 250px;">
+                                            <div class="table-wrapper-scroll-y">
+                                                <label class="label-head" style="font-size: 17px">Ticket Details</label>
+                                                <br>
+                                                <label class="label-style"> Ticket Number:</label>&nbsp;
+                                                <label
+                                                    style="color:black;font-size: 12px;">{{dataToTakeAsInput['IncidentNumber']}}</label>
+                                                <br>
+                                                <label class="label-style"> Description:</label>&nbsp;
+                                                <label
+                                                    style="color:black;font-size: 12px;">{{dataToTakeAsInput['Description']}}</label>
+                                                <br>
+                                                <label class="label-style"> Additional Information: </label> &nbsp;
+                                                <label
+                                                    style="color:black;font-size: 12px;">{{dataToTakeAsInput['Description']}}</label>
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <div class="card card-bottom"
+                                            style="background-color: rgb(239, 216, 251); height: 230px;">
+                                            <div class="table-wrapper-scroll-y" style="height: 175px">
+                                                <label class="label-head" style="font-size: 16px">Contributing
+                                                    Words</label>
+                                                <br>
+                                                <span *ngFor="let item of contributingWords | keyvalue">
+                                                    <label class="label-style"> {{item.key}}:</label>&nbsp;
+                                                    <label
+                                                        *ngFor="let word of contributingWords[item.key]; let isLast=last"
+                                                        style="color:black;font-size: 13px;">{{word[0]}}{{isLast ? '' :
+                                                        ',&nbsp;'}}</label>
+                                                    <br>
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <a style="cursor:pointer;color: blue;font-size: 15px;font-weight: 500;"
+                                                    title="Click here to view open tickets"
+                                                    (click)="showOpenTickets(dataToTakeAsInput['IncidentNumber'],dataToTakeAsInput['Description'])">Related
+                                                    Open Tickets ({{openticketsCount}})</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 p-0">
+                                        <div class="card card-bot"
+                                            style="background-color: rgb(209, 240, 213); height: 490px">
+                                            <div class="card card-bottom ht-auto"
+                                                style="background-color: aliceblue;overflow-y: scroll;height: 470px">
+                                                <div class="table-wrapper-scroll-y">
+                                                    <label class="label-head">Enriched Details</label>
+                                                    <a class="btn btn-sm btn-outline-info " style="float: right;"
+                                                        title="Annotate Description using Annotation Tool"
+                                                        (click)="openAnnotationModal(dataToTakeAsInput['IncidentNumber'])">Annotate</a>
+                                                    <br>
+                                                    <form class="formcss">
+                                                        <ng-container *ngIf="predAssigneeStatus">
+                                                            <div
+                                                                *ngFor="let ticket of incidentTicketsData; let rowindex=index">
+                                                                <label class="label-style-RT-Heading"
+                                                                    (click)="showAllResourceInfo()"
+                                                                    style="color: blue; text-decoration: underline; cursor: pointer;">Predicted
+                                                                    Assignee</label>&nbsp;
+                                                                <select style="width: 120px;font-size: 12px"
+                                                                    name="AssignedTo--{{rowindex}}"
+                                                                    [(ngModel)]="ticket['predicted_assigned_to']"
+                                                                    (change)="assignedToChange(ticket['number'], ticket['predicted_assigned_to'])"
+                                                                    required>
+                                                                    <option
+                                                                        *ngFor="let assignee of ticket['possible_assignees']"
+                                                                        [value]="assignee">{{assignee}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </ng-container>
+                                                        <br>
+                                                        <div *ngFor="let ticket of incidentTicketsData">
+                                                            <div *ngFor="let field of predictedFields; let i = index;">
+                                                                <label class="label-style-RT-Heading">Raw {{field}}
+                                                                </label>&nbsp;
+                                                                <label class="label-style-RT">{{ticket[field]}}
+                                                                </label>&nbsp;
+                                                                <label class="label-style-RT-Heading">Predicted
+                                                                    {{field}}
+                                                                </label>&nbsp;
+                                                                <select style="width: 120px;font-size: 12px"
+                                                                    name="Predicted--{{i}}"
+                                                                    [(ngModel)]="ticket['predicted_fields'][i][field]"
+                                                                    (change)="predictedFieldValueChange(ticket['number'], field, ticket['predicted_fields'][i][field])"
+                                                                    required>
+                                                                    <option *ngFor="let value of allValues[field]"
+                                                                        [value]="value">{{value}}</option>
+                                                                </select>
+                                                                <i class="fa fa-info-circle"
+                                                                    ngbTooltip="Confidence Score:{{ticket['predicted_fields'][i]['ConfidenceScore']}}"
+                                                                    tooltipClass="my-custom-class" placement="top"></i>
+                                                                <!-- Tooltip with custom class -->
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                    </form>
+                                                </div>
+                                                <span style="float: left">
+                                                    <button type="button" *ngIf="showApprove"
+                                                        class="btn btn-primary w-25"
+                                                        (click)="approveTicket()">Approve</button>
+                                                </span>
+                                                <div *ngIf="approveSuccess" class="SuccessMsg">
+                                                    <em>
+                                                        <b>Changes saved successfully!</b>
+                                                    </em>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="Detailed Analysis" *ngIf="relatedTicketsShowHide">
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-top: 9px;">
+                                        <label>Related Ticket Algorithms:&nbsp;</label>
+                                        <mat-radio-group [(ngModel)]='RTChosenAlgorithm' (change)='showRelated()'>
+                                            <mat-radio-button value="textRank">Text Rank</mat-radio-button>&nbsp;
+                                            <mat-radio-button value="word2Vec">Word2Vec</mat-radio-button>&nbsp;
+                                            <mat-radio-button value="doc2Vec">Doc2Vec</mat-radio-button>
+                                            <mat-radio-button class="pl-1" value="BERT">BERT</mat-radio-button>
+                                        </mat-radio-group>
+                                        <input style="margin: 0px 3px 0px 330px;" type="checkbox"
+                                            (change)="CheckedWordCloud($event)" [(ngModel)]="ShowWordCloud" />Show
+                                        Resolution
+                                        Wordcloud
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div [className]="ShowWordCloud ? 'col-md-6 p-0' : 'col-md-12'">
+                                        <div class="card card-bottom" style="height: 470px;">
+                                            <div class="table-wrapper-scroll-y">
+                                                <mat-tab-group>
+                                                    <mat-tab label="Related Ticket Information">
+                                                        <table class="table table-striped1 table-hover table-bordered">
+                                                            <thead>
+                                                                <th
+                                                                    [className]="ShowWordCloud ? 'ticket-head-6' : 'ticket-head-12'">
+                                                                    Tickets</th>
+                                                                <th class="table-elements">Description</th>
+                                                                <th class="table-elements">Resolution</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let ticket of relatedTickets"
+                                                                    [ngClass]="{'text-success':ticket['highlight']}">
+                                                                    <td
+                                                                        [className]="ShowWordCloud ? 'ticket-head-6' : 'ticket-head-12'">
+                                                                        <a id="advancedSetting" target="_blank"
+                                                                            href="https://{{snowinstance}}.service-now.com/nav_to.do?uri=/incident.do?sysparm_query=number={{ticket['number']}}">
+                                                                            {{ticket['number']}}
+                                                                        </a>
+                                                                    </td>
+                                                                    <td class="table-elements">
+                                                                        <label
+                                                                            class="td-style-Dashboard">{{ticket['description']}}</label>
+                                                                    </td>
+                                                                    <td class="table-elements">
+                                                                        <label
+                                                                            class="td-style-Dashboard">{{ticket['close_notes']}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </mat-tab>
+                                                    <mat-tab label="Knowledge Information">
+                                                        <div *ngIf="kbSourcename=='ITSM'">
+                                                            <table
+                                                                class="table table-striped1 table-hover table-bordered">
+                                                                <thead>
+                                                                    <th class="table-elements" style="max-width: 50px;">
+                                                                        Tickets</th>
+                                                                    <th class="table-elements"
+                                                                        style="max-width: 280px;">Description</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let ticket of knowledgeInfo">
+                                                                        <td style="max-width: 50px;">
+                                                                            <a id="advancedSetting" target="_blank"
+                                                                                href="https://{{snowinstance}}.service-now.com/nav_to.do?uri=kb_view.do?sysparm_article={{ticket['KBNumber']}}">
+                                                                                {{ticket['KBNumber']}}
+                                                                            </a>
+                                                                        </td>
+                                                                        <td style="max-width: 280px;">
+                                                                            <label
+                                                                                class="td-style-Dashboard">{{ticket['Summary']}}</label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div *ngIf="kbSourcename=='FileServer'">
+                                                            <table
+                                                                class="table table-striped1 table-hover table-bordered">
+                                                                <thead>
+                                                                    <th class="table-elements" style="max-width: 50px;">
+                                                                        Tickets</th>
+                                                                    <th class="table-elements"
+                                                                        style="max-width: 280px;">Description</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let ticket of knowledgeInfo">
+                                                                        <td style="max-width: 50px;">
+                                                                            <a id="advancedSetting" target="_blank"
+                                                                                href="{{ticket['Path']}}">
+                                                                                {{ticket['KBNumber']}}
+                                                                            </a>
+                                                                        </td>
+                                                                        <td style="max-width: 280px;">
+                                                                            <label
+                                                                                class="td-style-Dashboard">{{ticket['Summary']}}</label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <div *ngIf="kbSourcename=='Sharepoint'">
+                                                            <table
+                                                                class="table table-striped1 table-hover table-bordered"
+                                                                id="auto-index">
+                                                                <thead>
+                                                                    <th class="table-elements"
+                                                                        style="max-width: 800px;">KBArticleLink</th>
+                                                                </thead>
+                                                                <div *ngIf="loading else loaded">
+                                                                    <div class="loader"></div>
+                                                                </div>
+                                                                <tbody>
+                                                                    <tr *ngFor="let articlelink of knowledgeInfo">
+                                                                        <td style="max-width: 800px;">
+                                                                            <a id="advancedSetting" target="_blank"
+                                                                                href="{{articlelink}}">
+                                                                                {{articlelink}}
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </mat-tab>
+                                                    <mat-tab label="Known Errors">
+                                                        <table class="table table-striped1 table-hover table-bordered">
+                                                            <thead>
+                                                                <th
+                                                                    [className]="ShowWordCloud ? 'ticket-head-6' : 'ticket-head-12'">
+                                                                    Tickets</th>
+                                                                <th class="table-elements">Description</th>
+                                                                <th class="table-elements">Resolution</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr *ngFor="let ticket of knownErrors">
+                                                                    <td
+                                                                        [className]="ShowWordCloud ? 'ticket-head-6' : 'ticket-head-12'">
+                                                                        <label
+                                                                            class="td-style-Dashboard">{{ticket['number']}}</label>
+                                                                    </td>
+                                                                    <td class="table-elements">
+                                                                        <label
+                                                                            class="td-style-Dashboard">{{ticket['description']}}</label>
+                                                                    </td>
+                                                                    <td class="table-elements">
+                                                                        <label
+                                                                            class="td-style-Dashboard">{{ticket['close_notes']}}</label>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </mat-tab>
+                                                </mat-tab-group>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 p-0" *ngIf="ShowWordCloud">
+                                        <div class="card card-bottom" style="height: 470px;">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <h4>&nbsp;Resolution (WordCloud)</h4>
+                                                </div>
+                                                <div class="col-lg-6 text-right">
+                                                    {{dataToTakeAsInput['IncidentNumber']}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Drop down to choose between unigram and bigram -->
+                                                <div class="col-lg-6 col-sm-3 pb-2 form-group">
+                                                    <label for="modal-WCT">Word cloud Type: </label>
+                                                    <select id="modal-WCT" (change)="cloudTypeChanged()"
+                                                        [(ngModel)]="cloudType" class="form-control ">
+                                                        <option value="Unigram" selected>--Unigram--</option>
+                                                        <option value="Bigram">--Bigram--</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-12" *ngIf="showCloud">
+                                                    <angular-tag-cloud #tagWordCloudContainer class="tagWordCss"
+                                                        [data]="tagCloudData" [overflow]="cloudoptions.overflow"
+                                                        (clicked)="logClicked($event)"
+                                                        [zoomOnHover]="ZoomOnHoverOptions"
+                                                        style="width: 477px;height: 268px;">
+                                                    </angular-tag-cloud>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="RelatedTickets" *ngIf="detailedAnalysisShowHide">
+                                <div class="row">
+                                    <div [className]="demo ? 'col-md-5 p-0' : 'col-md-12 p-0'">
+                                        <div class="card card-bottom"
+                                            style="height: 470px;background-color:snow; overflow-y: auto;">
+                                            <div class="table-wrapper-scroll-y">
+                                                <label class="labelclass">NER Information</label>
+                                                <table
+                                                    class="table table-bordered table-responsive-sm table-striped table-active text-center">
+                                                    <thead class="card-header card-header-primary py-0">
+                                                        <th style="width: 100px;padding: 0px;"><label
+                                                                class="label-style">Entity</label></th>
+                                                        <th style="width: 200px;padding: 0px;"><label
+                                                                class="label-style">Values</label></th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let valueEnt of namedEntities; let id = index;"
+                                                            style="height: 0px;">
+                                                            <td style="color:black;font-size: 12px;padding: 0px;">
+                                                                {{valueEnt['Entity']}}</td>
+                                                            <td
+                                                                style="cursor: text; color:black;font-size: 12px;padding: 0px;">
+                                                                <a *ngFor="let val of valueEnt['Value']"
+                                                                    style="color: blue; text-decoration: underline; cursor: pointer;"
+                                                                    (click)='showEntityDetails(val)'>
+                                                                    {{val}},&nbsp;
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- image NER information Table -->
+                                            <div class="table-wrapper-scroll-y">
+                                                <label class="labelclass">NER Image Information</label>
+                                                <table
+                                                    class="table table-bordered table-responsive-sm table-striped table-active text-center">
+                                                    <thead class="card-header card-header-primary py-0">
+                                                        <th style="width: 100px;padding: 0px;"><label
+                                                                class="label-style">Entity</label></th>
+                                                        <th style="width: 200px;padding: 0px;"><label
+                                                                class="label-style">Values</label></th>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let valueEnt of imagenamedEntities; let id = index;"
+                                                            style="height: 0px;">
+                                                            <td style="color:black;font-size: 12px;padding: 0px;">
+                                                                {{valueEnt['Entity']}}</td>
+                                                            <td
+                                                                style="cursor: text; color:black;font-size: 12px;padding: 0px;">
+                                                                <a *ngFor="let val of valueEnt['Value']"
+                                                                    style="color: blue; text-decoration: underline; cursor: pointer;"
+                                                                    (click)='showEntityDetails(val)'>
+                                                                    {{val}},&nbsp;
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="table-wrapper-scroll-y" style="background-color:ivory">
+                                                <div *ngIf='attachmentsState'>
+                                                    <label class="label-head">Recommended resolution</label>
+                                                    <br>
+                                                    <ng-container *ngFor="let column of resolutionColumns">
+                                                        <label class="label-style"> {{column}}:</label>&nbsp;
+                                                        <label
+                                                            style="color:black;font-size: 12px;">{{attachmentsData[column]}}</label>
+                                                        <br>
+                                                    </ng-container>
+                                                </div>
+                                                <div *ngIf='!attachmentsState'>
+                                                    <div *ngIf='(attachmentsState ==false && loading == true)'>
+                                                        <label class="label-style"> Trying to Fetch Attachment data
+                                                            available </label> &nbsp;
+                                                        <div *ngIf="loading else loaded">
+                                                            <div class="loader"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf='(attachmentsState == false && loading == false)'>
+                                                        <div *ngIf="loading else loaded">
+                                                            <div class="loader"></div>
+                                                        </div>
+                                                        <label class="label-style"> No Attachment data available
+                                                        </label> &nbsp;
+                                                    </div>
+                                                    <div
+                                                        *ngIf='(imagestate == true && attachmentsState == false && loading == false)'>
+                                                        <button type="button" class="btn btn-outline-info"
+                                                            (click)="chooseImageDialog()">
+                                                            <span class="ti-plus"></span>
+                                                            Click to Train Image
+                                                        </button>
+                                                        <p>Click image to download:
+                                                        <p>
+                                                            <a href="{{downloadimage}}" download>
+                                                                <img src="{{downloadimage}}" alt="INTENT" width="25"
+                                                                    height="25">
+                                                            </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 p-0" *ngIf="demo">
+                                        <div class="card card-bot"
+                                            style="background-color: rgb(209, 240, 213); height: 490px">
+                                            <div class="card card-bottom ht-auto"
+                                                style="background-color: aliceblue;overflow-y: scroll;height: 470px">
+                                                <div class="table-wrapper-scroll-y">
+                                                    <div *ngIf='imagestate'>
+                                                        <label class="label-head">Attachment preview </label>
+                                                        <ngx-image-viewer [src]="images" [(config)]="config"
+                                                            [(index)]="imageIndex" (onNext)="gonext($event)"
+                                                            (onPrevious)="goprevious($event)"
+                                                            (customEvent)="handleEvent($event)">
+                                                        </ngx-image-viewer>
+                                                    </div>
+                                                    <div *ngIf='!imagestate' class="table-wrapper-scroll-y">
+                                                        <label class="label-style"> No Image data available </label>
+                                                        &nbsp;
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 p-0" *ngIf="ShowWordCloud">
+                                        <div class="card card-bottom" style="height: 470px;">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <h4>&nbsp;Resolution (WordCloud)</h4>
+                                                </div>
+                                                <div class="col-lg-6 text-right">
+                                                    {{dataToTakeAsInput['IncidentNumber']}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Drop down to choose between unigram and bigram -->
+                                                <div class="col-lg-6 col-sm-3 pb-2 form-group">
+                                                    <label for="modal-WCT">Word cloud Type: </label>
+                                                    <select id="modal-WCT" (change)="cloudTypeChanged()"
+                                                        [(ngModel)]="cloudType" class="form-control ">
+                                                        <option value="Unigram" selected>--Unigram--</option>
+                                                        <option value="Bigram">--Bigram--</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-12" *ngIf="showCloud">
+                                                    <angular-tag-cloud #tagWordCloudContainer class="tagWordCss"
+                                                        [data]="tagCloudData" [overflow]="cloudoptions.overflow"
+                                                        (clicked)="logClicked($event)"
+                                                        [zoomOnHover]="ZoomOnHoverOptions"
+                                                        style="background-color: white;width: 477px;height: 268px;">
+                                                    </angular-tag-cloud>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" id="Resolutions" *ngIf="resolutionsShowHide">
+                                <div class="card card-bottom" style="height: 470px;">
+                                    <div class="row">
+                                        <br />
+                                        <mat-sidenav-container class="example-container">
+                                            <mat-sidenav #sidenav mode="side" style="width:150px;overflow:unset">
+                                                <p style="text-align: center;color: royalblue"><b>Resolutions</b></p>
+                                                <ul class="nav">
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" href="#collapse"
+                                                            role="button" (click)="openGit('store')">
+                                                            <p><i class="fa fa-shopping-bag"
+                                                                    aria-hidden="true"></i>&nbsp;Asset Store</p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" href="#collapse"
+                                                            role="button" (click)="invokeScriptsPopUp('iops')">
+                                                            <p><i class="fa fa-file-code-o"
+                                                                    aria-hidden="true"></i>&nbsp;Scripts</p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" href="#collapse"
+                                                            role="button" (click)="openGit('rpa')">
+                                                            <p><i class="fa fa-microchip"
+                                                                    aria-hidden="true"></i>&nbsp;RPA</p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" href="#collapse"
+                                                            role="button" (click)="invokeScriptsPopUp('batch')">
+                                                            <p><i class="fa fa-rocket" aria-hidden="true"></i>&nbsp;Jobs
+                                                            </p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" href="#collapse"
+                                                            role="button" (click)="invokeScriptsPopUp('sops')">
+                                                            <p><i class="fa fa-life-ring"
+                                                                    aria-hidden="true"></i>&nbsp;SOP's</p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" [href]="emailstring"
+                                                            role="button">
+                                                            <p><i class="fa fa-envelope"
+                                                                    aria-hidden="true"></i>&nbsp;Follow Up</p>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item" routerLinkActive="active">
+                                                        <a class="nav-link" data-toggle="collapse" href="#collapse"
+                                                            role="button">
+                                                            <p><i class="fa fa-comments"
+                                                                    aria-hidden="true"></i>&nbsp;Chat-Bot</p>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </mat-sidenav>
+                                            <mat-sidenav-content style="overflow: unset;padding-left: 25px;">
+                                                <a class="text-primary" (click)="sidenav.toggle()"
+                                                    style="cursor: pointer;"><b>
+                                                        <<More< /b></a><br />
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <div class="table-responsive table-max-height">
+                                                            <table
+                                                                class="table table-striped1 table-hover table-bordered">
+                                                                <thead>
+                                                                    <th class="table-elements">
+                                                                        Name</th>
+                                                                    <th class="table-elements">Type</th>
+                                                                    <th class="table-elements">Source</th>
+                                                                    <th class="table-elements">Description/Keyword</th>
+                                                                    <th class="table-elements">Environment</th>
+                                                                    <th class="table-elements"></th>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let ticket of resInfo"
+                                                                        [ngClass]="{'text-success':ticket['highlight']}">
+                                                                        <td class="table-elements">
+                                                                            <a
+                                                                                (click)="editScript(ticket['name'],'main',ticket['type'])">{{ticket['name']}}</a>
+                                                                        </td>
+                                                                        <td class="table-elements">
+                                                                            <label
+                                                                                class="td-style-Dashboard">{{ticket['type']}}</label>
+                                                                        </td>
+                                                                        <td class="table-elements">
+                                                                            <label
+                                                                                class="td-style-Dashboard">{{ticket['source']}}</label>
+                                                                        </td>
+                                                                        <td class="table-elements">
+                                                                            <label
+                                                                                class="td-style-Dashboard">{{ticket['desc_key']}}</label>
+                                                                        </td>
+                                                                        <td class="table-elements">
+                                                                            <select mat-select
+                                                                                class="td-style-Dashboard"
+                                                                                [(ngModel)]="ticket['environment']">
+                                                                                <option *ngFor="let item of envList">
+                                                                                    {{item}}</option>
+                                                                            </select>
+                                                                        </td>
+                                                                        <td *ngIf="ticket['type'] == 'script'"
+                                                                            class="table-elements">
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-light"
+                                                                                (click)="diagPopup(ticket)">Run
+                                                                                Diagnostic</button>
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-light"
+                                                                                (click)="provideArgs(ticket)">Run</button>
+                                                                        </td>
+                                                                        <td *ngIf="ticket['type'] == 'orchestrator'"
+                                                                            class="table-elements">
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-light"
+                                                                                (click)="provide_orchestrator_Args(ticket)">Run</button>
+                                                                        </td>
+                                                                        <td *ngIf="ticket['type'] == 'RPA'"
+                                                                            class="table-elements">
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-light"
+                                                                                (click)="RPAdiagPopup(ticket)">Run
+                                                                                Diagnostic</button>
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-light"
+                                                                                (click)="provideRPAArgs(ticket)">Run</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4" style="padding-left: 0px;">
+                                                        <div class="card card-bottom color-attr"
+                                                            style="height: 380px;padding-top: 0px;margin-top: 0px;background-color:black;padding-left: 30px;">
+                                                            <div class="row" style="padding-top: 10px;">
+                                                                <div class="col-lg-6">
+                                                                    <h4>Logs</h4>
+                                                                </div>
+                                                                <div class="col-lg-6 text-right">
+                                                                    {{dataToTakeAsInput['IncidentNumber']}}
+                                                                </div>
+                                                            </div>
+                                                            <button type="button" class="btn btn-sm btn-dark"
+                                                                (click)="clearLogs()">Clear Logs</button>
+                                                            <div class="row color-attr">
+                                                                <div class="table-wrapper-scroll-y1"
+                                                                    [(ngModel)]="auditLogs" name="auditLogs"
+                                                                    ngDefaultControl>
+                                                                    <br>
+                                                                    <span *ngFor="let item of auditLogs">
+                                                                        <label class="label-style1 color-attr">
+                                                                            {{item['time']}}:</label>&nbsp;
+                                                                        <label
+                                                                            style="color:white;font-size: 12px;">{{item['name']}}:
+                                                                            {{item['logs']}}</label>
+                                                                        <br>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-sidenav-content>
+                                        </mat-sidenav-container>
+                                    </div>
+                                    <br />
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p *ngIf="scriptStatus">
+                                                <ngb-alert [dismissible]="true" [type]="type" (close)="closeAlert()">
+                                                    {{message}}<a data-toggle="collapse" href="#collapse" role="button"
+                                                        (click)="showLogs('hi')"
+                                                        style="float: right;padding-right: 40px;">
+                                                        Logs
+                                                    </a></ngb-alert>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-loading *ngIf="loading"></app-loading>

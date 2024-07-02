@@ -1,0 +1,359 @@
+<!--
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-2">
+  <div class="row">
+    <div class="card   mb-1 pb-0">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Upload Shift Details
+          <sup><i class="fa fa-info-circle" matTooltip="Please select team and upload roaster file"
+              matTooltipPosition="above"></i></sup>
+        </h4>
+      </div>
+      <div class="card-body">
+        <div class="col-md-12 ">
+          <mat-form-field>
+            <mat-select [(ngModel)]="chosenTeam1" (selectionChange)="teamChange1()" placeholder="Select a Team"
+              required>
+              <mat-option *ngFor="let team of teams1" [(value)]="team">{{team}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-12 ">
+          <div *ngIf="showUpload">
+            <div class="row text-justify">
+              <div class="col-md-7 pt-2 ">
+                <input class="form-control btnChooseFileDesign" type="file" #roasterDetails placeholder="Upload file..."
+                  required />
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-outline-primary " type="button" (click)="uploadRoasterDetails()">Upload</button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-outline-primary float-right px-4" type="button"
+                  (click)="deleteAllRoasters()">Delete All</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loader">
+    <app-loader></app-loader>
+  </div>
+  <!--  -->
+  <br>
+  <div class="row">
+    <div class="col-md-3">
+      <mat-form-field>
+        <mat-select (selectionChange)="searchResource($event.value)" placeholder="Select User" [(ngModel)]="resource">
+          <mat-form-field class="dropdown_input">
+            <input matInput type="text" placeholder="Search" [(ngModel)]="searchGroup"
+              (keyup)="findResource($event.target.value)" />
+            <button *ngIf="searchGroup" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch('User')">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <ng-container *ngIf="resources">
+            <mat-option value="All">All</mat-option>
+            <mat-option *ngFor="let res of resources" [value]="res">{{
+              res.resource_name
+              }}</mat-option>
+          </ng-container>
+          <div *ngIf="resources?.length === 0" class="noData_div">
+            No Data Available
+          </div>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <mat-form-field>
+        <mat-select (selectionChange)="monthSelected($event.value)" placeholder="Select Month"
+          [(ngModel)]="selected_Month">
+          <mat-option *ngFor="let mon of months" [value]="mon.month">{{
+            mon.month
+            }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-2">
+      <div style=" align-items: center">
+        <i class="fa fa-table mr-3" id="table" aria-hidden="true" title="Table view" (click)="changeView('table')"
+          style="color: #9c27b0; font-size: x-large; cursor: pointer"></i>
+        <i class="fa fa-th" id="grid" aria-hidden="true" title="Grid View" (click)="changeView('grid')"
+          style="color: darkgrey; font-size: x-large; cursor: pointer"></i>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div style="align-items: center">
+        <button class="btn btn-primary" *ngIf="enableSave" (click)="saveRosterDetails()">Save</button>
+        <button class="btn btn-outline-primary btn-md px-3" type="button" (click)="addRoster()">
+          Add Roster
+        </button>
+        <button class="btn btn-outline-primary btn-md px-3" type="button" (click)="ngOnInit()">
+          Refresh
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="card mt-1 pt-1">
+      <div class="col-lg-12" *ngIf="!roasterAlert">
+        <div *ngIf="tableView" class="table-responsive rightAnimationClass">
+          <table class="table table-striped table-hover table-bordered tbl-lay-f th-custom">
+            <thead class="card-header-primary text-center">
+              <tr>
+                <th colspan="2">Analyst User</th>
+                <th>Shift</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th style="width:20%">Holidays</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of app_lst; let i = index ">
+                <td *ngIf="i !== editRecordId && data.resource_id !== 0" [title]="data.resource_name" colspan="2">
+                  {{ data.resource_name }}
+                </td>
+                <td *ngIf="i === editRecordId && data.resource_id !== 0" colspan="2">
+                  <mat-form-field>
+                    <mat-select (selectionChange)="Re_generateHeatMap($event.value)" required
+                      [(value)]="data.resource_name">
+                      <input matInput type="text" placeholder="Search" [(ngModel)]="searchGroup"
+                        (keyup)="findResource($event.target.value)" />
+                      <button *ngIf="searchGroup" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="clearSearch('User')">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                      <mat-option *ngFor="let res of resources" [value]="res.resource_name"
+                        (click)="resourceSSelected(res.resource_name,res.resource_id,res.email_id,i)">{{
+                        res.resource_name
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="data.resource_id === 0" colspan="2">
+                  <mat-form-field>
+                    <mat-select (selectionChange)="Re_generateHeatMap($event.value)" required
+                      [(value)]="data.resource_name">
+                      <input matInput type="text" placeholder="Search" [(ngModel)]="searchGroup"
+                        (keyup)="findResource($event.target.value)" />
+                      <button *ngIf="searchGroup" matSuffix mat-icon-button aria-label="Clear"
+                        (click)="clearSearch('User')">
+                        <mat-icon>close</mat-icon>
+                      </button>
+                      <mat-option *ngFor="let res of resources" [value]="res.resource_name"
+                        (click)="resourceSSelected(res.resource_name,res.resource_id,res.email_id,i)">{{
+                        res.resource_name
+                        }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="i !== editRecordId && data.resource_id !== 0">
+                  {{ data.resource_shift }}
+                </td>
+                <td *ngIf="i == editRecordId && data.resource_id !== 0">
+                  <mat-form-field>
+                    <mat-select (selectionChange)="Re_generateHeatMap($event.value)" required
+                      [(value)]="data.resource_shift" (selectionChange)="shiftSelected($event.value,i)" required>
+                      <mat-option *ngFor="let shift of shifts" [value]="shift">{{ shift }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="data.resource_id ===0 ">
+                  <mat-form-field>
+                    <mat-select (selectionChange)="Re_generateHeatMap($event.value)" required
+                      [(value)]="data.resource_shift" (selectionChange)="shiftSelected($event.value,i)" required>
+                      <mat-option *ngFor="let shift of shifts" [value]="shift" [value]="shift">{{ shift }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="i !== editRecordId && data.resource_id !== 0">
+                  {{ data.start_date | date: "mediumDate" }}
+                </td>
+                <td *ngIf="i === editRecordId && data.resource_id !== 0">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="pickerstartdate" required [(ngModel)]="data.start_date"
+                      (dateChange)="startDateSelected($event.target.value,i)" />
+                    <mat-datepicker-toggle matSuffix [for]="pickerstartdate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerstartdate></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="data.resource_id === 0">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="pickerstartdate" required [(ngModel)]="data.start_date"
+                      (dateChange)="startDateSelected($event.target.value,i)" />
+                    <mat-datepicker-toggle matSuffix [for]="pickerstartdate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerstartdate></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="i !== editRecordId && data.resource_id !== 0">
+                  {{ data.end_date | date: "mediumDate" }}
+                </td>
+                <td *ngIf="i === editRecordId && data.resource_id !== 0">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="pickerenddate" [(ngModel)]="data.end_date"
+                      (keyup)="endDateSelected($event.target.value,i)" required />
+                    <mat-datepicker-toggle matSuffix [for]="pickerenddate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerenddate></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="data.resource_id === 0">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="pickerenddate" [(ngModel)]="data.end_date"
+                      (keyup)="endDateSelected($event.target.value)" required />
+                    <mat-datepicker-toggle matSuffix [for]="pickerenddate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerenddate></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="i !== editRecordId && data.resource_id !== 0">
+                  <div class="scrollable">
+                    <mat-chip-list #chipList aria-label="Choose a date" (click)="pickerwkoff.open()">
+                      <mat-chip *ngFor="let value of data.weekoff" [selectable]="false" [removable]="true"
+                        (removed)="remove(value)">
+                        {{ value | date }}
+                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                      </mat-chip>
+                    </mat-chip-list>
+                  </div>
+                </td>
+                <td *ngIf="i === editRecordId && data.resource_id !== 0" contenteditable="true">
+                  <mat-form-field appearance="none">
+                    <!-- {{ data.weekoff }} -->
+                    <mat-chip-list #chipList aria-label="Choose a date" (click)="picker.open()">
+                      <mat-chip *ngFor="let value of data.weekoff" [selectable]="false" [removable]="true"
+                        (removed)="remove(value,i)">
+                        {{ value | date }}
+                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                      </mat-chip>
+                      <input [value]="resetModel" matInput [matDatepicker]="picker" placeholder="Choose a date"
+                        (dateChange)="dateChanged($event,i)" [matChipInputFor]="chipList" hidden />
+                    </mat-chip-list>
+                    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass" ngDefaultControl
+                      [(ngModel)]="data.weekoff" (opened)="datePickerRow(i)"></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="data.resource_id === 0" contenteditable="true">
+                  <mat-form-field appearance="none">
+                    <mat-chip-list #chipList aria-label="Choose a date" (click)="picker.open()">
+                      <mat-chip *ngFor="let value of data.weekoff" [selectable]="false" [removable]="true"
+                        (removed)="remove(value,i)">
+                        {{ value | date }}
+                        <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+                      </mat-chip>
+                      <input [value]="resetModel" matInput [matDatepicker]="picker" placeholder="Choose a date"
+                        (dateChange)="dateChanged($event,i)" [matChipInputFor]="chipList" hidden />
+                    </mat-chip-list>
+                    <mat-datepicker-toggle matPrefix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker [startAt]="init" [dateClass]="dateClass" ngDefaultControl
+                      [(ngModel)]="data.weekoff" (opened)="datePickerRow(i)"></mat-datepicker>
+                  </mat-form-field>
+                </td>
+                <td *ngIf="i !== editRecordId && data.resource_id !== 0">
+                  <div style="display: flex; justify-content: space-evenly">
+                    <i class="fa fa-pencil" aria-hidden="true" style="font-size: 16px; cursor: pointer"
+                      (click)="editApplication(data.resource_id,i)"></i>
+                    <i class="fa fa-trash-o" aria-hidden="true" style="color: red; font-size: 16px; cursor: pointer"
+                      (click)="deleteRow(data.resource_id,i)"></i>
+                  </div>
+                </td>
+                <td *ngIf="i === editRecordId && data.resource_id !== 0">
+                  <div style="display: flex; justify-content: space-evenly">
+                    <i class="fa fa-floppy-o" aria-hidden="true" style="font-size: 16px; cursor: pointer" (click)="
+                      updateApplication(
+                          data.resource_id,
+                          i
+                        )
+                      "></i>
+                    <i class="fa fa-times" aria-hidden="true" style="color: red; font-size: 16px; cursor: pointer"
+                      (click)="canceldelete(data.resource_id,i)"></i>
+                  </div>
+                </td>
+                <td *ngIf="data.resource_id === editRecordId ||data.resource_id === 0">
+                  <div style="display: flex; justify-content: space-evenly">
+                    <i class="fa fa-floppy-o" aria-hidden="true" style="font-size: 16px; cursor: pointer" (click)="
+                        updateApplication(
+                          data.resource_id,
+                          i
+                        )
+                      "></i>
+                    <i class="fa fa-times" aria-hidden="true" style="color: red; font-size: 16px; cursor: pointer"
+                      (click)="cancelUpdateNew(i)"></i>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <br>
+          <!--  -->
+          <div class="col-md-6">
+            <ngb-pagination [collectionSize]="noOfRoasterMapping" [(page)]="page" [maxSize]=5 [pageSize]="itemsPerPage"
+              aria-label="Default pagination" (pageChange)="pageChanged()">
+            </ngb-pagination>
+          </div>
+          <!--  -->
+          <button *ngIf="enableSave" class="btn btn-primary" (click)="saveRosterDetails()">Save</button>
+        </div>
+        <div *ngIf="gridView" class="table-responsive rightAnimationClass">
+          <table class="table table-striped table-hover table-bordered th-custom" style="table-layout: auto">
+            <thead class="card-header-primary text-center">
+              <tr>
+                <th class="grid_user_thead_th">Analyst User</th>
+                <!-- <th class="grid_action_thead_th">Action</th> -->
+                <th *ngFor="let day of getMonthDays(days_in_selected_month)">
+                  {{ selected_Month_id + "/" + day }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of app_lst; let i = index">
+                <td [title]="data.resource_name">
+                  {{ data.resource_name }}
+                </td>
+                <td *ngIf="i === editRecordId">
+                  <div style="display: flex; justify-content: space-evenly">
+                    <i class="fa fa-floppy-o" aria-hidden="true" style="font-size: 16px; cursor: pointer" (click)="
+                        updateApplication(
+                          data.CustomerID,
+                          data.DatasetID,
+                          data.record_id
+                        )
+                      "></i>
+                    <i class="fa fa-times" aria-hidden="true" style="color: red; font-size: 16px; cursor: pointer"
+                      (click)="canceldelete(data.resource_id,i)"></i>
+                  </div>
+                </td>
+                <ng-container *ngIf="i !== editRecordId">
+                  <ng-container *ngFor="let shift of data.list_shift">
+                    <ng-container [ngSwitch]="shift">
+                      <td *ngSwitchCase="'H'" class="grid_shift_holiday">
+                        {{ shift }}
+                      </td>
+                      <td *ngSwitchCase="'L'" class="grid_shift_leave">
+                        {{ shift }}
+                      </td>
+                      <td *ngSwitchDefault>
+                        {{ shift }}
+                      </td>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="roasterAlert" class="text-danger pl-4">
+      <em>
+        <b>{{this.message}}</b>
+      </em>
+    </div>
+  </div>
+</div>
+<div *ngIf="loading">
+  <app-loader></app-loader>
+</div>

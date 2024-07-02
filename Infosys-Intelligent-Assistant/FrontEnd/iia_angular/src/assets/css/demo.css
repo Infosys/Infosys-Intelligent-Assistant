@@ -1,0 +1,38 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+
+.tim-typo{
+  padding-left: 25%;
+  margin-bottom: 40px;
+  position: relative;
+  width: 100%;
+}
+.tim-typo .tim-note{
+  bottom: 5px;
+  color: #c0c1c2;
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  left: 0;
+  margin-left: 20px;
+  position: absolute;
+  width: 260px;
+}
+.dropdown-list ul li {
+  display: table-cell ;
+  padding: 7px 10px;
+  border-right: 0.5px solid rgb(231, 231, 231);
+  background: #424242;
+}
+.selected-list .c-list .c-token {
+  background:#c1c0c0; }
+
+
+  .btnChooseFileDesign::-webkit-file-upload-button{
+    color: rgb(80, 79, 79);
+    border: 1px solid white;
+    height: 27px;
+    background-color: rgb(202, 202, 202);
+    outline: none;
+}
+

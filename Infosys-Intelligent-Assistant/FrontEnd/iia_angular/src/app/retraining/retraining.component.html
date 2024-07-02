@@ -1,0 +1,272 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+    <div *ngIf="ConfigFlag">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Create a Job by entering following details
+                    <sup>
+                        <i class="fa fa-info-circle" matTooltip="Job settings to be created for multiple jobs"
+                            matTooltipPosition="above"></i>
+                    </sup>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h5 class="card-category">Selected Team :</h5>
+                    </div>
+                    <div class="col-md-4 ">
+                        <mat-form-field>
+                            <mat-select [(ngModel)]="chosenTeam" (selectionChange)="teamChange()">
+                                <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <mat-form-field class="example-full-width">
+                            <mat-label for="retrain_date">Select Date</mat-label>
+                            <input matInput id="retrain_date" time="false" date="true" mdc-datetime-picker=""
+                                type="date" id="retrain_date" day-of-week-len="3" placeholder="Date"
+                                click-outside-to-close="true" show-todays-date="" today-btn="true"
+                                [(ngModel)]="retrain_date" min-date="minDate" max-date="maxDate" class=" md-input">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <label>Time Interval</label>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Enter Time Interval(in days)" [(ngModel)]="timeInterval"
+                                required>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-5">
+                        <label>Min Untrained </label>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Enter Min Untrained (number of untrained training examples)"
+                                [(ngModel)]="maxUntrained" required>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col text-right content">
+                        <button class=" btn btn-primary " type="button" (click)="saveJobSettings()" [disabled]="click"
+                            [disabled]="!datasetExists">Save</button>
+                        <div *ngIf="JobSuccessFlag">
+                            <div class="text-success display-5">
+                                <div class="container">
+                                    <em>
+                                        <b>Job Created Successfully</b>
+                                    </em>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="!datasetExists">
+                            <div class="text-success display-5">
+                                <div class="container">
+                                    <em>
+                                        <b>Dataset for selected team doesn't exists, please create dataset</b>
+                                    </em>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="container-fluid" *ngIf="RetrainTableFlag">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-0">
+                    <div class="card-header card-header-info">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h4 class="card-title">Selected Team</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <mat-form-field>
+                            <mat-select [(ngModel)]="chosenTeam" (selectionChange)="teamChange()" required>
+                                <mat-option value="" disabled selected hidden>Select a Team</mat-option>
+                                <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-0">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Choose an algorithm for prediction!
+                    <sup>
+                        <i class="fa fa-info-circle" matTooltip="Job settings to be created for multiple jobs"
+                            matTooltipPosition="above"></i>
+                    </sup>
+                </h4>
+                <p class="card-category">Retraining Table</p>
+                <p class="card-category">There were no previously retrained algorithms!</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row  m-1 py-1 pl-1 ">
+                            <div class="col-xl-6" *ngIf="trainedAlgorithms">
+                                <p class="card-category">&nbsp;Retraining Table </p>
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-striped table-hover table-bordered table-condensed  text-left "
+                                        id="predictTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left" scope="col">Predicted Field</th>
+                                                <th scope="col"
+                                                    *ngFor="let algorithm of algorithmsInformation[0];let i=index">
+                                                    {{algorithm.AlgorithmName}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let algorithm of algorithmsInformation; let fieldCount=index">
+                                                <th>
+                                                    <div class="radiotext text-center">
+                                                        <label class="text-info"
+                                                            for='name'>{{predictedFieldsInformation[fieldCount].Name}}</label>
+                                                    </div>
+                                                </th>
+                                                <td *ngFor="let predictedFieldAlgorithm of algorithm;let i=index">
+                                                    <div class="radiotext text-center">
+                                                        <input type="radio" id='accuracy'
+                                                            [value]="predictedFieldAlgorithm.AlgorithmName"
+                                                            name={{predictedFieldsInformation[fieldCount].Name}}
+                                                            (click)="chooseAlgorithm(predictedFieldsInformation[fieldCount].Name, predictedFieldAlgorithm.AlgorithmName)"
+                                                            [(ngModel)]="bestAccuracies[predictedFieldsInformation[fieldCount].Name].AlgorithmName">
+                                                        <label for='accuracy'>
+                                                            &nbsp;{{predictedFieldAlgorithm.F1_score}}</label>
+                                                        &nbsp;
+                                                        <a id="fieldsSection"  title="View Classification report"  
+                                                            (click)="openModel(predictedFieldsInformation[fieldCount].Name,algorithmsInformation[0][i].AlgorithmName,'Retraining')">
+                                                            <sup>
+                                                                <i class="fa fa-file-text"
+                                                                    matTooltip="Classification Report"
+                                                                    matTooltipPosition="above"></i>
+                                                            </sup>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xl-6" *ngIf="!approvedAlgorithms">
+                                <p class="card-category">&nbsp;Approved Table</p>
+                                <p class="card-category">&nbsp;There were no previously accepted algorithms!</p>
+                            </div>
+                            <div class="col-xl-12 " *ngIf="approvedAlgorithms">
+                                <p class="card-category">&nbsp;Approved Table</p>
+                                <div class="table-responsive">
+                                    <table
+                                        class="table table-striped table-hover table-bordered table-condensed  text-left"
+                                        id="predictTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left" scope="col">Predicted Field</th>
+                                                <th scope="col"
+                                                    *ngFor="let algorithm of approvedAlgorithmsInformation[0];let i=index">
+                                                    {{algorithm.AlgorithmName}}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr
+                                                *ngFor="let algorithm of approvedAlgorithmsInformation; let fieldCount=index">
+                                                <th scope="row">
+                                                    <div class="radiotext text-center">
+                                                        <label class="text-info"
+                                                            for='name'>{{approvedPredictedFieldsInformation[fieldCount].Name}}</label>
+                                                    </div>
+                                                </th>
+                                                <td *ngFor="let predictedFieldAlgorithm of algorithm;let i=index">
+                                                    <div class="radiotext text-center">
+                                                        <label for='accuracy'>
+                                                            <b *ngIf="predictedFieldAlgorithm.AlgorithmName == chosenAlgorithmName[approvedPredictedFieldsInformation[fieldCount].Name]; else other"
+                                                                class="text-success">{{predictedFieldAlgorithm.F1_score}}</b>
+                                                        </label>
+                                                        <ng-template #other>{{predictedFieldAlgorithm.F1_score}}
+                                                        </ng-template>
+                                                        &nbsp;
+                                                        <a id="fieldsSection"  title="View Classification report"  
+                                                            (click)="openModel(approvedPredictedFieldsInformation[fieldCount].Name, approvedAlgorithmsInformation[0][i].AlgorithmName, 'Approved')">
+                                                            <sup>
+                                                                <i class="fa fa-file-text"
+                                                                    matTooltip="Classification Report"
+                                                                    matTooltipPosition="above"></i>
+                                                            </sup>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger" *ngIf="(!saveSuccess && trainedAlgorithms )">
+                <strong>Warning!</strong> Please make sure that all predictions have been stopped, before
+                clicking the "Use Retrained" button..
+            </div>
+            <div class="row mt-3 mr-1">
+                <div class="col-md-12 " *ngIf="trainedAlgorithms">
+                    <button type="button" [disabled]="saveSuccess" class="btn btn-primary float-right px-4 ml-3"
+                        data-toggle="modal" data-target="#exampleModal">
+                        Use
+                        Retrained
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel"> Use Retrained</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-danger">We will be replacing the old model files with the
+                                        new ones, kindly confirm
+                                        that all predictions have been stopped.</div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" *ngIf="trainedAlgorithms"
+                                        class="btn btn-primary float-right px-4 ml-3" (click)="useRetrained()"
+                                        data-dismiss="modal" (click)="close()">Confirm
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="saveSuccess" class="text-success float-right mt-1">
+                        <em>
+                            <b>Algorithm preferences saved successfully!</b>
+                        </em>
+                    </div>
+                    <div *ngIf="saveFailure" class="failure">
+                        <em>
+                            <b>Failed to Update Algorithm preferences!</b>
+                        </em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loader">
+        <app-loader></app-loader>
+    </div>
+</div>

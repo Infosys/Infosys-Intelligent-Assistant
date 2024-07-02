@@ -1,0 +1,87 @@
+<!-- /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<br>
+<br>
+<br>
+<div class="card-body">
+<div class="row">
+<div class="col-md-12">
+<!-- <div class="row justify-content-md-center">
+    <div class="col-md-12"> -->
+        <div class="card mb-0"> 
+            <div class="card-header card-header-primary"> 
+                <h4 class="card-title">Image Analysis
+                    <sup><i class="fa fa-info-circle" matTooltip="module to train functional workflows of an application using images"
+                            matTooltipPosition="above"></i></sup>
+                </h4>
+                <!-- <p class="card-category">Please fill the below details</p> -->
+            </div>
+            <div class="card-body" style="padding-left: 3.5%">
+                <div class="row mb-3">
+                    <div class="col-md-12 pl-0">
+                        <div class ="row">
+                        <div class="col-md-10">
+                            <a href="/api/imageAnalysisUsageDoc" target="blank" data-toggle="tooltip" data-placement="bottom" title="Documentation for ImageAnalysis" style="text-decoration: underline;cursor: pointer;color: blue;"><em> User Guide</em></a>
+                        </div>
+                            <div class="text-right">
+                                    <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="invokeBPMN()">
+                                            New Application</button>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <!-- <div class="col-md-12">
+                                    <div class="alert alert-light py-2 mb-1" role="alert">
+                                        Note: Enter Keywords seperated by comma
+                                </div>
+                            </div> -->
+                            <div class="col-md-11">
+                                <mat-form-field>
+                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="button" class="btn btn-link p-3" (click)="scriptsLoad()"><i class="fa fa-refresh"
+                                        aria-hidden="true"></i></button>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="mat-elevation-z8">
+                                    <mat-table #table [dataSource]="dataSource" matSort>
+                                        <ng-container matColumnDef="scriptName">
+                                            <mat-header-cell *matHeaderCellDef > Application Name </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                                <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                                    <mat-label>Application Name</mat-label>
+                                                    <!-- <input type="checkbox" [(ngModel)]="row['Selected']"
+                                                        (change)="checkIfAllSelected()" style="color: black"> -->
+                                                    <input type="text" matInput [(ngModel)]="row['workflow_name']" required
+                                                        disabled="disabled" style="color:black;">
+                                                </mat-form-field>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="associatedTasks">
+                                            <mat-header-cell *matHeaderCellDef > Associated Tasks </mat-header-cell>
+                                            <mat-cell *matCellDef="let row">
+                                                <mat-form-field class="example-full-widmat-header-cell float-left w-75" ngNativeValidate>
+                                                    <mat-label>Associated Tasks</mat-label>
+                                                    <input type="text" matInput [(ngModel)]="row['associated_Tasks']" required
+                                                    disabled="disabled" style="color:black">
+                                                </mat-form-field>
+                                                <button type="button" class="btn btn-outline-primary btn-sm mx-1 float-right"  (click)="editWorkFlow(row['workflow_name'])">EDIT</button>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                                        </mat-row>
+                                    </mat-table>
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    <!-- </div> 
+    </div>  -->
+</div>
+</div>
+</div>

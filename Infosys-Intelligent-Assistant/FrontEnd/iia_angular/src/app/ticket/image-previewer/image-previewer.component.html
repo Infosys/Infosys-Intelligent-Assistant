@@ -1,0 +1,20 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+    <div class="modal-content">
+        <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+            <h4 class="modal-title" id="modal-basic-title font-weight-bold">Attchment preview </h4>
+            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <span aria-hidden="true" style="color:white;">&times;</span>
+            </button>
+        </div>
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="preview">
+  <div style="width: 100%;">
+    <ngx-image-viewer [src]="images"
+                      [(config)]="config"
+                      [(index)]="imageIndexOne">
+    </ngx-image-viewer>
+</div>
+</div>

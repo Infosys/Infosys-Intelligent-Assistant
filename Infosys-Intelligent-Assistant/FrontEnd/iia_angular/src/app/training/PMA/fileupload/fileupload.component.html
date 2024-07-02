@@ -1,0 +1,18 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="container"><br>
+  <div class="row">
+    <div class="col-md-4">
+      <input class="form-control border-input btnChooseFileDesign" type="file" #trainingData
+        placeholder="Upload CSV Data" required />
+    </div>
+    <div class="col-md-4">
+      <button class="btn btn-default" (click)="uploadcsv()">upload</button>&nbsp;
+    </div>
+    <div class="col-md-4">
+      <a href="assets/sample.csv" class="btn btn-default" style="margin: left 20px;" target="_blank"
+        download="sample-file.csv">Download sample file template</a>
+    </div>
+  </div>
+</div>

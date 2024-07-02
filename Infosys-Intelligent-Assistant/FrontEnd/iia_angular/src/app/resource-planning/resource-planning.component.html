@@ -1,0 +1,41 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">Assignment Details
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <mat-tab-group #tabs (selectedTabChange)="tabChanged($event)">
+                <mat-tab label="Manage Applications">
+                  <app-application-details *ngIf="index==0"></app-application-details>
+                </mat-tab>
+                <mat-tab label="Manage Resources">
+                  <app-resource-details *ngIf="index==1"></app-resource-details>
+                </mat-tab>
+                <mat-tab label="Manage Mapping">
+                  <app-mapping-details *ngIf="index==2"></app-mapping-details>
+                </mat-tab>
+                <mat-tab label="Manage Shifts">
+                  <app-resourceShiftDetails-details *ngIf="index==3"></app-resourceShiftDetails-details>
+                </mat-tab>
+                <mat-tab label="Current Shifts ">
+                  <app-roaster-details *ngIf="index==4"></app-roaster-details>
+                </mat-tab>
+                <mat-tab label="Ticket Weightage">
+                  <app-ticket-weightage-details *ngIf="index==5"></app-ticket-weightage-details>
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

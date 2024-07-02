@@ -1,0 +1,47 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.-->
+<div class="card mt-3">
+    <div class="card-header border border-bottom-0 p-2">
+        <h4 class="card-title p-0 font-weight-bold">ITSM Details</h4>
+    </div>
+    <div class="card-body border p-0">
+        <div class="row m-0 justify-content-center p-3">
+            <div class="col-md-10">
+                <mat-form-field appearance="outline">
+                    <mat-label>User ID</mat-label>
+                    <input [(ngModel)]="userId" matInput placeholder="Enter User ID" name="userId" id="userId"
+                        pattern="^[a-zA-Z0-9 _.-]*$">
+                    <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                    <input [(ngModel)]="password" name="password" matInput placeholder="Enter your password"
+                        [type]="hide ? 'text' : 'password'"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$">
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}
+                    </mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>ITSM Tool name</mat-label>
+                    <mat-select [(value)]="toolName" name="toolName" placeholder="ITSM Tool Name">
+                        <mat-option *ngFor="let tool of ITSMToolNames;let i = index"
+                            [value]="tool">{{tool}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="toolName == 'Others'">
+                    <mat-label>Other ITSM Tool Name</mat-label>
+                    <input [(ngModel)]="toolNameOthers" name="toolName" matInput placeholder="Enter ITSM Tool Name"
+                        pattern="^[a-zA-Z0-9 _.-]*">
+                </mat-form-field>
+            </div>
+            <div class="col-md-10 ">
+                <div class="text-right"> <button class="btn btn-primary " type="submit"
+                        (click)="submitCredentials()">submit</button>
+                    <div *ngIf="showMessage">
+                        <div class="text-success ">
+                            <strong>Submitted Successfully</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

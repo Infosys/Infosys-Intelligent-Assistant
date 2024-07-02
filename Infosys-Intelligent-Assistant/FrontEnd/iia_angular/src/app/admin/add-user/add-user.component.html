@@ -1,0 +1,87 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT. -->
+<div class="card-body table-responsive pt-0">
+  <div class="card mt-4 bg-light">
+    <div class="card-body">
+      <div class="card-title mb-0 text-secondary">
+        <b>Add User</b>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-select [(ngModel)]="selectedTeam" [(value)]="teamID" name="team" placeholder="Select a Team" required>
+              <mat-option *ngFor="let team of teams" [value]="team.TeamID">{{team.TeamName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-select [(value)]="selectedRole" name="role" placeholder="Select a Role" required>
+              <mat-option value='Admin'>Admin</mat-option>
+              <mat-option value='User'>User</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <mat-label>Enter User Email(User ID/Name)</mat-label>
+            <input matInput placeholder="Email" [formControl]="emailFormControl" [(ngModel)]="email" class="input"
+              name="email" required>
+            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field appearance="outline">
+            <mat-label>Name of User</mat-label>
+            <input [(ngModel)]="name" name="toolName" matInput placeholder="Enter User Name" [(ngModel)]="name"
+              class="input" name="name" pattern="^[a-zA-Z0-9 _.-]*$" required>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <div class="text-right"> <button class="btn btn-primary " type="submit" (click)="submit()">submit</button>
+            <ng-container *ngIf='showMessage'>
+              <p [style.color]='color'>{{message}}</p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- modified table for showing user details -->
+  <div *ngIf="showTable" (click)='showMessage=false;'>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">User Name</th>
+          <th scope="col">User ID</th>
+          <th scope="col">Team</th>
+          <th scope="col">Role</th>
+          <th scope="col">Delete User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let id=index;">
+          <th scope="row">{{ id + (pageSize * page) - (pageSize - 1) }}</th>
+          <td>{{ user.UserName }}</td>
+          <td>{{ user.UserID}}</td>
+          <td>{{ user.Team }}</td>
+          <td>{{ user.Role }}</td>
+          <td><button type="button" title="remove user" class="btn btn-sm btn-link "
+              (click)='removeUser(user.UserID)'><i class="fa fa-times text-danger" aria-hidden="true"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+      </ngb-pagination>
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+        <option [ngValue]="5">5 items per page</option>
+        <option [ngValue]="10">10 items per page</option>
+        <option [ngValue]="15">15 items per page</option>
+      </select>
+    </div>
+    <!-- end -->
+  </div>

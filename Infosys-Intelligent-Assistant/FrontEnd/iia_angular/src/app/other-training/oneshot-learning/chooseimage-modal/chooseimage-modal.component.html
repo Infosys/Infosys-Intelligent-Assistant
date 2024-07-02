@@ -1,0 +1,92 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-1">
+   
+        <div class="row">
+            <!-- <div class="card mb-1 pb-0" style="margin-top: 0px"> -->
+                    <div class="card mb-1 pb-0" >
+                    <div class="card-header card-header-primary">
+                            <h4 class="card-title">Image Analysis
+                            </h4>
+                          </div>
+                <div class="card-body" >
+                    <div class="col-md-12 ">
+                        <div class="row text-justify">
+                            <div class="col-md-12 ">
+                                
+                                <input class="form-control btnChooseFileDesign" type="file" #imageFileDetails 
+                                (change)="onSelectFile($event)" placeholder="Upload file..." required multiple />
+                                
+                                </div>
+
+                                    <br/><br/>
+                                <div class="ng-container" style="width:100%">
+                                    <div class ="row">        
+    
+                                <ng-container *ngFor='let url_doc of urls ; let id =index;'>
+                                        <div class="col-md-4">
+                                            <img [src]="url_doc.url"  height="100"> <br/>
+                                        
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Enter Image Name</mat-label>
+                                                <input matInput [(ngModel)]="url_doc.image_name" placeholder="image name " required>
+                                            
+                                            </mat-form-field>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                                <!-- <button mat-button (click)="openDialog(url_doc.image_name)">Additional Entries</button> -->
+                                                <a style="color: blue;text-decoration: underline; cursor: pointer" (click)="openDialog(url_doc.image_name)">Enter Image Details</a>
+                                                <!-- <a mat-button href="openDialog(url_doc.image_name)" target="_blank">Additional Entries</a> -->
+                                        </div>
+                                        <div class="col-md-2">
+                                                <i class='fa fa-trash' style="color: red; cursor: pointer;" (click)='removeimage(url_doc)'></i>
+                                        </div>
+                                          
+                                </ng-container>
+    
+                                </div>
+                                </div> 
+                                <div class="col-md-8">
+
+                                </div>
+
+                                <div *ngIf="filesSelected" >
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-primary " type="button" (click)="uploadImageFile()">Save and Upload</button>
+                                </div>  
+                                </div>
+                                
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div *ngIf="loader">
+            <app-loader></app-loader>
+        </div>
+    
+    <div class ="row">
+        <div class="col-md-12">
+            <div *ngIf="uploadSuccess" >
+                    <div class="texting-success ">
+                        <em>
+                            
+                            <b>Image Files uploaded successfully!</b>
+    
+                        </em>
+                    </div>
+                </div>
+            
+    </div>
+    
+    </div>
+
+</div>

@@ -1,0 +1,30 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.table {
+  table-layout: fixed;
+}
+.table thead tr th {
+  font-weight: 600;
+}
+.table tbody tr td {
+  text-align: left;
+}
+mat-form-field {
+  height: 30px;
+  top: -8px;
+}
+.dropdown_input {
+  height: 40px;
+  top: 0;
+  padding: 0 13px;
+}
+.dropdown_input input {
+  padding: 0 16px;
+}
+.dropdown_input button {
+  margin-right: 4px;
+}
+.noData_div {
+  height: 40px;
+  padding: 8px 16px;
+  text-align: center;
+}

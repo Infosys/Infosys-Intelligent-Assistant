@@ -1,0 +1,72 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="modal-title h4" id="modal-basic-title">Advanced Tuning options</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body py-0">
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="row ">
+          <div class="col-lg-12 col-sm-6 pb-5 form-group">
+            <label for="modal-PF">Predicted Field: </label>
+            <select id="modal-PF" (change)="redrawGraph($event.target.value)" class="form-control">
+              <option *ngFor="let summary of Summaries">
+                {{summary}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row">          
+          <div class="col-lg-12 col-sm-6">
+            <canvas #Unigram baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+              [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" [colors]="chartColors"
+              (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="row pb-2">
+          <div class="col-lg-6 col-sm-3 pb-2 form-group">
+            <label for="modal-WCT">Word cloud Type: </label>
+            <select id="modal-WCT" (change)="cloudTypeChanged($event.target.value)" class="form-control " >
+              <option value="0" selected>--Unigram--</option>
+              <option value="1" selected (logClick)="logClicked($event)">--Bigram--</option>
+            </select>
+          </div>
+          <div class="col-lg-6 col-sm-3 pb-2 form-group">
+            <label for="modal-NW">Number of Words </label>
+            <input type="number"  class="form-control mt-1" value=30 [(ngModel)]="numberOfWords" pattern="^[0-9]{1,3}$"
+            (blur)="onWordsCountChanged($event)"
+            (keydown.Tab)="onWordsCountChanged($event)"
+            (keydown.Enter)="onWordsCountChanged($event)">
+          </div>
+        </div>
+        <div class="col-lg-12"  *ngIf="showCloud">
+            <angular-tag-cloud #tagWordCloudContainer class="tagWordCss" [data]="tagCloudData" 
+              [overflow]="cloudoptions.overflow" (clicked)="logClicked($event)" [zoomOnHover]="ZoomOnHoverOptions" style="background-color: white;">
+            </angular-tag-cloud>
+          </div>
+      </div>
+      <div class="col-lg-12 col-sm-6">
+        <button type="button" class="btn btn-info" (click)="openWhitelistedmodal()">
+          <span class="glyphicon glyphicon-plus"></span> Whitelisted words
+        </button>
+        <a id="advancedSetting" (click)="downloadKeywordReport()" title="Click here to download keyword report">
+          Keyword report
+        </a>
+    </div>
+      <div class="col-lg-12 col-sm-6" *ngIf="showStopWords">
+          <tag-input [(ngModel)]='items' placeholder="Add a new Stopword" theme='bootstrap'></tag-input>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer py-0">
+    <button type="button" class="btn btn-secondary " (click)="activeModal.close('Save click')">Close</button>
+    <button type="button" class="btn btn-primary " (click)="approveStopWords();activeModal.close('Save click')">Approve</button>
+  </div>
+</div>

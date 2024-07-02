@@ -1,0 +1,150 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-1">
+    <div class="row">
+        <div class="card   mb-1 pb-0">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Upload Resource Details
+                    <sup><i class="fa fa-info-circle" matTooltip="Please select team and upload resource file"
+                            matTooltipPosition="above"></i></sup>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12 ">
+                    <mat-form-field>
+                        <mat-select [(ngModel)]="chosenTeam" (selectionChange)="teamChange()"
+                            placeholder="Select a Team" required>
+                            <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12 ">
+                    <div *ngIf="showUpload">
+                        <div class="row text-justify">
+                            <div class="col-md-7 pt-2 ">
+                                <input required class="form-control btnChooseFileDesign" type="file" #resourceDetails
+                                    placeholder="Upload file..." required />
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary " type="button"
+                                    (click)="uploadResourceDetails()">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-4 text-left">
+            <!-- <div style="display: flex; justify-content: flex-end; cursor: pointer"> -->
+            <button class="btn btn-primary btn-md px-4" type="button" (click)="addNewResource()">
+                Add New Resource
+            </button>
+            <!-- </div> -->
+        </div>
+        <div class="col-md-8 text-right">
+            <button class="btn btn-outline-primary btn-md float-right px-4" type="button" (click)="deleteAllResources()"
+                style="cursor:pointer">Delete All</button>
+            <button *ngIf="enableSave" class="btn btn-primary btn-md float-right px-4"
+                (click)="saveResourceDetails()">Save</button>
+        </div>
+    </div>
+    <div class="row text-right">
+        <div class="col-md-12 text-right">
+            <p class="text-danger font-weight-bolder h5 text-right font-italic">The changes done in this screen are
+                saved into database, only when the Save button is clicked!</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card mt-1 pt-1">
+            <div class="col-lg-12">
+                <div *ngIf="hasResourceDetails">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="card-header-primary text-center">
+                                <tr>
+                                    <th>Resource Name</th>
+                                    <th colspan="2">Email ID</th>
+                                    <th>Resource ntid</th>
+                                    <th colspan="2">User ID</th>
+                                    <th class="text-center" colspan="2">Edit Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of resource_lst;let i=index;" class="text-left">
+                                    <td *ngIf="data.resource_id == editResourceId || data.resource_id === 0"
+                                        style="cursor:pointer">
+                                        <input type="text" required style="width:100%" name="value"
+                                            [(ngModel)]="data.resource_name"
+                                            (focusout)="valueChanged($event, 'resource_name',i)">
+                                    </td>
+                                    <td *ngIf="data.resource_id !== editResourceId && data.resource_id !== 0 ">
+                                        {{data.resource_name}}</td>
+                                    <td *ngIf="data.resource_id == editResourceId || data.resource_id === 0" colspan="2"
+                                        style="cursor:pointer">
+                                        <input type="text" required style="width:100%" name="value"
+                                            [(ngModel)]="data.email_id" (focusout)="valueChanged($event, 'email_id',i)">
+                                    </td>
+                                    <td *ngIf="data.resource_id !== editResourceId && data.resource_id !== 0"
+                                        colspan="2">{{data.email_id}}</td>
+                                    <td *ngIf="data.resource_id == editResourceId || data.resource_id === 0"
+                                        style="cursor:pointer">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.resource_ntid"
+                                            (focusout)="valueChanged($event, 'resource_ntid',i)">
+                                    </td>
+                                    <td *ngIf="data.resource_id !== editResourceId">{{data.resource_ntid}}</td>
+                                    <td *ngIf="data.resource_id == editResourceId || data.resource_id === 0" colspan="2"
+                                        style="cursor:pointer">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.user_id"
+                                            (focusout)="valueChanged($event, 'user_id',i)">
+                                    </td>
+                                    <td *ngIf="data.resource_id !== editResourceId" colspan="2">{{data.user_id}}</td>
+                                    <td *ngIf="data.resource_id !== editResourceId && data.resource_id !== 0">
+                                        <a id="fieldsSection" class="p-1  rounded border border-primary "
+                                            title="Edit resource details" (click)="editResource(data.resource_id,i)"
+                                            style="cursor:pointer">Edit</a>
+                                        <a id="fieldsSection" class="p-1  rounded border border-primary "
+                                            title="Delete this resource" (click)="deleteResource(data.resource_id,i)"
+                                            style="cursor:pointer">Delete</a>
+                                    </td>
+                                    <td *ngIf="data.resource_id === editResourceId && data.resource_id !== 0"
+                                        colspan="2">
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="updateResource(data.CustomerID, data.DatasetID, data.resource_id,i)"
+                                            style="cursor:pointer">Update</button>
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="canceldelete(i)" style="cursor:pointer">Cancel</button>
+                                    </td>
+                                    <td *ngIf="data.resource_id=== 0" colspan="2">
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="updateResource(data.CustomerID, data.DatasetID, data.resource_id,i)"
+                                            style="cursor:pointer">Update</button>
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="cancelUpdateNew(i)" style="cursor:pointer">Cancel</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-10 offset-md-2">
+                        <button class="btn btn-outline-primary float-right px-4" type="button"
+                            (click)="deleteAllResources()" style="cursor:pointer">Delete All</button>
+                        <button *ngIf="enableSave" class="btn btn-primary float-right px-4"
+                            (click)="saveResourceDetails()">Save</button>
+                    </div>
+                </div>
+                <div *ngIf="noRecords" class="text-danger pl-4">
+                    <em>
+                        <b>No Records Found!</b>
+                    </em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading">
+    <app-loader></app-loader>
+</div>

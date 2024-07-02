@@ -1,0 +1,81 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+    <div class="modal-content height-auto">
+        <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+            <h4 class="modal-title" id="modal-basic-title font-weight-bold">Annotation Tool : {{ticketNumber}}</h4>
+            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <span aria-hidden="true" style="color:white;">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 pl-0">
+                        <div class="card height-auto">
+                            <div class="table-wrapper-scroll-y height-auto" (click)='disableMsg()'>
+                                <div class="col-md-12">
+                                    <ng-container *ngIf='!deleteTagState'>
+                                        <button *ngFor='let tag of tagNameDoc | keyvalue'
+                                            [ngClass]="['btn-default','btn-custom']"
+                                            [ngStyle]="{'color':'black','background-color':tag.value}"
+                                            (click)='addclassifier(tag.key)'>
+                                            {{tag.key}}
+                                        </button>
+                                    </ng-container>
+                                    <ng-container *ngIf='deleteTagState'>
+                                        <mat-checkbox *ngFor='let tag of tagNameDoc | keyvalue'
+                                            [checked]='checkedLst[tag.key]'
+                                            (change)='checkedLst[tag.key] = ! checkedLst[tag.key];'>
+                                            <button [ngClass]="['btn-default','btn-custom']"
+                                                [ngStyle]="{'color':'black','background-color':tag.value}">
+                                                {{tag.key}}
+                                            </button>
+                                        </mat-checkbox>
+                                    </ng-container>
+                                    <button mat-raised-button color="primary" *ngIf='!newTagState && !deleteTagState'
+                                        (click)='newTag()'>Add Entity Tag</button>
+                                    <button mat-raised-button color="primary" *ngIf='!deleteTagState && !newTagState'
+                                        [ngStyle]="{'color':'white'}" (click)='deleteTagBtnClick()'>Remove Tag</button>
+                                    <ng-container *ngIf='newTagState'>&nbsp;&nbsp;
+                                        <input type="text" [(ngModel)]='tagName' placeholder="Enter Tag Name">
+                                        <button mat-raised-button color="primary" [ngStyle]="{'color':'white'}"
+                                            (click)='saveNewTag()'>Save</button>
+                                        <button mat-raised-button color="primary" [ngStyle]="{'color':'white'}"
+                                            (click)='cancel()'>Cancel</button>
+                                        <p *ngIf='tagShowMsg' [ngStyle]="{'color':tagSaveState ? 'green' : 'red'}">
+                                            {{msg}}</p>
+                                    </ng-container>
+                                    <ng-container *ngIf='deleteTagState'>&nbsp;&nbsp;
+                                        <button mat-raised-button color="primary" [ngStyle]="{'color':'white'}"
+                                            (click)='deleteTag()'>Delete</button>
+                                        <button mat-raised-button color="primary" [ngStyle]="{'color':'white'}"
+                                            (click)='cancel()'>Cancel</button>
+                                        <p *ngIf='tagShowMsg' [ngStyle]="{'color':tagSaveState ? 'green' : 'red'}">
+                                            {{msg}}</p>
+                                    </ng-container>
+                                </div>
+                                <div class="card m-0 mb-2 bg-light ">
+                                    <div class="row pt-3">
+                                        <ng-container *ngFor='let wordDoc of wordDocLst; let id=index;'>
+                                            <span *ngFor='let item of wordDoc | keyvalue'
+                                                [ngClass]="{'span-custom':item.value != 'O'}"
+                                                [ngStyle]="{'background-color':tagNameDoc[item.value]}">{{item.key}}
+                                                <i *ngIf="item.value != 'O'" style="cursor: pointer;font-weight: bold"
+                                                    class="fa fa-window-close-o" aria-hidden="true"
+                                                    (click)='removeColor(item.key,id)'></i>&nbsp;</span>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col text-right">
+                        <p *ngIf='showMsg' [ngStyle]="{'color':saveState ? 'green' : 'red', 'float':'left'}">{{msg}}</p>
+                        <button type="button" class="btn btn-success" (click)='saveEntityTags()'>Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

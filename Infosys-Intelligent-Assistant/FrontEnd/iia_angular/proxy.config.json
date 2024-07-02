@@ -1,0 +1,12 @@
+{
+    "/api/*":{
+        "target": "http://<ip address>:<port>",
+        "secure":false,
+        "logLevel":"debug"
+    },
+    "/ner/api/*":{
+        "target":"http://<ip address>:<port>",
+        "secure":false,
+        "logLevel":"debug"
+    }
+}

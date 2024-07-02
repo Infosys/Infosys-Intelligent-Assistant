@@ -1,0 +1,60 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+    <div class="card mb-1 pb-0">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title">{{resourceName}}
+            </h4>
+            <p class="card-category">Shift details for {{resourceName}} </p>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <mat-form-field color="accent">
+                        <mat-label>Enter Start Date (DD/MM/YYYY)</mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <mat-form-field color="accent">
+                        <mat-label>Enter End Date (DD/MM/YYYY)</mat-label>
+                        <input matInput [matDatepicker]="picker2" [(ngModel)]="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary" type="button" (click)="updateRoasterDetails()">Update</button>
+                    <button class="btn " type="button" (click)="goBack()">Back</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card mt-1 pt-1">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Date</th>
+                                    <th>Shift</th>
+                                    <th>Shift Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of shift_lst;index as i">
+                                    <td>{{i+1}}</td>
+                                    <td>{{data.start_date}}</td>
+                                    <td>{{data.shift}}</td>
+                                    <td>{{data.support_type}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

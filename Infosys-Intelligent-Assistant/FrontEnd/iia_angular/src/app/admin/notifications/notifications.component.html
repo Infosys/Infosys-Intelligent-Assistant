@@ -1,0 +1,111 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT. -->
+<div class="card mt-3">
+    <div class="card-header border border-bottom-0 p-2">
+        <h4 class="card-title font-weight-bold p-0">Notifications</h4>
+        <p class="card-category">Find all your Notifications here</p>
+    </div>
+    <div class="card-body border p-0">
+        <div class="row m-0 ">
+            <div class="col-md-12">
+                <div *ngIf="hasTrainingStateDetails">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="text-left bg-light">
+                                <tr>
+                                    <th>Dataset ID</th>
+                                    <th>Training Started by</th>
+                                    <th>Training Started on</th>
+                                    <th>Training Ended on</th>
+                                    <th>Training Status</th>
+                                    <th>Percentage of completion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let trainingState of trainingStateList">
+                                    <td>{{trainingState.DatasetID}}</td>
+                                    <td>{{trainingState.TrainingStatus.TrainingStartedBy}}</td>
+                                    <td>{{trainingState.TrainingStatus.TrainingStartDate}}</td>
+                                    <td>{{trainingState.TrainingStatus.TrainingEndDate}}</td>
+                                    <td>{{trainingState.TrainingStatus.TrainingCompletedFlag}}</td>
+                                    <td *ngIf="trainingState.TrainingStatus.CompletedStatus===100.0">
+                                        <ngb-progressbar type="success"
+                                            [value]="trainingState.TrainingStatus.CompletedStatus"><i>Completed</i>
+                                        </ngb-progressbar>
+                                    </td>
+                                    <td *ngIf="trainingState.TrainingStatus.CompletedStatus!==100.0">
+                                        <ngb-progressbar type="success"
+                                            [value]="trainingState.TrainingStatus.CompletedStatus" [striped]="true"
+                                            [animated]="true"><i>{{trainingState.TrainingStatus.CompletedStatus}}%</i>
+                                        </ngb-progressbar>
+                                    </td>
+                                    <td *ngIf="trainingState.TrainingStatus.CompletedStatus===100.0"><button
+                                            class="btn btn-outline-primary float-right px-4" type="button"
+                                            (click)="toTrainingPage(trainingState.DatasetID)"
+                                            style="cursor:pointer">training page</button></td>
+                                    <td *ngIf="trainingState.TrainingStatus.CompletedStatus!==100.0"><button
+                                            class="btn btn-outline-primary float-right px-4" type="button"
+                                            disabled>training
+                                            page</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="!hasTrainingStateDetails">
+                    <div class="alert alert-warning  my-2" role="alert">
+                        <i class="fa fa-frown-o text-white" aria-hidden="true"></i> <strong> &nbsp;Oops!</strong>
+                        &nbsp;There is nothing to show
+                        up here.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card m-0">
+    <div class="card-header border border-bottom-0 p-2">
+        <h4 class="card-title  font-weight-bold p-0">JOBS</h4>
+        <p class="card-category">Find all your JOBS here</p>
+    </div>
+    <div class="card-body border p-0">
+        <div class="row m-0 ">
+            <div class="col-md-12">
+                <div *ngIf="displayJobs">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="text-left bg-light">
+                                <tr>
+                                    <th>Job ID</th>
+                                    <th>Time Interval</th>
+                                    <th>Min Untrained</th>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of jobs">
+                                    <td>{{data.job_id}}</td>
+                                    <td>{{data.JobSettings.TimeInterval}}</td>
+                                    <td>{{data.JobSettings.MinUntrained}}</td>
+                                    <td>
+                                        <a id="fieldsSection" class="p-1  rounded border border-primary "
+                                            title="Delete job" (click)="stopJob(data.job_id)"
+                                            style="cursor:pointer">Delete</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div *ngIf="!displayJobs">
+                    <div class="alert alert-info  my-2" role="alert">
+                        <a (click)="getJobs()" class="alert-link text-rose">Click here </a>to Display JOBS
+                    </div>
+                    <div class="empty" *ngIf="clickcount==1">
+                        Currently there are no jobs To display
+                    </div>
+                    <div *ngIf="jobstoppedflag">Job stopped succesfully </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

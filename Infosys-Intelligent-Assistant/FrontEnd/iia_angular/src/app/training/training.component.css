@@ -1,0 +1,66 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.table-full-width {
+    padding-bottom: 0%;
+}
+.fa-plus-square-o {
+    position: relative;
+    top: 2px;
+    font-size: 16px;
+}
+.linkProp {
+    cursor: pointer;
+}
+.card-part:hover {
+    transform: scale(1.02);
+    background: rgba(148, 145, 145, 0.137);
+}
+.best_algo {
+    font-size: 15px !important;
+    color: #000;
+    font-weight: unset;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+.algo_result {
+    font-size: 14px;
+    color: #4caf50 !important;
+    font-weight: bold;
+}
+#advancedSetting {
+    color: blue;
+    text-decoration: underline;
+    font-size: 13px;
+    padding: 5px;
+    cursor: pointer;
+}
+.disabled {
+    background: none !important;
+}
+:host ::ng-deep .c-btn.disabled {
+    background: none !important;
+}
+:host ::ng-deep .selected-list .c-btn.disabled .c-angle-down,
+.selected-list .c-btn.disabled .c-remove {
+    width: 0px !important;
+}
+:host ::ng-deep .selected-list .c-btn.disabled .c-list .c-token .c-remove {
+    width: 0px !important;
+}
+:host ::ng-deep .selected-list .c-list .c-token {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+}
+.algo_result_upload {
+    font-size: 14px;
+    color: #4caf50 !important;
+    font-weight: bold;
+    font-style: italic;
+}
+.circle-size {
+    font-size: 15px !important;
+}
+:host ::ng-deep .multiline-tooltip {
+    white-space: pre-line !important;
+}
+::ng-deep .test {
+    white-space: pre-line;
+}

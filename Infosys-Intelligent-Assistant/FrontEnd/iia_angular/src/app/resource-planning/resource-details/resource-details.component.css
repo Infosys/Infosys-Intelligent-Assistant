@@ -1,0 +1,9 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.table label,
+thead {
+    font-size: 13px;
+}
+.table tr,
+td {
+    text-align: left;
+}

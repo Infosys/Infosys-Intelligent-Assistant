@@ -1,0 +1,119 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<div class="card-body">
+    <div class="row mb-3">
+        <div class="col-md-12 pl-0">
+            <div class="row">
+                <div class="col-md-6">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="createScript('RPA')">
+                            Create Config</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm mx-1"
+                            (click)="createScript('diagnostic')">
+                            Create Diagnostic Config</button>
+                        <button type="button" class="btn btn-outline-primary btn-sm mx-1" (click)="ngOnInit()">
+                            Refresh</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mat-elevation-z8">
+                <mat-table #table [dataSource]="dataSource" matSort>
+                    <ng-container matColumnDef="Selected">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>
+                            <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll()">
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let row;">
+                            <span class="table-remove">
+                                <input type="checkbox" [(ngModel)]="row['Selected']" (change)="checkIfAllSelected()">
+                            </span>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="scriptName">
+                        <mat-header-cell style="padding: 0 13px;" *matHeaderCellDef mat-sort-header>Config File Name
+                        </mat-header-cell>
+                        <mat-cell style="flex: 1; padding: 0 30px;" *matCellDef="let row; let i=index ">
+                            <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                <mat-label>Config File Name</mat-label>
+                                <mat-select ngDefaultControl name="scriptName" [(ngModel)]="row['scriptName']"
+                                    (click)="scriptNameSelect()" *ngIf="!scriptDropdown[i]">
+                                    <mat-option *ngFor="let item of scriptsList" value="{{item}}">{{ item }}
+                                    </mat-option>
+                                </mat-select>
+                                <input type="text" matInput [(ngModel)]="row['scriptName']" required disabled="disabled"
+                                    *ngIf="scriptDropdown[i]">
+                            </mat-form-field>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="scriptEdit">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button type="button" class="btn btn-sm btn-light"
+                                (click)="editScript(row['scriptName'],'RPA')">Edit</button>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="diagnostic_script">
+                        <mat-header-cell style="padding-left:367px;" *matHeaderCellDef mat-sort-header>Diagnostic Config
+                            Name
+                        </mat-header-cell>
+                        <mat-cell style="flex: 1; padding-left:30px;padding-right: 10px;"
+                            *matCellDef="let row; let i=index ">
+                            <div calss="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate
+                                            style="width: 200px;">
+                                            <mat-label>Diagnostic Config Name</mat-label>
+                                            <mat-select multiple [(ngModel)]="row['diagnostic_script']">
+                                                <mat-option *ngFor="let script of diagList"
+                                                    [value]="script">{{script}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate
+                                            style="width: 100px">
+                                            <mat-select (selectionChange)="assignScript($event.value)"
+                                                style="width: 100px">
+                                                <mat-option *ngFor="let scr of row['diagnostic_script']"
+                                                    [value]="scr">{{scr}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="diagnosticEdit">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> </mat-header-cell>
+                        <mat-cell *matCellDef="let row">
+                            <button type="button" class="btn btn-sm btn-light"
+                                (click)="editScript(scr,'diagnostic')">Edit</button>
+                        </mat-cell>
+                    </ng-container>
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </mat-row>
+                </mat-table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+            <br />
+            <div>
+                <div *ngIf="saveSuccess">
+                    <div class="text-success display-5">
+                        <div class="container">
+                            <em>
+                                <b> {{message}} </b>
+                            </em>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-link" (click)="Remove()" style="float:right">Remove</button>
+                <button type="button" class="btn btn-primary" (click)="save()" style="float:right">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

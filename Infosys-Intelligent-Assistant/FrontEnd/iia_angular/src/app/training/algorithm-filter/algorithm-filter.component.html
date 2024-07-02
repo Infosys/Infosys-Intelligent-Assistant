@@ -1,0 +1,517 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12" *ngIf="trainingMode != 'EDA'">
+      <div class="card">
+        <div class="card-header card-header-info" *ngIf="trainingMode != 'EDA'">
+          <h4 class="card-title">F1 Scores Comparision <sup><i class="fa fa-info-circle"
+                matTooltip="F1 Score is computed using both Precision and Recall." matTooltipPosition="above"></i></sup>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 px-1" *ngIf="tunedAlgorithms">
+              <div>
+                <h4>Tuned F1 Scores </h4>
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered" id="predictTable">
+                    <thead class="text-left table-info ">
+                      <tr>
+                        <th class="text-left" scope="col">Predicted Field</th>
+                        <th scope="col" *ngFor="let algorithm of tunedAlgorithmsInformation[0];let i=index">
+                          {{algorithm.AlgorithmName}}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let algorithm of tunedAlgorithmsInformation; let fieldCount=index">
+                        <th>
+                          <div class="radiotext text-center">
+                            <label class="text-info "
+                              for='name'>{{tunedPredictedFieldsInformation[fieldCount].Name}}</label>
+                          </div>
+                        </th>
+                        <td class="text-center" *ngFor="let tunedFieldAlgorithm of algorithm;let i=index">
+                          <div class="radiotext text-center">
+                            <label for='accuracy'> &nbsp;{{tunedFieldAlgorithm.F1_score}}</label>
+                            <br>
+                            <a id="fieldsSection" title="View Classification report" 
+                              (click)="openCRModel(tunedPredictedFieldsInformation[fieldCount].Name,tunedAlgorithmsInformation[0][i].AlgorithmName,'Tuning')">
+                              <i class="fa fa-file-text text-info" matTooltip="Classification Report"
+                                matTooltipPosition="above"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 px-1" *ngIf="inProgressAlgorithms">
+              <div>
+                <h4>Default Scores </h4>
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover table-bordered " id="predictTable">
+                    <thead class="text-left table-active ">
+                      <tr>
+                        <th class="text-left">Predicted Field</th>
+                        <th *ngFor="let algorithm of algorithmsInformation[0];let i=index">{{algorithm.AlgorithmName}}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let algorithm of algorithmsInformation; let fieldCount=index">
+                        <th>
+                          <div class="radiotext text-center">
+                            <label class="text-info accuracy"
+                              for='name'>{{predictedFieldsInformation[fieldCount].Name}}</label>
+                          </div>
+                        </th>
+                        <td class="text-center" *ngFor="let predictedFieldAlgorithm of algorithm;let i=index">
+                          <div class="radiotext text-center">
+                            <label for='accuracy'> &nbsp;{{predictedFieldAlgorithm.F1_score}}</label>
+                            <br>
+                            <a id="fieldsSection" title="View Classification report" 
+                              (click)="openCRModel(predictedFieldsInformation[fieldCount].Name,algorithmsInformation[0][i].AlgorithmName,'InProgress')">
+                              <i class="fa fa-file-text text-info" matTooltip="Classification Report"
+                                matTooltipPosition="above"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer justify-content-end">
+          <div class="custom-control custom-radio custom-control-inline float-right ">
+            <input type="radio" class="custom-control-input" id="defaultAccuracy" name="accuracy" value="default"
+              checked (click)="chooseTuning('Default')">
+            <label class="custom-control-label pt-1" for="defaultAccuracy">Use Default Accuracy </label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline float-right">
+            <input type="radio" class="custom-control-input" id="tunedAccuracy" name="accuracy" value="tuned"
+              (click)="chooseTuning('Tuning')" [disabled]="!tunedAlgorithms">
+            <label class="custom-control-label pt-1" for="tunedAccuracy">Use Tuned Accuracy </label>
+          </div>
+          <div class="pr-0">
+            <button type="button" class="btn btn-info px-4 float-right" (click)="onSubmit()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Algorithms -->
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title"><i class="fa fa-sliders" aria-hidden="true"></i> Algorithm Tuning</h4>
+          <p class="card-category">Customize Algorithm per your requirement </p>
+        </div>
+        <div class="card-body">
+          <div class="row ">
+            <div class="col-md-12">
+              <mat-accordion class="Tuning-align">
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      RF Classifier
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container">
+                    <div *ngFor="let parameter of defaultRFCParameters">
+                      <div *ngIf="parameter.ParameterName === 'n_estimators'">
+                        <div class="row ">
+                          <div class="col-md-4 ">
+                            <label for="iDRangedNumberOfTrees" class="text-muted py-1 ">Number
+                              of Trees :</label>
+                            <div class="custom-control custom-radio custom-control-inline ml-1">
+                              <input type="radio" class="custom-control-input" id="randomParameterRFC"
+                                [(ngModel)]="RFCTrainingMode" name="parameterSelectRFC" value="Multiple">
+                              <label class="custom-control-label text-muted py-1" for="randomParameterRFC">
+                                Ranged</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="singleParameterRFC"
+                                [(ngModel)]="RFCTrainingMode" name="parameterSelectRFC" value="Single" checked>
+                              <label class="custom-control-label text-muted py-1" for="singleParameterRFC">
+                                Single</label>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="row" *ngIf="RFCTrainingMode == 'Single'">
+                              <div class="col-md-5">
+                                <input type="number" name="rangednumberoftreesRFC"
+                                  class="form-control text-center float-left" id="iDRangedNumberOfTreesRFC" min="1"
+                                  max="500" placeholder="Enter Number of Trees" [(ngModel)]="parameter.Value">
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="RFCTrainingMode == 'Multiple'">
+                              <div class="col-md-2">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center"
+                                  id="iDRangedNumberOfTrees" min="1" max="1000" placeholder="min" [(ngModel)]="minRFC"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div>
+                                <p class="col-md-1 py-1 text-center"><i class="fa fa-arrows-h" aria-hidden="true"></i>
+                                </p>
+                              </div>
+                              <div class="col-md-2 ">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center ml-1"
+                                  id="iDRangedNumberOfTrees" placeholder="max" [(ngModel)]="maxRFC"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div class="col-md-3 text-right">
+                                <label for="iDRangedNumberOfPoints" class="text-muted ">Number of
+                                  Points :</label>
+                              </div>
+                              <div class="col-md-4 ">
+                                <input type="number" name="rangednumberofpoints" placeholder="Enter Number of Points"
+                                  class="form-control text-center" id="iDRangedNumberOfPoints" [(ngModel)]="pointsRFC"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row " *ngIf="parameter.ParameterName === 'max_depth'">
+                        <div class="col-md-2">
+                          <label for="iDMaxDepth" class="text-muted py-1">Max Depth:</label>
+                        </div>
+                        <div class="col-md-3 ">
+                          <input type="number" name="maxdepthRFC" class="form-control text-center" id="iDMaxDepth"
+                            min="1" max="50" placeholder="Enter Max Depth" [(ngModel)]="parameter.Value"
+                            pattern="^[0-9]{1,3}$">
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="parameter.ParameterName === 'criterion'">
+                        <div class="col-md-2">
+                          <label for="iDSinglecriterion" class="text-muted  pt-3">Criterion:</label>
+                        </div>
+                        <div class="col-md-3">
+                          <select class="form-control " id="iDSinglecriterion" [(ngModel)]="parameter.Value">
+                            <option>entropy</option>
+                            <option>gini</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-action-row>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      SVC
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container-fluid">
+                    <div *ngFor="let parameter of defaultSVCParameters">
+                      <div *ngIf="parameter.ParameterName === 'C'">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <label for="iDRangedNumberOfTrees" class="text-muted py-1  text-left">C :</label>
+                            <div class="custom-control custom-radio custom-control-inline ml-1">
+                              <input type="radio" class="custom-control-input" id="randomParameterSVC"
+                                [(ngModel)]="SVCTrainingMode" name="parameterSelectSVC" value="Multiple">
+                              <label class="custom-control-label text-muted py-1"
+                                for="randomParameterSVC">Ranged</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="singleParameterSVC"
+                                [(ngModel)]="SVCTrainingMode" name="parameterSelectSVC" value="Single" checked>
+                              <label class="custom-control-label text-muted py-1"
+                                for="singleParameterSVC">Single</label>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="row" *ngIf="SVCTrainingMode == 'Single'">
+                              <div class="col-md-5">
+                                <input type="number" name="rangednumberoftreesSVC" class="form-control text-center"
+                                  id="iDRangedNumberOfTreesSVC" min="1" max="500" placeholder="Enter C Value"
+                                  [(ngModel)]="parameter.Value" pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="SVCTrainingMode == 'Multiple'">
+                              <div class="col-md-2">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center"
+                                  id="iDRangedNumberOfTrees" min="1" max="500" placeholder="min" [(ngModel)]="minSVC"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div>
+                                <p class="col-md-1 py-1 text-center"><i class="fa fa-arrows-h" aria-hidden="true"></i>
+                                </p>
+                              </div>
+                              <div class="col-md-2 ">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center ml-1"
+                                  id="iDRangedNumberOfTrees" placeholder="max" [(ngModel)]="maxSVC"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div class="col-md-3 text-right">
+                                <label for="iDRangedNumberOfPoints" class="text-muted ">Number of
+                                  Points :</label>
+                              </div>
+                              <div class="col-md-4 ">
+                                <input type="number" name="rangednumberofpoints" placeholder="Enter Number of Points"
+                                  class="form-control text-center" id="iDRangedNumberOfPoints" [(ngModel)]="pointsSVC"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row " *ngIf="parameter.ParameterName === 'kernel'">
+                        <div class="col-md-1">
+                          <label for="iDKernel" class="text-muted  py-1">Kernel:</label>
+                        </div>
+                        <div class="col-md-3">
+                          <select class="form-control" [(ngModel)]="parameter.Value">
+                            <option *ngFor="let value of SVCKernelValues" [value]="value">{{value}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Multinomial NB
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container-fluid ">
+                    <div *ngFor="let parameter of defaultNBParameters">
+                      <div *ngIf="parameter.ParameterName === 'alpha'">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <label for="iDRangedNumberOfTrees" class="text-muted py-1  text-left">Alpha :</label>
+                            <div class="custom-control custom-radio custom-control-inline ml-1">
+                              <input type="radio" class="custom-control-input" id="randomParameterMNB"
+                                [(ngModel)]="NBTrainingMode" name="parameterSelectMNB" value="Multiple">
+                              <label class="custom-control-label text-muted py-1"
+                                for="randomParameterMNB">Ranged</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="singleParameterMNB"
+                                [(ngModel)]="NBTrainingMode" name="parameterSelectMNB" value="Single" checked>
+                              <label class="custom-control-label text-muted py-1"
+                                for="singleParameterMNB">Single</label>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="row" *ngIf="NBTrainingMode == 'Single'">
+                              <div class="col-md-5">
+                                <input type="number" name="rangednumberoftreesMNB" class="form-control text-center"
+                                  id="iDRangedNumberOfTreesMNB" min="1" max="500" placeholder="Enter Alpha Value"
+                                  [(ngModel)]="parameter.Value" pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="NBTrainingMode == 'Multiple'">
+                              <div class="col-md-2">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center"
+                                  id="iDRangedNumberOfTrees" min="1" max="500" placeholder="min" [(ngModel)]="minNB"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div>
+                                <p class="col-md-1 py-1 text-center"><i class="fa fa-arrows-h" aria-hidden="true"></i>
+                                </p>
+                              </div>
+                              <div class="col-md-2 ">
+                                <input type="number" name="rangednumberoftrees" class="form-control ml-1 text-center"
+                                  id="iDRangedNumberOfTrees" placeholder="max" [(ngModel)]="maxNB"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div class="col-md-3 text-right">
+                                <label for="iDRangedNumberOfPoints" class="text-muted ">Number of
+                                  Points :</label>
+                              </div>
+                              <div class="col-md-4 ">
+                                <input type="number" name="rangednumberofpoints" placeholder="Enter Number of Points"
+                                  class="form-control text-center" id="iDRangedNumberOfPoints" [(ngModel)]="pointsNB"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Logistic Regression
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container-fluid ">
+                    <div *ngFor="let parameter of defaultLRParameters">
+                      <div *ngIf="parameter.ParameterName === 'C'">
+                        <div class="row">
+                          {{this.LRTrainingMode }}
+                          <div class="col-md-3">
+                            <label for="iDRangedNumberOfTrees" class="text-muted py-1  text-left">C :</label>
+                            <div class="custom-control custom-radio custom-control-inline ml-1">
+                              <input type="radio" class="custom-control-input" id="randomParameterLR"
+                                [(ngModel)]="LRTrainingMode" name="parameterSelectLR" value="Multiple">
+                              <label class="custom-control-label text-muted py-1" for="randomParameterLR">Ranged</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="singleParameterLR"
+                                [(ngModel)]="LRTrainingMode" name="parameterSelectLR" value="Single" checked>
+                              <label class="custom-control-label text-muted py-1" for="singleParameterLR">Single</label>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="row" *ngIf="LRTrainingMode == 'Single'">
+                              <div class="col-md-5">
+                                <input type="number" name="rangednumberoftreesLR" class="form-control text-center"
+                                  id="iDRangedNumberOfTreesLR" min="1" max="500" placeholder="Enter C Value"
+                                  [(ngModel)]="parameter.Value" pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="LRTrainingMode == 'Multiple'">
+                              <div class="col-md-2">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center"
+                                  id="iDRangedNumberOfTrees" min="1" max="500" placeholder="min" [(ngModel)]="minLR"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div>
+                                <p class="col-md-1 py-1 text-center"><i class="fa fa-arrows-h" aria-hidden="true"></i>
+                                </p>
+                              </div>
+                              <div class="col-md-2 ">
+                                <input type="number" name="rangednumberoftrees" class="form-control ml-1 text-center"
+                                  id="iDRangedNumberOfTrees" placeholder="max" [(ngModel)]="maxLR"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div class="col-md-3 text-right">
+                                <label for="iDRangedNumberOfPoints" class="text-muted ">Number of
+                                  Points :</label>
+                              </div>
+                              <div class="col-md-4 ">
+                                <input type="number" name="rangednumberofpoints" placeholder="Enter Number of Points"
+                                  class="form-control text-center" id="iDRangedNumberOfPoints" [(ngModel)]="pointsLR"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+                <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" hideToggle>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      XG Boost
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="container-fluid ">
+                    <div *ngFor="let parameter of defaultXGBParameters">
+                      <div *ngIf="parameter.ParameterName === 'n_estimators'">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <label for="iDRangedNumberOfTrees" class="text-muted py-1  text-left">Number of Trees
+                              :</label>
+                            <div class="custom-control custom-radio custom-control-inline ml-1">
+                              <input type="radio" class="custom-control-input" id="randomParameterXGB"
+                                [(ngModel)]="XGBTrainingMode" name="parameterSelectXGB" value="Multiple">
+                              <label class="custom-control-label text-muted py-1"
+                                for="randomParameterXGB">Ranged</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                              <input type="radio" class="custom-control-input" id="singleParameterXGB"
+                                [(ngModel)]="XGBTrainingMode" name="parameterSelectXGB" value="Single" checked>
+                              <label class="custom-control-label text-muted py-1"
+                                for="singleParameterXGB">Single</label>
+                            </div>
+                          </div>
+                          <div class="col-md-8">
+                            <div class="row" *ngIf="XGBTrainingMode == 'Single'">
+                              <div class="col-md-5">
+                                <input type="number" name="rangednumberoftreesXGB" class="form-control text-center"
+                                  id="iDRangedNumberOfTreesXGB" min="1" max="500" placeholder="Enter number of trees"
+                                  [(ngModel)]="parameter.Value" pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                            <div class="row" *ngIf="XGBTrainingMode == 'Multiple'">
+                              <div class="col-md-2">
+                                <input type="number" name="rangednumberoftrees" class="form-control text-center"
+                                  id="iDRangedNumberOfTrees" min="1" max="1000" placeholder="min" [(ngModel)]="minXGB"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div>
+                                <p class="col-md-1 py-1 text-center"><i class="fa fa-arrows-h" aria-hidden="true"></i>
+                                </p>
+                              </div>
+                              <div class="col-md-2 ">
+                                <input type="number" name="rangednumberoftrees" class="form-control ml-1 text-center"
+                                  id="iDRangedNumberOfTrees" placeholder="max" [(ngModel)]="maxXGB"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                              <div class="col-md-3 text-right">
+                                <label for="iDRangedNumberOfPoints" class="text-muted ">Number of
+                                  Points :</label>
+                              </div>
+                              <div class="col-md-4 ">
+                                <input type="number" name="rangednumberofpoints" placeholder="Enter Number of Points"
+                                  class="form-control text-center" id="iDRangedNumberOfPoints" [(ngModel)]="pointsXGB"
+                                  pattern="^[0-9]{1,3}$">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row" *ngIf="parameter.ParameterName === 'objective'">
+                        <div class="col-md-1">
+                          <label for="iDSinglecriterion" class="text-muted  pt-3">Objective :</label>
+                        </div>
+                        <div class="col-md-3">
+                          <select class="form-control " id="iDSinglecriterion" [(ngModel)]="parameter.Value">
+                            <option *ngFor="let value of XGBObjectiveValues" [value]="value">{{value}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>
+                    <button mat-button color="primary" (click)="nextStep()">End</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+          <button *ngIf="trainingMode != 'EDA'" type="button" class="btn btn-primary float-right"
+            (click)="onTune()">Tune</button>
+          <a id="advancedSetting" (click)="openModal()" matTooltip="Exploratory Data Analysis">
+            Advanced setting
+          </a>
+          <div *ngIf="tuneLoading">
+            <app-loader></app-loader>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

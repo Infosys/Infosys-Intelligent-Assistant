@@ -1,0 +1,42 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+  <div class="modal-content height-auto">
+    <div class="modal-header" style="background-color: rgb(75, 172, 198);">
+      <h4 class="modal-title" id="modal-basic-title font-weight-bold">
+        Open Tickets</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true" style="color:white;">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 pl-0">
+            <div class="card height-auto">
+              <div class="table-wrapper-scroll-y height-auto">
+                <table class="table table-bordered table-responsive-sm table-striped table-active text-center">
+                  <thead class="card-header card-header-primary py-0">
+                    <th>Tickets</th>
+                    <th class="th-description">Description</th>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ticket of openTickets">
+                      <td>
+                        <label style="color: black;font-size: 15px;">{{ticket['number']}}</label>
+                      </td>
+                      <td class="cell expand-maximum-on-hover">
+                        <label class="td-style">{{ticket['description']}}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<div class="content-section introduction">
+	<div>
+		<span class="feature-title">Pick and select</span><br>
+		<span>Trial</span>
+	</div>
+</div>
+<div class="content-section implementation">
+	<p-pickList [source]="sourceColumns" [target]="targetColumns" sourceHeader="Available" targetHeader="Selected"
+		[sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}" dragdrop="true" [responsive]="true"
+		sourceFilterPlaceholder="Search by column" filterBy="column" targetFilterPlaceholder="Search by column">
+		<ng-template let-car pTemplate="item">
+			<div class="ui-helper-clearfix">
+				<div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.column}}</div>
+			</div>
+		</ng-template>
+	</p-pickList>
+</div>
+<div class="col-md-12">
+	<div class="text-right"> <button class="btn btn-primary " type="submit" (click)="submit()">submit</button>
+		<ng-container *ngIf='showMessage'>
+			<p [style.color]='color'>{{message}}</p>
+		</ng-container>
+	</div>
+</div>

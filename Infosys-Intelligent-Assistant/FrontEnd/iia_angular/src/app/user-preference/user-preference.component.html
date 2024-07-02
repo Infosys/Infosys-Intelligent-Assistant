@@ -1,0 +1,26 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div id="algorithm">
+    <div>
+        <p>
+            <b>Choose an algorithm for prediction!</b>
+        </p>
+    </div>
+    <div>
+        <input type="radio" id='current' name="optradio" (click)="showAlgorithms()"> <b>Current Computed</b>
+        <input type="radio" id='lastApproved' name="optradio" (click)="showAlgorithms()"> <b>Last Approved</b> <br>
+    </div>
+    <br>
+    <div class="col-lg-6" *ngIf="algorithmChosen">
+        <div class="grid-x grid-margin-x grid-button">
+                <div class="small-3 cell">
+                    <div class="action-buttons float-center">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="approveAlgorithms()" style="margin:5px;">Approve</button>
+                        <button type="button" class="btn btn-link btn-sm" (click)="rejectAlgorithms()" style="margin:5px;">Reject</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <br>
+</div>

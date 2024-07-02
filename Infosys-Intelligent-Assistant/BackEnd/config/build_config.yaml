@@ -1,0 +1,14 @@
+-
+    name: iia
+    version: 3.0.0
+    build: 0.0.1
+    author: author_name
+    author_email: author_email
+    description: Infosys Intelligent Assistant
+    long_description: Infosys Intelligent Assistant
+    classifiers: ["Programming Language :: Python :: 3",
+                  "License :: OSI Approved :: MIT License",
+                  "Operating System :: OS Independent",]
+    package_dir: {"": "src"}
+    packages: src
+    python_requires: ['>=3.6']

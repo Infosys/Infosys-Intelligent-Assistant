@@ -1,0 +1,57 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.-->
+<div class="card mt-3">
+  <div class="card-header border border-bottom-0 p-2">
+    <h4 class="card-title p-0 font-weight-bold">Team Details</h4>
+  </div>
+  <div class="card-body border p-0">
+    <div class="row m-0 justify-content-center ">
+      <div class="col-md-10">
+        <span class="table-add float-right my-3 ">
+          <a class="text-success" (click)="add()" style="cursor: pointer;">
+            <i class="material-icons">add_circle_outline</i>
+          </a>
+        </span>
+        <div class="table-responsive">
+          <div id="table" class="table-editable">
+            <table class="table table-bordered table-responsive-sm table-striped table-active text-center">
+              <thead class="bg-secondary text-white">
+                <tr>
+                  <th><input type="checkbox" [(ngModel)]="removeAllTeams" (change)="selectAll()"></th>
+                  <th class="text-center">No.</th>
+                  <th class="text-center">Team Name</th>
+                </tr>
+              </thead>
+              <tr *ngFor="let team of teamList; let id = index">
+                <td>
+                  <span class="table-remove">
+                    <input type="checkbox" [(ngModel)]="team.Selected" (change)="checkIfAllSelected(id)">
+                  </span>
+                </td>
+                <td>{{id+1}}</td>
+                <td contenteditable="true" (focusout)="changeValue(id, $event,team)">{{team.TeamName}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="text-right ">
+          <div *ngIf="successMessage" class="text-success ">
+            <em>
+              <b>{{this.message}}</b>
+            </em>
+          </div>
+        </div>
+        <div class="text-right">
+          <button type="button" class="btn btn-link " (click)="removeTeams()">Remove</button>
+          <button type="button" class="btn btn-primary " (click)="addTeams()">Save</button>
+        </div>
+        <div class="col-md-10 pl-0 pt-2">
+          <p class="text-info "> <span class="text-secondary">Note:</span> Please delete dataset before deleting team,
+            Teams having dataset will not be deleted!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading">
+    <app-loader></app-loader>
+  </div>
+</div>

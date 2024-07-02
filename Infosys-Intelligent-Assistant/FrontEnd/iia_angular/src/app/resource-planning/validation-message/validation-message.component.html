@@ -1,0 +1,114 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="modal-content">
+  <div class="card mb-0 ml-0">
+    <div class="card-header card-header-primary py-0">
+      <div class="modal-header">
+        <div class="row py-2" style="width: 100%;">
+          <div class="col-md-6">
+            <h4 class="card-title pt-2" *ngIf="showDetailsOf != 'resourceWorkloadInfo'" class="modal-title"
+              id="modal-basic-title">Warning..</h4>
+            <h3 class="card-title pt-2" *ngIf="showDetailsOf == 'resourceWorkloadInfo'" class="modal-title"
+              id="modal-basic-title">{{assignGroup}}</h3>
+          </div>
+        </div>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <ng-container *ngIf="showDetailsOf == 'roasterDetails'">
+        <div>
+          <label class="h6">The following records failed to upload due to unavailablity in resource details. Please
+            upload resource details before updating the roaster </label>
+        </div>
+        <div class="responsive">
+          <table class="table table-striped table-hover table-bordered  text-left">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th scope="col">Email ID</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of failedRoasterUploadDetails;index as i">
+                <td style="width:10%;">{{i+1}}</td>
+                <td>{{data}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="showDetailsOf == 'ticketDetials'">
+        <div>
+          <label class="h6">The following tickets has been already approved by some other users </label>
+        </div>
+        <div class="responsive">
+          <table class="table table-striped table-hover table-bordered  text-left">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Ticket ID</th>
+                <th scope="col">Approver of Ticket</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of approvedTickets;index as i">
+                <td style="width:10%;">{{i+1}}</td>
+                <td>{{data.number}}</td>
+                <td>{{data.user}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="showDetailsOf == 'resourceWorkloadInfo'">
+        <mat-table #table [dataSource]="dataSource" style="width: 100%;" matSort matSortActive='id'
+          matSortDirection='asc' (matSortChange)='sortResourceInfo($event)'>
+          <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          <!-- Position Column -->
+          <ng-container matColumnDef={{column}} *ngFor='let column of columnsToDisplay'>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element[column]}} </mat-cell>
+          </ng-container>
+          <!-- Expanded Content Column - The detail row is made up of this one column -->
+          <ng-container matColumnDef="expandedDetail">
+            <mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+              <table class='table table-striped table-sm'>
+                <thead class='thead-dark'>
+                  <th>#</th>
+                  <th>Number</th>
+                  <th>Category</th>
+                  <th>Priority</th>
+                  <th>State</th>
+                  <th>Description</th>
+                </thead>
+                <tbody class='cell' *ngFor='let doc of element.element.incidentsLst; let id=index;'>
+                  <td>{{id + 1}}</td>
+                  <td>{{doc.number}}</td>
+                  <td>{{doc.category}}</td>
+                  <td>{{doc.priority}}</td>
+                  <td>{{doc.state}}</td>
+                  <td><a title="{{doc.description}}">{{doc.description}}</a></td>
+                </tbody>
+              </table>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: columnsToDisplay;" matRipple class="element-row"
+            [class.expanded]="expandedElement == row"
+            (click)="expandedElement = expandedElement == row ? null : row"></mat-row>
+          <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+            [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
+          </mat-row>
+        </mat-table>
+      </ng-container>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-lg" (click)="activeModal.close('Save click')">ok</button>
+    </div>
+  </div>
+</div>

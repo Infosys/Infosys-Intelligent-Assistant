@@ -1,0 +1,340 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="alert alert-danger" role="alert">
+                    <h6><strong>Warning!</strong> The new training record should have the same <strong>column</strong>
+                        as the existing one</h6>
+                </div>
+                <button id="close" type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-12">
+                        <div>
+                            <input class="form-control border-input btnChooseFileDesign" type="file"
+                                #reuploadTrainingData placeholder="Upload file..." required />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="button1" type="button" class="btn btn-default"
+                    (click)="deleteTrainingRecords()">upload</button>
+                <button id="button2" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loading">
+        <app-loader></app-loader>
+    </div>
+</div>
+<!-- if Dataset doesn't exist -->
+<div *ngIf="!datasetExists">
+    <div class="main-content">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10">
+                <div class="card mb-0">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Create DataSet
+                            <sup><i class="fa fa-info-circle" matTooltip="Data Set to be created for multiple teams"
+                                    matTooltipPosition="above"></i></sup>
+                        </h4>
+                        <p class="card-category">Please fill the below details</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-0">
+                            <div class="col-md-12">
+                                <p class="mb-0">Team </p>
+                                <mat-form-field>
+                                    <mat-select [(ngModel)]="chosenTeam" (selectionChange)="teamChange()"
+                                        [(value)]="selected" placeholder="Select a Team" required>
+                                        <mat-option *ngFor="let team of teamsNoDataset" [value]="team">{{team}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <p>You have selected: <span class="text-info">{{selected}}</span> </p>
+                            </div>
+                        </div>
+                        <div class="row mb-3 w-100 m-auto pt-5">
+                            <div class="col-md-12">
+                                <input class="form-control border-input btnChooseFileDesign" type="file" #trainingData
+                                    placeholder="Upload file..." accept=".zip" required />
+                            </div>
+                            <div class="col-md-12 algo_result_upload">{{trainingMode == 'IIA'? 'Please upload zip/csv
+                                file': 'Please upload zip file'}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-right ">
+                                <button class=" btn btn-primary my-3 " type="button" (click)="uploadTrainingData()"
+                                    [disabled]="!chosenTeam">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+    </div>
+</div>
+<!-- If DataSet Exist -->
+<div *ngIf="datasetExists">
+    <div class="main-content">
+        <!-- if dataset does not exist for selected teams -->
+        <div class="row ">
+            <div class="col-lg-12 ">
+                <div class="card mb-0">
+                    <div *ngIf="selectedTeam">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title">Data Set Details for {{trainingMode}} Training</h4>
+                        </div>
+                        <div class="card-body table-responsive pt-0">
+                            <div class="row">
+                                <div class="col-md-4 ">
+                                    <h5 class="card-category pt-2 ">Dataset for <span class="text-info">
+                                            {{selectedTeam}} </span> </h5>
+                                </div>
+                                <div class="col-md-4">
+                                    <h5 class="text-right text-muted pt-3">Selected Team :</h5>
+                                </div>
+                                <div class="col-md-4 ">
+                                    <mat-form-field>
+                                        <mat-select [(ngModel)]="selectedTeam" (selectionChange)="valueChange()">
+                                            <mat-option *ngFor="let team of teams"
+                                                [(value)]="team">{{team}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <table class="table table-hover text-center table-active">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Data Set Name</th>
+                                        <th class="text-center">Total Records</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <a id="fieldsSection">{{datasetName}}</a>
+                                        </td>
+                                        <td>
+                                            <label>{{datasetCount}}</label>
+                                        </td>
+                                        <td>
+                                            <button *ngIf="trainingMode == 'IIA'" type="button"
+                                                class="btn btn-outline-info" (click)="addRecords()">
+                                                <span class="ti-plus"></span>Add more records
+                                            </button>
+                                            <button type="button" class="btn btn-link"
+                                                [ngClass]="{'btn-outline-info':trainingMode == 'EDA'}"
+                                                (click)="deleteDataset()">
+                                                <span class="ti-trash"></span>{{trainingMode == 'EDA'? 'Fresh Training'
+                                                :'Delete Data Set'}}
+                                            </button>
+                                            <button *ngIf="trainingMode == 'IIA'" type="button" class="btn btn-link"
+                                                data-toggle="modal" data-target="#myModal">
+                                                <span class="ti-trash"></span>Refresh Training Records....
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr *ngIf="datasetEdited">
+                                        <td colspan="3">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <input class="form-control border-input btnChooseFileDesign"
+                                                        type="file" #trainingData placeholder="Upload file..." />
+                                                </div>
+                                                <div class="col-lg-12 text-right ">
+                                                    <button class="btn btn-primary" type="button"
+                                                        (click)="appendRecords()">Upload</button>
+                                                </div>
+                                                <div class="col-lg-12 text-right ">
+                                                    <div *ngIf="recordsAdded" class="text-success ">
+                                                        <em>
+                                                            <b>{{this.message}}</b>
+                                                        </em>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="addingRecords">
+                                                    <div class="loader-container">
+                                                        <div class="loader"></div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="datasetDeleted" class="text-success ">
+                                                    <em>
+                                                        <b>Data Set deleted successfully!</b>
+                                                    </em>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header card-header-primary">
+                                            <h4 class="card-title">Training Parameters </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="row" *ngIf="refreshTraining">
+                                                <div class="alert alert-danger" role="alert">
+                                                    <p class="small">!Warning Please note that modifying the training
+                                                        parameters below will bring the predict module down temporarily!
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="trainingMode=='EDA'">
+                                                <div class="col-md-12">
+                                                    <label>Selected Unique fields for Dataset <b
+                                                            class="text-info">{{datasetName}}</b></label>
+                                                    <angular2-multiselect [data]="uniqueFieldList"
+                                                        [(ngModel)]="selectedUniqueFields"
+                                                        [settings]="uniqueFieldSettingsEDA">
+                                                    </angular2-multiselect>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>Fields to be Predicted for Dataset <b
+                                                            class="text-info">{{datasetName}}</b></label>
+                                                    <angular2-multiselect [data]="predictedDropdownList"
+                                                        [(ngModel)]="selectedPredictedFields"
+                                                        [settings]="predictedDropdownSettingsEDA">
+                                                    </angular2-multiselect>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div
+                                                        *ngFor="let selectedPredictedField of selectedPredictedFields; let i=index">
+                                                        <label>Selected Textual Input Fields for Dataset
+                                                            <b class="text-info">{{datasetName}}</b>
+                                                        </label>
+                                                        <angular2-multiselect [data]="inputDropdownList"
+                                                            [(ngModel)]="selectedInputFields[selectedPredictedField.Attribute]"
+                                                            [settings]="inputDropdownSettingsEDA">
+                                                        </angular2-multiselect>
+                                                        <label>Selected Additional Input Fields for Dataset <b
+                                                                class="text-info">{{datasetName}}</b></label>
+                                                        <angular2-multiselect [data]="inputDropdownList"
+                                                            [(ngModel)]="selectedAdditionalfields[selectedPredictedField.Attribute]"
+                                                            [settings]="AdditionalfieldSettingsEDA">
+                                                        </angular2-multiselect>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="trainingMode=='EDA'">
+                                                <div class=" col-md-12 text-right content">
+                                                    <button type="button" class="btn btn-info "
+                                                        (click)="getApprovedAlgorithms()">Show
+                                                        Chosen Algorithms</button>
+                                                    <div *ngIf="saveSuccess">
+                                                        <div class="text-success display-5">
+                                                            <div class="container">
+                                                                <em>
+                                                                    <b>Saved successfully! Click on Train to
+                                                                        continue!</b>
+                                                                </em>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="trainingMode=='IIA'">
+                                                <div class="col-md-12">
+                                                    <label>Choose Unique fields for Dataset <b
+                                                            class="text-info">{{datasetName}}</b></label>
+                                                    <angular2-multiselect [data]="uniqueFieldList"
+                                                        [(ngModel)]="selectedUniqueFields"
+                                                        [settings]="uniqueFieldSettings"
+                                                        (onSelect)="onUniqueFieldSelect($event)"
+                                                        (onDeSelect)="onUniqueFieldDeSelect($event)"
+                                                        (onSelectAll)="onUniqueFieldSelectAll($event)"
+                                                        (onDeSelectAll)="onUniqueFieldDeSelectAll($event)">
+                                                    </angular2-multiselect>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>Fields to be predicted for Dataset <b
+                                                            class="text-info">{{datasetName}}</b></label>
+                                                    <angular2-multiselect [data]="predictedDropdownList"
+                                                        [(ngModel)]="selectedPredictedFields"
+                                                        [settings]="predictedDropdownSettings">
+                                                    </angular2-multiselect>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div
+                                                        *ngFor="let selectedPredictedField of selectedPredictedFields; let i=index">
+                                                        <label>Choose Textual Input Fields for
+                                                            <b
+                                                                class="text-info">{{selectedPredictedField.Attribute}}</b>
+                                                        </label>
+                                                        <angular2-multiselect [data]="inputDropdownList"
+                                                            [(ngModel)]="selectedInputFields[selectedPredictedField.Attribute]"
+                                                            [settings]="inputDropdownSettings"
+                                                            (onOpen)="onOpenCsearch(selectedPredictedField.Attribute)"
+                                                            (onSelect)="onInputSelect($event.Attribute, selectedPredictedField.Attribute)"
+                                                            (onSelectAll)="onInputSelectAll($event,selectedPredictedField.Attribute)">
+                                                        </angular2-multiselect>
+                                                        <label>Choose Additional Input Fields for <b
+                                                                class="text-info">{{selectedPredictedField.Attribute}}</b></label><label
+                                                            class="px-1 font-weight-bold font-italic">
+                                                            (Optional)</label><i class="fa fa-info-circle circle-size"
+                                                            aria-hidden="true" matTooltip="{{getMoreInformation()}}"
+                                                            matTooltipPosition="above" matTooltipClass="test"></i>
+                                                        <angular2-multiselect [data]="inputDropdownList"
+                                                            [(ngModel)]="selectedAdditionalfields[selectedPredictedField.Attribute]"
+                                                            [settings]="AdditionalfieldSettings"
+                                                            (onOpen)="onOpenCsearch(selectedPredictedField.Attribute)"
+                                                            (onSelect)="onInputSelect($event.Attribute, selectedPredictedField.Attribute)">
+                                                        </angular2-multiselect>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <input-output [customerId]="customerId" [datasetID]="datasetID"
+                                                        [attributeList]="attributeList"></input-output>
+                                                </div>
+                                            </div>
+                                            <div class="row" *ngIf="trainingMode=='IIA'">
+                                                <div class=" col-md-12 text-right content">
+                                                    <button type="button" class="btn btn-primary "
+                                                        (click)="saveFieldSelections()">Save</button>
+                                                    <button type="button" class="btn btn-primary " (click)="train()"
+                                                        *ngIf="saveSuccess">Train</button>
+                                                    <div *ngIf="trainLoading">
+                                                        <app-loader></app-loader>
+                                                    </div>
+                                                    <button type="button" class="btn btn-info "
+                                                        (click)="getApprovedAlgorithms()"
+                                                        *ngIf="approvedAlgorithms">Show
+                                                        Chosen Algorithms</button>
+                                                    <div *ngIf="saveSuccess">
+                                                        <div class="text-success display-5">
+                                                            <div class="container">
+                                                                <em>
+                                                                    <b>Saved successfully! Click on Train to
+                                                                        continue!</b>
+                                                                </em>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loading">
+            <app-loader></app-loader>
+        </div>
+    </div>
+</div>

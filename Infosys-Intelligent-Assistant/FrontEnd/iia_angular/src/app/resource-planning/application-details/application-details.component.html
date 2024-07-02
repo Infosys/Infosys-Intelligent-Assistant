@@ -1,0 +1,202 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content pt-1 mt-1">
+    <div class="row">
+        <div class="card mb-1 pb-0">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Upload Application Details
+                    <sup><i class="fa fa-info-circle" matTooltip="Please select team and upload Application file"
+                            matTooltipPosition="above"></i></sup>
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="col-md-12 ">
+                    <mat-form-field>
+                        <mat-select [(ngModel)]="chosenTeam" (selectionChange)="teamChange()"
+                            placeholder="Select a Team" required>
+                            <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-12 ">
+                    <div *ngIf="showUpload">
+                        <div class="row text-justify">
+                            <div class="col-md-7 pt-2 ">
+                                <input class="form-control btnChooseFileDesign" type="file" #applicationDetails
+                                    placeholder="Upload file..." required />
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-outline-primary " type="button"
+                                    (click)="uploadApplicationDetails()">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-4">
+        <div class="col-md-4 text-left">
+            <button class="btn btn-primary btn-md px-4" type="button" (click)="addNewApplication()">
+                Add New Application
+            </button>
+        </div>
+        <div class="col-md-8 text-right">
+            <button class="btn btn-outline-primary btn-md float-right px-4" type="button"
+                (click)="deleteAllApplications()" style="cursor:pointer">Delete All</button>
+            <button *ngIf="enableSave" class="btn btn-primary btn-md float-right px-4"
+                (click)="saveApplicationDetails()">Save</button>
+        </div>
+    </div>
+    <div class="row text-right">
+        <div class="col-md-12 text-right">
+            <p class="text-danger font-weight-bolder h5 text-right font-italic">The changes done in this screen are
+                saved into database, only when the Save button is clicked!</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card mt-1 pt-1">
+            <div class="col-lg-12">
+                <div *ngIf="hasApplicationDetails">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover table-bordered">
+                            <thead class="card-header-primary text-center">
+                                <tr>
+                                    <!-- <th>Record ID</th> -->
+                                    <th>App ID</th>
+                                    <th>Segment Name1</th>
+                                    <th>Segment Name2</th>
+                                    <!-- <th>Queue</th> -->
+                                    <th>Assignment Group</th>
+                                    <th>SME Flag</th>
+                                    <th>App Sla </th>
+                                    <th>App Complexity</th>
+                                    <th>App Weightage</th>
+                                    <th>Service ID</th>
+                                    <th>Service</th>
+                                    <th>App Infra ID</th>
+                                    <th>App Infra</th>
+                                    <th class="text-center" colspan="2">Edit Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of app_lst;let i=index;" class="col text-center">
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.app_id"
+                                            (focusout)="valueChanged($event, 'app_id',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.app_id}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.segment_name1"
+                                            (focusout)="valueChanged($event, 'segment_name1',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.segment_name1}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.segment_name2"
+                                            (focusout)="valueChanged($event, 'segment_name2',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.segment_name2}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.assignment_group"
+                                            (focusout)="valueChanged($event, 'assignment_group',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.assignment_group}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.sme_flag"
+                                            (focusout)="valueChanged($event, 'sme_flag',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.sme_flag}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.app_sla"
+                                            (focusout)="valueChanged($event, 'app_sla',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.app_sla}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.app_complexity"
+                                            (focusout)="valueChanged($event, 'app_complexity',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.app_complexity}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.app_weightage"
+                                            (focusout)="valueChanged($event, 'app_weightage',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.app_weightage}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.service_id"
+                                            (focusout)="valueChanged($event, 'service_id',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.service_id}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.service"
+                                            (focusout)="valueChanged($event, 'service',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.service}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value"
+                                            [(ngModel)]="data.app_infra_id"
+                                            (focusout)="valueChanged($event, 'app_infra_id',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.app_infra_id}}</td>
+                                    <td *ngIf="data.record_id == editRecordId || data.record_id === 0">
+                                        <input type="text" style="width:100%" name="value" [(ngModel)]="data.app_infra"
+                                            (focusout)="valueChanged($event, 'app_infra',i)">
+                                    </td>
+                                    <td *ngIf="data.record_id !== editRecordId">{{data.app_infra}}</td>
+                                    <td *ngIf="data.record_id !== editRecordId && data.record_id !== 0" colspan="2"
+                                        class="col text-center">
+                                        <!-- <td *ngIf="data.record_id === editRecordId" colspan="2" class="col text-center"> -->
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            title="Edit this application" (click)="editApplication(data.record_id,i)"
+                                            style="cursor:pointer">Edit</button>
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            title="Delete this application"
+                                            (click)="deleteApplication(data.record_id,i)"
+                                            style="cursor:pointer">Delete</button>
+                                    </td>
+                                    <td *ngIf="data.record_id === 0" colspan="2" class="col text-center">
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="updateApplication(data.CustomerID, data.DatasetID, data.record_id,i)"
+                                            style="cursor:pointer">Update</button>
+                                        <!-- <h1>123</h1> -->
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="cancelUpdateNew(i)" style="cursor:pointer">Cancel</button>
+                                        <!-- <a id="fieldsSection" class="p-1  rounded border border-primary " title="Delete this application" (click)="deleteApplication(data.record_id)">Delete</a> -->
+                                    </td>
+                                    <td *ngIf="data.record_id === editRecordId && data.record_id !== 0" colspan="2"
+                                        class="col text-center">
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="updateApplication(data.CustomerID, data.DatasetID, data.record_id,i)"
+                                            style="cursor:pointer">Update</button>
+                                        <!-- <h1>130</h1> -->
+                                        <button id="fieldsSection" class="p-1  rounded border border-primary "
+                                            (click)="canceldelete(i)" style="cursor:pointer">Cancel</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-10 offset-md-2">
+                        <button class="btn btn-outline-primary float-right px-4" type="button"
+                            (click)="deleteAllApplications()" style="cursor:pointer">Delete All</button>
+                        <button *ngIf="enableSave" class="btn btn-primary float-right px-4"
+                            (click)="saveApplicationDetails()">Save</button>
+                    </div>
+                </div>
+                <div *ngIf="noRecords" class="text-danger pl-4">
+                    <em>
+                        <b>No Records Found!</b>
+                    </em>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="loading">
+    <app-loader></app-loader>
+</div>

@@ -1,0 +1,18 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+ app-tuning-option{
+  position: absolute;
+  left: -20%;
+  width: 1110px;
+ }
+ @media (max-width: 768px){
+ .modal-footer{
+ justify-content: flex-start !important;
+ }
+}
+#advancedSetting{
+  color: blue;
+  text-decoration: underline;
+  font-size: 12px;
+  padding: 5px;
+  cursor: pointer;
+}

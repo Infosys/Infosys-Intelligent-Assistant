@@ -1,0 +1,93 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+.tbl-lay-f {
+  table-layout: fixed;
+}
+.table thead tr th {
+  font-size: 12px;
+  font-weight: 600;
+}
+.table tbody tr td {
+  font-size: 12px;
+}
+.th-custom tbody tr td {
+  height: 75px;
+}
+.grid_user_thead_th {
+  min-width: 300px !important;
+}
+.grid_action_thead_th {
+  min-width: 200px !important;
+}
+.grid_shift_holiday {
+  background-color: lightsteelblue;
+}
+.grid_shift_leave {
+  background-color: red;
+  color: #ffffff;
+}
+.dropdown_input {
+  height: 40px;
+  top: 0;
+  padding: 0 13px;
+}
+.dropdown_input input {
+  padding: 0 16px;
+}
+.dropdown_input button {
+  margin-right: 4px;
+}
+.noData_div {
+  height: 40px;
+  padding: 8px 16px;
+  text-align: center;
+}
+.rightAnimationClass {
+  -webkit-animation-duration: 1.4s !important;
+  animation-duration: 1.4s !important;
+  animation-timing-function: ease !important;
+  -webkit-animation-timing-function: ease !important;
+  -webkit-animation-name: slideRight !important;
+  animation-name: slideRight !important;
+}
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
+  background-color: #673ab7 !important;
+}
+.mat-calendar-body-cell.selected>.mat-calendar-body-cell-content,
+.mat-calendar-body-cell.selected:hover>.mat-calendar-body-cell-content,
+.mat-calendar-body-cell.selected>.mat-calendar-body-cell-content:hover {
+  background-color: #673ab7 !important;
+}
+.mat-chip-list {
+  width: 200px;
+  height: 75px;
+  overflow-y: scroll;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+}
+::ng-deep .mat-select-panel {
+  max-width: 200px;
+  ;
+}
+.mat-select-panel {
+  max-width: 200px;
+  ;
+}
+div.scrollable {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

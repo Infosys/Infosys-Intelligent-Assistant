@@ -1,0 +1,99 @@
+<!--
+	/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div *ngIf ='sso' class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+			<div class="container-login100-form-btn m-t-20">
+				<span class="login100-form-title p-b-33">
+					Account SSO Login
+				</span>
+				<button class="login100-form-btn" (click)="loginsso()">
+					Sign in
+				</button>									
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf ='sso' class="limiter">
+authenticating sso
+</div>
+<div *ngIf ='!sso' class="limiter">
+	<div class="container-login100">
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+			<form [ngSwitch]="loginType" class="login100-form validate-form">
+				<span *ngSwitchCase="'login'" class="login100-form-title p-b-33">
+					Account Login
+				</span>
+				<span *ngSwitchCase="'verify'" class="login100-form-title p-b-33">
+					Verify User id
+				</span>
+				<span *ngSwitchCase="'new'" class="login100-form-title p-b-33">
+					Set Password
+				</span>
+				<span *ngSwitchCase="'reset'" class="login100-form-title p-b-33">
+					Reset Password
+				</span>
+				<!-- <ng-container *ngSwitchCase="'login'"> -->
+				<div class="wrap-input100 validate-input" data-validate = "Valid email is required">
+					<input [disabled]="loginType=='reset' || loginType=='new'" class="input100" type="text" name="email" placeholder="Email" [(ngModel)]="username">
+					<span class="focus-input100-1"></span>
+					<span class="focus-input100-2"></span>
+				</div>
+				<div *ngSwitchCase="'login'" class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+					<input class="input100" type="password" name="pass" placeholder="Password" [(ngModel)]="password"
+					pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$">
+					<span class="focus-input100-1"></span>
+					<span class="focus-input100-2"></span>
+				</div>
+				<div *ngSwitchCase="'reset'" class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+					<input class="input100" type="password" name="pass" placeholder="Old Password" [(ngModel)]="oldPassword"
+					pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$">
+					<span class="focus-input100-1"></span>
+					<span class="focus-input100-2"></span>
+				</div>
+				<div *ngSwitchCase="loginType=='reset' || loginType=='new'?loginType:''" class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+					<input class="input100" type="password" name="pass" placeholder="New Password" [(ngModel)]="newPassword"
+					pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$">
+					<span class="focus-input100-1"></span>
+					<span class="focus-input100-2"></span>
+				</div>
+				<div *ngSwitchCase="loginType=='reset' || loginType=='new'?loginType:''" class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+					<input class="input100" type="password" name="pass" placeholder="Re-enter Password" [(ngModel)]="re_enterPassword"
+					pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$">
+					<span class="focus-input100-1"></span>
+					<span class="focus-input100-2"></span>
+				</div>
+				<div *ngSwitchCase="'login'" class="container-login100-form-btn m-t-20">
+					<button class="login100-form-btn" (click)="login()">
+						Sign in
+					</button>
+				</div>
+				<div *ngSwitchCase="'verify'" class="container-login100-form-btn m-t-20">
+					<button class="login100-form-btn" (click)="validate()">
+						Next
+					</button>
+				</div>
+				<div *ngSwitchCase="loginType=='reset' || loginType=='new'?loginType:''" class="container-login100-form-btn m-t-20">
+					<button class="login100-form-btn" (click)="resetPassword()">
+						Reset Password
+					</button>
+				</div>
+				<p *ngIf="errorMessage" style="color: red; text-align: center;">{{message}}</p>
+				<div *ngSwitchCase="'login'" class="text-center p-t-45 p-b-4">
+					<span class="txt1">
+						Reset
+					</span>
+					<a (click)="verifyUserId()" style="cursor: pointer;" class="txt2 hov1">
+						Password
+					</a>
+				</div>
+				<div *ngIf="loginType!='login'" class="text-center p-t-45 p-b-4">
+					<a (click)="cancel()" style="cursor: pointer;" class="txt2 hov1">
+						Cancel
+					</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

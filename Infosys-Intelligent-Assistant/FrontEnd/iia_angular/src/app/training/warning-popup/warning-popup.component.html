@@ -1,0 +1,28 @@
+<!--
+  /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+  <div class="modal-content height-auto" style="background-color:aliceblue">
+    <div class="modal-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12 pl-0">            
+            <div class="" style="height:auto;">
+              <div class="table-wrapper-scroll-y height-auto">
+                <div class="text-dark"><span class="font-weight-bold">Threshold: </span><span>{{this.dataToTakeAsInput['Threshold']}}</span></div>
+                <div class="mt-3 text-dark font-weight-bold">Predicted fields below threshold: </div>
+                <div class="text-dark">{{this.dataToTakeAsInput['PredictedFields'].join(', ')}}</div>
+              </div>
+              <div class="mt-5 pt-5 font-italic text-danger font-weight-bold">{{this.dataToTakeAsInput['Message']}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right content">
+          <button  class="btn btn-primary" type="button" (click)="activeModal.dismiss('Cross click')">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

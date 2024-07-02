@@ -1,0 +1,5 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+/* You can add global styles to this file, and also import other style files */
+@import "~codemirror/lib/codemirror.css";
+@import "~codemirror/theme/dracula.css";
+@import "~codemirror/addon/hint/show-hint.css";

@@ -1,0 +1,235 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  simpleFormatter:
+    format: '%(asctime)s %(name)s %(lineno)d %(levelname)s %(message)s'
+    datefmt: '%Y/%m/%d %H:%M:%S'
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simpleFormatter
+    stream: ext://sys.stdout
+  file:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: simpleFormatter
+    filename:
+    encoding: utf8
+    mode: w
+
+loggers:
+  __main__:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.__main__:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.persistence.mongodbpersistence:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.incident.incidentrt:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.incident.incidenttraining:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.customITSM.AMD_SNOW_Configurations:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.customITSM.BP_SNOW_Configurations:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.customITSM.BPX_SNOW_Configurations:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.customITSM.LTFS_ManageEngine_Configurations:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.customITSM.RB_SNOW_Configurations:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.custommasterdata.LTFS_IRSR_resources:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.customprediction.RB_RB_Predict:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.custompreprocessing.RB_SNOW_Configurations:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.itsm.adapter:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.itsm.servicenow:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.jobscheduler.retrainjobscheduler:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.algorithms:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.applications:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.assignment:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.assignment_adapter:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.customers:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.datasets:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.resourceavailability:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.resources:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.masterdata.teams:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.NER.nerapi:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.NER.nerapis:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.oneshotlearning.OneShotLearning:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.pma.pma:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.predict.predict:
+    level: DEBUG
+    handlers: [console, file]
+    propogate: no
+  iia.recommendation.fileserver:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.recommendation.kbscheduler:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.recommendation.knowledgearticles:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.recommendation.recommendationmodel:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.recommendation.textRankSearch:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.recommendation.word2vecsearch:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.resolution.resolution:
+    level: DEBUG
+    handlers: [console, file]
+    propogate: no
+  iia.resolution.provideaccesstoIIA:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.resolution.RPA_Resolution:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.training.retraining:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.training.tagtraining:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.training.training:
+    level: DEBUG
+    handlers: [console, file]
+    propogate: no
+  iia.usermanagement.usermanagement:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.utils.utils:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.send_email.send_email:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.sso.sso:
+    level: DEBUG
+    handlers: [console, file]
+    propogate: no
+  iia.iia.persistence.mappingpersistence:
+    level: DEBUG
+    handlers: [console, file]
+    propogate: no
+  iia.dashboard.dashboard:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.relatedtickets.related_tickets_search_batch:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.relatedtickets.related_tickets_search:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.relatedtickets.RTscheduler:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.relatedtickets.textRankSearch:
+    level: INFO
+    handlers: [console, file]
+    propogate: no
+  iia.itsm.parse_itsm_attachments:
+    level: INFO
+    handlers: [console, file]
+    propogate: no

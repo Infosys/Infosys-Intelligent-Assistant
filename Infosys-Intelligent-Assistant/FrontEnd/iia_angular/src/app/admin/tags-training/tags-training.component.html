@@ -1,0 +1,163 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<br>
+<!-- if Dataset doesn't exist -->
+<div *ngIf="!datasetExists">
+    <div class="row justify-content-md-center">
+        <div class="col-md-10">
+            <div class="card mb-0">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Create Tagging DataSet
+                        <sup><i class="fa fa-info-circle" matTooltip="Data Set to be created for multiple teams"
+                                matTooltipPosition="above"></i></sup>
+                    </h4>
+                    <p class="card-category">Please fill the below details</p>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <p class="mb-0">Team </p>
+                            <mat-form-field>
+                                <mat-select [(ngModel)]="chosenTeam" (change)="teamChange()" [(value)]="selected"
+                                    placeholder="Select a Team" required [disabled]="disableTeam">
+                                    <mat-option *ngFor="let team of teamsNoDataset" [value]="team">{{team}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <p>You have selected: <span class="text-info">{{selected}}</span> </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <input class="form-control border-input btnChooseFileDesign" type="file" #trainingData
+                                placeholder="Upload file..." required [disabled]="disableTeam" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-right ">
+                            <button class=" btn btn-primary my-3 " type="button" (click)="uploadTrainingData()"
+                                [disabled]="disableTeam">Upload</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p><span class="text-warning">Note : Tags training is available for those teams with trained
+                                    dataset.</span> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="loading">
+        <app-loader></app-loader>
+    </div>
+    <!-- </div> -->
+</div>
+<!-- If DataSet Exist -->
+<div *ngIf="datasetExists">
+    <!-- if dataset does not exist for selected teams -->
+    <div class="row ">
+        <div class="col-lg-12 ">
+            <div class="card mb-0">
+                <div *ngIf="selectedTeam">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title">Tagging Data Set Details </h4>
+                    </div>
+                    <div class="card-body table-responsive pt-0">
+                        <div class="row">
+                            <div class="col-md-4 ">
+                                <h5 class="card-category pt-2 ">Dataset for <span class="text-info"> {{selectedTeam}}
+                                    </span> </h5>
+                            </div>
+                            <div class="col-md-4">
+                                <h5 class="text-right text-muted pt-3">Selected Team :</h5>
+                            </div>
+                            <div class="col-md-4 ">
+                                <mat-form-field>
+                                    <mat-select [(ngModel)]="selectedTeam" (change)="valueChange()">
+                                        <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <table class="table table-hover text-center table-active">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Data Set Name</th>
+                                    <th class="text-center">Total Records</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a id="fieldsSection">{{datasetName}}</a>
+                                    </td>
+                                    <td>
+                                        <label>{{datasetCount}}</label>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-outline-info" (click)="addRecords()">
+                                            <span class="ti-plus"></span>Add more records
+                                        </button>
+                                        <button type="button" class="btn btn-link" (click)="deleteDataset()">
+                                            <span class="ti-trash"></span>Delete Data Set
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="datasetEdited">
+                                    <td colspan="3">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <input class="form-control border-input btnChooseFileDesign" type="file"
+                                                    #trainingData placeholder="Upload file..." />
+                                            </div>
+                                            <div class="col-lg-12 text-right ">
+                                                <button class="btn btn-primary" type="button"
+                                                    (click)="appendRecords()">Upload</button>
+                                            </div>
+                                            <div class="col-lg-12 text-right ">
+                                                <div *ngIf="recordsAdded" class="text-success ">
+                                                    <em>
+                                                        <b>New records added successfully!</b>
+                                                    </em>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="addingRecords">
+                                                <div class="loader-container">
+                                                    <div class="loader"></div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="datasetDeleted" class="text-success ">
+                                                <em>
+                                                    <b>Data Set deleted successfully!</b>
+                                                </em>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class=" col-md-12 text-right content">
+                                <button type="button" class="btn btn-primary " (click)="train()">Train</button>
+                                <div *ngIf="trainLoading">
+                                    <app-loader></app-loader>
+                                </div>
+                                <div *ngIf="trainSuccess">
+                                    <div class="text-success display-5">
+                                        <div class="container">
+                                            <em>
+                                                <b>Training Successfull</b>
+                                            </em>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

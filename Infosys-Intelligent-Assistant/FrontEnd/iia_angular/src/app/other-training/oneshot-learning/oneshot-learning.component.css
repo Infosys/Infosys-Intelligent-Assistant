@@ -1,0 +1,14 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+/* Without Container */
+.zoom-without-container {
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+.zoom-without-container img{
+	width:100%;
+	height:auto;	
+}
+.zoom-without-container:hover {
+  transform: scale(1.5); 
+  /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}

@@ -1,0 +1,1 @@
+cd "FrontEnd\iia_angular\" & npm install & ng build  & cd.. & cd .. & xcopy /s /i "FrontEnd/iia_angular/dist" "BackEnd/static"

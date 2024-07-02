@@ -1,0 +1,28 @@
+"""Copyright 2022 Infosys Ltd.
+Use of this source code is governed by MIT license that can be found in the LICENSE file or at
+https://opensource.org/licenses/MIT."""
+iia/src/iia/itsm/__pycache__/
+
+iia/src/iia/incident/__pycache__/
+
+iia/src/iia/__pycache__/
+
+iia/src/iia/persistence/__pycache__/
+
+iia/src/iia/predict/__pycache__/
+
+iia/src/iia/training/__pycache__/
+
+iia/src/iia/utils/__pycache__/
+
+iia/src/iia/masterdata/__pycache__/
+
+iia/data/
+
+iia/log/
+
+iia-python/models/
+/__pycache__
+
+/__pycache__
+*.pyc

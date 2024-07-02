@@ -1,0 +1,63 @@
+<!-- Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.-->
+<div class="card-body table-responsive pt-0">
+  <div class="card mt-4 bg-light">
+    <div class="card-body">
+      <div class="card-title mb-0 text-secondary">
+        <b>Map User</b>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-select [(ngModel)]="selectedTeam" [(value)]="teamID" name="team" placeholder="Select a Team"
+              (selectionChange)="teamIdChanged()" required>
+              <mat-option *ngFor="let team of teams" [value]="team.TeamName">{{team.TeamName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <mat-form-field>
+            <mat-select [(value)]="selectedName" name="name" placeholder="Select a Resource" required>
+              <mat-option *ngFor="let resource of resourceLst"
+                [value]="resource.resource_name">{{resource.resource_name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <mat-label>Enter ITSM User Name</mat-label>
+            <input matInput placeholder="ITSM Name" [(ngModel)]="itsmName" class="input" name="itsmName"
+              style="color: black;">
+          </mat-form-field>
+        </div>
+        <div class="col-md-2">
+          <div class="text-right"> <button class="btn btn-primary " type="submit" (click)="submit()">submit</button>
+            <ng-container *ngIf='showMessage'>
+              <p [style.color]='color'>{{message}}</p>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table class="table table-stripped table-sm  text-center">
+          <tr>
+            <th>User Name</th>
+            <th>Mapped User Name</th>
+            <th>Edit Options</th>
+          </tr>
+          <tr *ngFor='let mappedDoc of mappedLst'>
+            <td>{{mappedDoc.user}}</td>
+            <td>{{mappedDoc.mapped_user}}</td>
+            <td>
+              <button type="button" title="remove user" class="btn btn-sm btn-link " (click)='removeUser(mappedDoc)'><i
+                  class="fa fa-times text-danger" aria-hidden="true"></i></button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

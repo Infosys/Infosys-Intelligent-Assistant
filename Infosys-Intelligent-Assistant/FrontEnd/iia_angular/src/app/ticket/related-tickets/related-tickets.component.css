@@ -1,0 +1,269 @@
+/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+.modal {
+  z-index: 999;
+}
+.modal-backdrop {
+  z-index: 999 !important;
+}
+.example-container {
+  height:400px;
+}
+.labelclass{
+  color: rgb(75, 127, 134);
+  font-weight: bold; 
+}
+.mat-drawer-content {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+}
+related-tickets{
+    position: absolute;
+    left: -20%;
+    width: 1110px;
+   }
+mat-table{
+  width:1000px;
+  height: 500px;
+}
+.card-top{
+height: 77px;
+}
+.tbl-resp-max-h{
+  max-height: 380px;
+} 
+.table-max-height{
+  max-height: 380px;
+}
+.color-attr{
+  color: white
+}
+.modal-content{
+  height:640px;
+}
+.card-top-right{
+  padding: 30px 20px !important;
+}
+.card-bottom{
+height: 249px;
+overflow: scroll;
+}
+.card-bot{
+  height: 505px;
+  }
+.card{  
+padding: 10px 20px;
+margin: 7px;
+}
+.table-elements{
+  max-width: 180px;
+  text-align: center;
+}
+.card.card-special{ 
+  width:500px;
+  height: 60px;
+  }
+.formcss{
+line-height: 2;
+}
+.ng2-tag-input__text-input[_ngcontent-c21]{
+  background-color: rgb(209, 240, 213);
+}
+.tagWordCss{
+margin-left: -20px;
+font-weight: bold;
+}
+.table-wrapper-scroll-y{
+height:450px;
+overflow:auto;
+}
+.tbl-h-of{
+  height:450px;
+  overflow:auto;
+  }
+.table-wrapper-scroll-y1{
+height:450px;
+overflow:unset;
+}
+.table-wrapper-scroll-y1{
+  height:450px;
+  overflow:unset;
+  }
+.mat-tab-label-active{
+      color: #00ADEE !important;
+      font-weight: bold;
+  } 
+  .nav-link{
+    padding: 4px 14px;
+  }
+.table-striped1 > tbody > tr > td{
+  /* width:120px; */
+  line-height: 1em; 
+  font-size: 15px;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  margin-bottom: 12px;
+  cursor: pointer;
+  word-break: break-all;
+  overflow:visible;
+  white-space: normal;
+  color: black;
+  height: auto; 
+}
+.table-striped1 > tbody > tr > td:hover{
+  overflow: visible; 
+  white-space: normal;
+  height:auto;  /* just added this line */
+}
+.table-striped1 > thead{
+background-color:#bcc7d8;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+  border-radius: 5px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+.headsummary{
+  height: 48px;
+  margin-top: -12px;
+  margin-bottom: -6px;
+  margin-left: 15px;
+}
+.resolutionItems{
+  padding: 10px;
+    margin: 3px;
+    text-align: center;
+    background: rgb(206, 222, 236);
+}
+.dashboard-box{
+  left: -9px;
+  top: 0px;
+  width: 268px;
+  height: 47px;
+  background-color: rgb(138, 177, 211);
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 5px;
+  border-radius: 5px;
+  position: absolute;
+  cursor: pointer;
+}
+.related-color{
+  background-color: rgb(95, 181, 204);
+  width: 357px;
+}
+.resolution-color{
+  background-color: rgb(72, 193, 87);
+  width: 371px;
+  margin-left: 4px;
+}
+.dashboard-heading{
+  left: 28px; 
+  top: 2px; 
+  width: 325px; 
+  font-size: 18px; 
+  font-family: "Open Sans Embed", Arial, sans-serif;
+  position: absolute;
+  cursor: pointer;
+}
+.dashboard-subheading{
+  left: 28px; 
+  top: 25px; 
+  width: 290px; 
+  color: rgb(226, 226, 226); 
+  font-family: "Open Sans Embed", Arial, sans-serif; 
+  position: absolute;
+  cursor: pointer;
+  font-size: 13px;
+}
+.open-head{
+  font-size: 18px;
+  font-weight: bold;
+  width: 244px;
+  color: royalblue;
+}
+.label-head{
+  font-weight: bold;
+  color: black;
+  font-size: 18px;
+}
+.label-style{
+  font-weight: 600;
+  color: black;
+  font-size: 13px;
+}
+.label-style1{
+  font-weight: 600;
+  color: white;
+  font-size: 13px;
+}
+.label-style-RT-Heading{
+  font-weight: 600;
+  color: black;
+  font-size: 12px;
+  width:110px
+}
+.label-style-RT{
+  font-weight: 600;
+  color:grey;
+  font-size: 12px;
+  width:150px
+}
+.td-style-Dashboard{
+  word-wrap: break-word;
+  color: black;
+  font-size: 12px;
+}
+.ticket-head-12{
+max-width: 44px;
+}
+.ticket-head-6
+{max-width: 93px;}
+table tr.highlight {
+  background-color: #4CAF50 !important;
+  /* color: #ffffff; */
+}
+.lgr {
+  border: 1px solid rgb(217, 30, 98) !important;
+}
+.lgy {
+  border: 1px solid rgb(255, 166, 36) !important;
+}
+th label.label-style{
+  color: white;
+}
+.ht-auto{
+  height: auto;
+}
+#advancedSetting{
+  color: blue;
+  text-decoration: underline;
+  font-size: 12px;
+  padding: 5px;
+  cursor: pointer;
+}
+.loader {
+  border: 10px solid #f3f3f3; /* Light grey */
+  border-top: 7px solid #3498db; /* Blue */
+  border-bottom: 7px solid #3498db;
+  border-radius: 1000px;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -1,0 +1,68 @@
+<!--/* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/-->
+<div class="card-body">
+    <div class="row mb-3">
+        <div class="col-md-12 pl-0">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="alert alert-light py-2 mb-1" role="alert">
+                        Note: Enter Keywords seperated by comma
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <mat-form-field>
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                    </mat-form-field>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-link p-3" (click)="ngOnInit()"><i class="fa fa-refresh"
+                            aria-hidden="true"></i></button>
+                </div>
+                <div class="col-md-12">
+                    <div class="mat-elevation-z8">
+                        <mat-table #table [dataSource]="dataSource" matSort>
+                            <ng-container matColumnDef="Selected">
+                                <mat-header-cell style="flex: none; width: 5%" *matHeaderCellDef mat-sort-header>
+                                    <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll()">
+                                </mat-header-cell>
+                                <mat-cell style="flex: none;width: 5%" *matCellDef="let row;">
+                                    <span class="table-remove">
+                                        <input type="checkbox" [(ngModel)]="row['Selected']"
+                                            (change)="checkIfAllSelected()" style="color: black">
+                                    </span>
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="scriptName">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Script Name </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                        <mat-label>Script Name</mat-label>
+                                        <input type="text" matInput [(ngModel)]="row['scriptName']" required
+                                            disabled="disabled">
+                                    </mat-form-field>
+                                </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="keyword">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Keywords </mat-header-cell>
+                                <mat-cell *matCellDef="let row">
+                                    <mat-form-field class="example-full-widmat-header-cell" ngNativeValidate>
+                                        <mat-label>Keywords</mat-label>
+                                        <input type="text" matInput [(ngModel)]="row['keyword']" required>
+                                    </mat-form-field>
+                                </mat-cell>
+                            </ng-container>
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;">
+                            </mat-row>
+                        </mat-table>
+                        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="text-right">
+                        <button type="button" class="btn btn-primary " (click)="save()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

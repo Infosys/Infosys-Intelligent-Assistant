@@ -1,0 +1,193 @@
+<!--
+    /* Copyright 2022 Infosys Ltd.Use of this source code is governed by MIT license that can be found in the LICENSE file or athttps://opensource.org/licenses/MIT.*/
+-->
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-0 ml-0">
+                <div class="card-header card-header-primary py-0">
+                    <div class="row pt-2">
+                        <div class="col-md-4 ">
+                            <h4 class="card-title pt-2">Data Comparision & Validation
+                                <sup>
+                                    <i class="fa fa-info-circle" matTooltip="Compare and Validate Predicted Data"
+                                        matTooltipPosition="above"></i>
+                                </sup>
+                            </h4>
+                        </div>
+                        <div class="col-md-3 pt-2" style="padding-top:10px;">
+                            </div>
+                        <div class="col-md-5">
+                            <div class="custom-control-inline h4 ">
+                                <label class="container text-white" style="margin-top:15px;"> 
+                                    <input type="checkbox" [(ngModel)]="approvedFlag" (change)="pageChanged()"/>
+                                    Only Approved Tickets
+                                      <span class="checkmark"></span>
+                                    </label>
+                            </div>
+                            <div><button type="button" style="margin-top:-45px" class="btn btn-success btn-sm float-right" (click)="exportToCSV()">
+                                Export to CSV</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-12">
+                            <div class="card m-0 mb-2 bg-light ">
+                                <div class="row pt-3">
+                                    <div class="col-md-3 pl-4">
+                                        <mat-form-field>
+                                            <mat-select [(ngModel)]="filterField" (change)="filterFieldChange()">
+                                                <mat-option *ngFor="let filterField of filterFields"
+                                                    [(value)]="filterField">{{filterField}}</mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                <div class="col-md-2">
+                                        <input type="text" class="form-control" [(ngModel)]="filterValue" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="button" class="btn btn-default btn-sm float-left"
+                                            (click)="sortAndFilter()">Filter</button>
+                                        <button type="button" class="btn btn-link btn-sm float-left"
+                                            (click)="resetFilter()">Reset</button>
+                                    </div>
+                                    <div *ngIf="adminLoginState" class="col-md-3 pr-4">
+                                        <mat-form-field class="w-75 float-right">
+                                            <mat-label>Selected Team: </mat-label>
+                                            <mat-select [(ngModel)]="chosenTeam" (selectionChange)="teamChange()">
+                                                <mat-option *ngFor="let team of teams" [(value)]="team">{{team}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive ml-0">
+                                <table class="table table-sm table-hover table-bordered table-condensed text-center">
+                                    <thead>
+                                        <th>
+                                            <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll()">
+                                        </th>
+                                        <th (click)="sort('number')">{{'number'}}<i class="material-icons">unfold_more</i>
+                                        </th>
+                                        <ng-container *ngIf="switchStatus">
+                                            <th (click)="sort('predicted_assigned_to')">Predicted
+                                            Assignee<i class="material-icons">unfold_more</i></th>
+                                            <!-- <th>Resource Info</th> -->
+                                        </ng-container>
+                                        <ng-container *ngFor="let field of predictedFields">
+                                            <th (click)="sort(field)">Raw_{{field}}<i
+                                                    class="material-icons">unfold_more</i></th>
+                                            <th (click)="sort('predicted_fields.'+field)">Predicted_{{field}}<i
+                                                    class="material-icons">unfold_more</i></th>
+                                        </ng-container>
+                                        <th (click)="sort(priorityField)">Priority<i
+                                                class="material-icons">unfold_more</i></th>
+                                        <th *ngFor="let field of allFields" (click)="sort(field)">{{field}}<i
+                                                class="material-icons">unfold_more</i></th>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let ticket of predictedTicketsData"  [ngStyle]="{'border': getcolor(ticket)}">
+                                            <td style=" background:#f3f3f3;border-right: 1px solid #d6d6de;">
+                                                <input type="checkbox" [(ngModel)]="ticket.Selected"
+                                                    (change)="checkIfAllSelected()">
+                                            </td>
+                                            <td *ngIf="ticket['number']!== undefined">
+                                                <button type="button" class="btn btn-sm btn-outline-info "
+                                                    title="Click here to view related tickets"
+                                                    (click)="showRelatedTickets(ticket['number'], ticket['description'])">{{ticket['number']}}
+                                                </button>
+                                            </td>
+                                            <td *ngIf="ticket['id'] !== undefined">
+                                                <button type="button" class="btn btn-sm btn-outline-info "
+                                                    title="Click here to view related tickets"
+                                                    (click)="showRelatedTickets(ticket['id'], ticket['description'])">{{ticket['id']}}</button>
+                                            </td>
+                                            <ng-container *ngIf="switchStatus">
+                                                <td>
+                                                    <select [(ngModel)]="ticket['predicted_assigned_to']"
+                                                        (change)="assignedToChange(ticket['number'], ticket['predicted_assigned_to'])"
+                                                        required>
+                                                        <option *ngFor="let assignee of ticket['possible_assignees']"
+                                                            [value]="assignee">
+                                                            {{assignee}}&nbsp;&nbsp;|&nbsp;&nbsp;{{resourceWorkloads[assignee]}}</option>
+                                                    </select>
+                                            </ng-container>
+                                            <ng-container *ngFor="let field of predictedFields; let i = index;">
+                                                <td class="DataHide"
+                                                    style=" background: #f3f3f3;;border-right: 1px solid #d6d6de;">
+                                                    {{ticket[field]}}</td>
+                                                <td>
+                                                    <select class="px-4"
+                                                        [(ngModel)]="ticket['predicted_fields'][i][field]"
+                                                        (change)="predictedFieldValueChange(ticket['number'], field, ticket['predicted_fields'][i][field])"
+                                                        required>
+                                                        <option *ngFor="let value of allValues[field]" [value]="value">
+                                                            {{value}}
+                                                        </option>
+                                                    </select>Confidence Score:
+                                                    <b
+                                                        class="text-success">{{ticket['predicted_fields'][i]['ConfidenceScore']}}</b>
+                                                </td>
+                                            </ng-container>
+                                            <td *ngIf="!accountEnable">
+                                                <select class="px-4" [(ngModel)]="ticket[priorityField]"
+                                                    (change)="priorityChange(ticket['number'], ticket[priorityField])"
+                                                    required>
+                                                    <option *ngFor="let priority of priorityList" [value]="priority">
+                                                        {{priority}}</option>
+                                                </select>
+                                            </td>
+                                            <td *ngIf="accountEnable">{{ticket['priority']}}</td>
+                                            <ng-container *ngFor="let field of allFields;">
+                                                <td *ngIf="field != commentField" class="cell expand-maximum-on-hover">{{ticket[field]}}</td>
+                                                <td *ngIf="field == commentField" contenteditable="true"
+                                                    (focusout)="saveUserComment($event, ticket['number'])"></td>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <ngb-pagination [collectionSize]="noOfPredictedTickets" [(page)]="page" [maxSize]=5
+                                        [pageSize]="itemsPerPage" aria-label="Default pagination"
+                                        (pageChange)="pageChanged()">
+                                    </ngb-pagination>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="action-buttons float-right">
+                                        <button type="button" class="btn btn-primary "
+                                            (click)="approveTicket()">Approve</button>
+                                        <div *ngIf="loading">
+                                            <app-loader></app-loader>
+                                        </div>
+                                        <div *ngIf="approveSuccess" class="SuccessMsg">
+                                            <em>
+                                                <b>Changes saved successfully!</b>
+                                            </em>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="exportSuccess" class="SuccessMsg">
+                                        <em>
+                                            <b>File exported successfully!</b>
+                                        </em>
+                                    </div>
+                                    <div *ngIf="failure" class="SuccessMsg text-danger">
+                                        <em>
+                                            <b>{{this.err}}</b>
+                                        </em>
+                                    </div>
+                                </div>
+                            </div>
+                                <div *ngIf="loader">
+                                        <app-loader></app-loader>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
